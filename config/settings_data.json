@@ -211,11 +211,12 @@
         ],
         "custom_css": [],
         "settings": {
-          "menu_linklist": "main-menu",
+          "menu_linklist": "main-menu-2",
           "nav_featured_link": "CUỐI MÙA, TƯ VẤN 1:1",
           "desktop_navigation": "inline",
           "nav_opacity": "transparent",
           "nav_positioning": "inline",
+          "logo": "shopify://shop_images/logo_global_W.png",
           "desktop_logo_width": 155,
           "mobile_logo_width": 120,
           "use_alt_logo_when_active": true,
