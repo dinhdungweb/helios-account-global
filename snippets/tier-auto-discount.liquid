@@ -1,0 +1,218 @@
+{% comment %}
+  Auto-apply Tier Discount Code
+  
+  Tự động apply discount code dựa trên tier của customer
+  Sử dụng cho Option A (Free - không cần Shopify Plus)
+{% endcomment %}
+
+{% if customer %}
+  {% comment %} Tính total_spent {% endcomment %}
+  {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
+    {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
+  {% else %}
+    {% assign total_spent = customer.total_spent | divided_by: 100 %}
+  {% endif %}
+  
+  {% comment %} Xác định discount code từ settings {% endcomment %}
+  {% liquid
+  %}
+  
+  {% comment %} Determine customer tier name (same logic as tier-price.liquid) {% endcomment %}
+  {% liquid
+    assign customer_tier_name = ""
+    assign prioritize_tags = settings.tier_prioritize_tags
+    assign tier_scope = settings.tier_pricing_scope | default: 'all'
+    
+    comment Đọc tier names và thresholds từ settings
+    endcomment
+    assign tier_1_name = settings.tier_1_name
+    assign tier_1_tag = settings.tier_1_tag
+    assign tier_1_threshold = settings.tier_1_threshold | plus: 0
+    
+    assign tier_2_name = settings.tier_2_name
+    assign tier_2_tag = settings.tier_2_tag
+    assign tier_2_threshold = settings.tier_2_threshold | plus: 0
+    
+    assign tier_3_name = settings.tier_3_name
+    assign tier_3_tag = settings.tier_3_tag
+    assign tier_3_threshold = settings.tier_3_threshold | plus: 0
+    
+    assign tier_4_name = settings.tier_4_name
+    assign tier_4_tag = settings.tier_4_tag
+    assign tier_4_threshold = settings.tier_4_threshold | plus: 0
+    
+    assign tier_5_name = settings.tier_5_name
+    assign tier_5_tag = settings.tier_5_tag
+    assign tier_5_threshold = settings.tier_5_threshold | plus: 0
+    
+    assign tier_6_name = settings.tier_6_name
+
+    comment Ưu tiên tags nếu bật trong settings
+    endcomment
+    if prioritize_tags
+      if customer.tags contains tier_1_tag
+        assign customer_tier_name = tier_1_name
+      elsif customer.tags contains tier_2_tag
+        assign customer_tier_name = tier_2_name
+      elsif customer.tags contains tier_3_tag
+        assign customer_tier_name = tier_3_name
+      elsif customer.tags contains tier_4_tag
+        assign customer_tier_name = tier_4_name
+      elsif customer.tags contains tier_5_tag
+        assign customer_tier_name = tier_5_name
+      endif
+    endif
+    
+    comment Nếu chưa có tier từ tags, dùng total_spent
+    endcomment
+    if customer_tier_name == ""
+      if total_spent >= tier_1_threshold
+        assign customer_tier_name = tier_1_name
+      elsif total_spent >= tier_2_threshold
+        assign customer_tier_name = tier_2_name
+      elsif total_spent >= tier_3_threshold
+        assign customer_tier_name = tier_3_name
+      elsif total_spent >= tier_4_threshold
+        assign customer_tier_name = tier_4_name
+      elsif total_spent >= tier_5_threshold
+        assign customer_tier_name = tier_5_name
+      else
+        assign customer_tier_name = tier_6_name
+      endif
+    endif
+  %}
+  
+  <script>
+    (function() {
+      const customerTier = '{{ customer_tier_name }}';
+      const totalSpent = {{ total_spent }};
+      const tierScope = '{{ tier_scope }}';
+      const allowedTags = '{{ settings.tier_pricing_product_tags }}';
+      const allowedCollections = '{{ settings.tier_pricing_collection_handles }}';
+      
+      // Tier configuration from settings
+      const tierConfig = {
+        '{{ settings.tier_1_name | upcase }}': {{ settings.tier_1_discount | default: 0 }},
+        '{{ settings.tier_2_name | upcase }}': {{ settings.tier_2_discount | default: 0 }},
+        '{{ settings.tier_3_name | upcase }}': {{ settings.tier_3_discount | default: 0 }},
+        '{{ settings.tier_4_name | upcase }}': {{ settings.tier_4_discount | default: 0 }},
+        '{{ settings.tier_5_name | upcase }}': {{ settings.tier_5_discount | default: 0 }},
+        '{{ settings.tier_6_name | upcase }}': {{ settings.tier_6_discount | default: 0 }}
+      };
+      
+      // Store discount code and scope info for later use
+      sessionStorage.removeItem('helios_tier_discount'); // Clear old discount code
+      sessionStorage.setItem('helios_customer_tier', customerTier);
+      sessionStorage.setItem('helios_total_spent', totalSpent);
+      sessionStorage.setItem('helios_tier_scope', tierScope);
+      sessionStorage.setItem('helios_tier_tags', allowedTags);
+      sessionStorage.setItem('helios_tier_collections', allowedCollections);
+      sessionStorage.setItem('helios_tier_config', JSON.stringify(tierConfig));
+      
+      sessionStorage.setItem('helios_tier_config', JSON.stringify(tierConfig));
+      
+      // Show notification (optional)
+      {% if settings.tier_show_discount_notification %}
+      const notification = document.createElement('div');
+      notification.className = 'tier-discount-notification';
+      notification.innerHTML = `
+        <div class="tier-discount-notification-content">
+          <span class="tier-discount-text">
+            You get automatic discount at checkout!
+          </span>
+          <button class="tier-discount-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+      `;
+      
+      // Add to page after 2 seconds
+      setTimeout(() => {
+        document.body.appendChild(notification);
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          setTimeout(() => notification.remove(), 300);
+        }, 5000);
+      }, 2000);
+      {% endif %}
+
+    })();
+  </script>
+  
+  <style>
+    .tier-discount-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      animation: slideInUp 0.3s ease-out;
+      transition: opacity 0.3s ease;
+    }
+    
+    .tier-discount-notification-content {
+      background: linear-gradient(135deg, #fab320 0%, #ff8c00 100%);
+      color: #000;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 300px;
+    }
+    
+    .tier-discount-icon {
+      font-size: 20px;
+    }
+    
+    .tier-discount-text {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .tier-discount-close {
+      background: none;
+      border: none;
+      color: #000;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    
+    .tier-discount-close:hover {
+      opacity: 1;
+    }
+    
+    @keyframes slideInUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .tier-discount-notification {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+      }
+      
+      .tier-discount-notification-content {
+        max-width: none;
+      }
+    }
+  </style>
+{% endif %}

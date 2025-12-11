@@ -1,0 +1,373 @@
+{% comment %}
+  Tier Pricing Display
+  
+  Parameters:
+  - price: Giá gốc của variant (required)
+  - compare_at_price: Giá so sánh (optional)
+  - product: Product object (optional but recommended for scope filtering)
+  - customer: Customer object (optional)
+  - show_original: Hiển thị giá gốc (default: true)
+  - show_badge: Hiển thị badge tier (default: true)
+  
+  Usage:
+  {% render 'tier-price', 
+    price: variant.price, 
+    compare_at_price: variant.compare_at_price,
+    product: product,
+    customer: customer,
+    show_original: true,
+    show_badge: true
+  %}
+{% endcomment %}
+
+{% liquid
+  comment ============================================
+    ĐỌC CẤU HÌNH TỪ THEME SETTINGS
+  ============================================
+  endcomment
+  assign tier_enabled = settings.tier_pricing_enabled
+  assign prioritize_tags = settings.tier_prioritize_tags
+  assign use_custom_metafield = settings.tier_use_custom_metafield
+  
+  comment ============================================
+    KIỂM TRA PHẠM VI ÁP DỤNG
+  ============================================
+  endcomment
+  assign tier_scope = settings.tier_pricing_scope | default: 'all'
+  assign tier_applies = false
+  assign has_product_specific_tag = false
+  
+  comment ============================================
+    PRIORITY 1: Check for product-specific tier tags FIRST
+    Format: tier-{tier_name}-{percent}
+    If product has this tag, ALWAYS apply tier pricing regardless of scope
+  ============================================
+  endcomment
+  if tier_enabled and customer and product and product.tags
+    comment Get all tier names to check
+    endcomment
+    assign all_tier_names = tier_1_name | append: ',' | append: tier_2_name | append: ',' | append: tier_3_name | append: ',' | append: tier_4_name | append: ',' | append: tier_5_name | append: ',' | append: tier_6_name
+    assign tier_names_array = all_tier_names | split: ','
+    
+    for tier_name_check in tier_names_array
+      if tier_name_check != blank
+        assign tier_name_lower = tier_name_check | downcase | replace: ' ', '' | replace: '_', ''
+        assign tag_prefix = 'tier-' | append: tier_name_lower | append: '-'
+        
+        for tag in product.tags
+          assign tag_lower = tag | downcase | strip
+          if tag_lower contains tag_prefix
+            assign has_product_specific_tag = true
+            assign tier_applies = true
+            break
+          endif
+        endfor
+        
+        if has_product_specific_tag
+          break
+        endif
+      endif
+    endfor
+  endif
+  
+  comment ============================================
+    PRIORITY 2: If no product-specific tag, check scope
+  ============================================
+  endcomment
+  unless has_product_specific_tag
+    if tier_enabled
+      case tier_scope
+        when 'all'
+          assign tier_applies = true
+        
+        when 'tagged'
+          comment Chỉ áp dụng cho sản phẩm có tag
+          endcomment
+          if product and settings.tier_pricing_product_tags != blank
+            assign allowed_tags = settings.tier_pricing_product_tags | split: ','
+            for tag in allowed_tags
+              assign tag_trimmed = tag | strip | downcase
+              for product_tag in product.tags
+                assign product_tag_down = product_tag | downcase
+                if product_tag_down == tag_trimmed
+                  assign tier_applies = true
+                  break
+                endif
+              endfor
+              if tier_applies
+                break
+              endif
+            endfor
+          endif
+        
+        when 'collections'
+          comment Chỉ áp dụng cho collections cụ thể
+          endcomment
+          if product and settings.tier_pricing_collection_handles != blank
+            assign allowed_collections = settings.tier_pricing_collection_handles | split: ','
+            for product_collection in product.collections
+              for handle in allowed_collections
+                assign handle_trimmed = handle | strip | downcase
+                if product_collection.handle == handle_trimmed
+                  assign tier_applies = true
+                  break
+                endif
+              endfor
+              if tier_applies
+                break
+              endif
+            endfor
+          endif
+        
+        when 'exclude_tagged'
+          comment Áp dụng cho tất cả TRỪ sản phẩm có tag
+          endcomment
+          assign tier_applies = true
+          if product and settings.tier_pricing_product_tags != blank
+            assign excluded_tags = settings.tier_pricing_product_tags | split: ','
+            for tag in excluded_tags
+              assign tag_trimmed = tag | strip | downcase
+              for product_tag in product.tags
+                assign product_tag_down = product_tag | downcase
+                if product_tag_down == tag_trimmed
+                  assign tier_applies = false
+                  break
+                endif
+              endfor
+              if tier_applies == false
+                break
+              endif
+            endfor
+          endif
+      endcase
+    endif
+  endunless
+  
+  comment Nếu không áp dụng tier pricing, đánh dấu để không tính tier discount
+  endcomment
+  assign tier_scope_applies = tier_applies
+  
+  comment Đọc config từng tier từ settings
+  endcomment
+  assign tier_1_name = settings.tier_1_name
+  assign tier_1_tag = settings.tier_1_tag
+  assign tier_1_discount = settings.tier_1_discount
+  assign tier_1_threshold = settings.tier_1_threshold | plus: 0
+  
+  assign tier_2_name = settings.tier_2_name
+  assign tier_2_tag = settings.tier_2_tag
+  assign tier_2_discount = settings.tier_2_discount
+  assign tier_2_threshold = settings.tier_2_threshold | plus: 0
+  
+  assign tier_3_name = settings.tier_3_name
+  assign tier_3_tag = settings.tier_3_tag
+  assign tier_3_discount = settings.tier_3_discount
+  assign tier_3_threshold = settings.tier_3_threshold | plus: 0
+  
+  assign tier_4_name = settings.tier_4_name
+  assign tier_4_tag = settings.tier_4_tag
+  assign tier_4_discount = settings.tier_4_discount
+  assign tier_4_threshold = settings.tier_4_threshold | plus: 0
+  
+  assign tier_5_name = settings.tier_5_name
+  assign tier_5_tag = settings.tier_5_tag
+  assign tier_5_discount = settings.tier_5_discount
+  assign tier_5_threshold = settings.tier_5_threshold | plus: 0
+  
+  assign tier_6_name = settings.tier_6_name
+  assign tier_6_discount = settings.tier_6_discount
+  
+  comment Display settings
+  endcomment
+  if show_original == nil
+    assign show_original = settings.tier_show_original_price
+  endif
+  
+  if show_badge == nil
+    assign show_badge = settings.tier_show_badge
+  endif
+  
+  comment ============================================
+    LOGIC PHÂN LOẠI TIER
+    Always run this if customer exists to determine tier name
+  ============================================
+  endcomment
+  assign tier_discount = 0
+  assign tier_name = ""
+  assign has_tier = false
+  assign total_spent = 0
+  
+  if tier_enabled and customer
+    comment Tính tổng chi tiêu
+    endcomment
+    if use_custom_metafield and customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
+      assign total_spent = customer.metafields.custom.total_spent | plus: 0
+    else
+      assign total_spent = customer.total_spent | divided_by: 100
+    endif
+    
+    comment Ưu tiên tags nếu bật trong settings
+    endcomment
+    if prioritize_tags
+      if customer.tags contains tier_1_tag
+        assign tier_discount = tier_1_discount
+        assign tier_name = tier_1_name
+        assign has_tier = true
+      elsif customer.tags contains tier_2_tag
+        assign tier_discount = tier_2_discount
+        assign tier_name = tier_2_name
+        assign has_tier = true
+      elsif customer.tags contains tier_3_tag
+        assign tier_discount = tier_3_discount
+        assign tier_name = tier_3_name
+        assign has_tier = true
+      elsif customer.tags contains tier_4_tag
+        assign tier_discount = tier_4_discount
+        assign tier_name = tier_4_name
+        assign has_tier = true
+      elsif customer.tags contains tier_5_tag
+        assign tier_discount = tier_5_discount
+        assign tier_name = tier_5_name
+        assign has_tier = true
+      endif
+    endif
+    
+    comment Nếu chưa có tier từ tags, dùng total_spent
+    endcomment
+    unless has_tier
+      if total_spent >= tier_1_threshold
+        assign tier_discount = tier_1_discount
+        assign tier_name = tier_1_name
+        assign has_tier = true
+      elsif total_spent >= tier_2_threshold
+        assign tier_discount = tier_2_discount
+        assign tier_name = tier_2_name
+        assign has_tier = true
+      elsif total_spent >= tier_3_threshold
+        assign tier_discount = tier_3_discount
+        assign tier_name = tier_3_name
+        assign has_tier = true
+      elsif total_spent >= tier_4_threshold
+        assign tier_discount = tier_4_discount
+        assign tier_name = tier_4_name
+        assign has_tier = true
+      elsif total_spent >= tier_5_threshold
+        assign tier_discount = tier_5_discount
+        assign tier_name = tier_5_name
+        assign has_tier = true
+      else
+        assign tier_discount = tier_6_discount
+        assign tier_name = tier_6_name
+        assign has_tier = true
+      endif
+    endunless
+    
+    comment ============================================
+      OVERRIDE DISCOUNT TỪ PRODUCT TAGS (Nếu có)
+      Format: tier-{tier_name}-{percent}
+      VD: tier-gold-15, tier-platinum-20, tier-blackdiamond-25
+      
+      If product has tier-specific tag matching customer tier, ALWAYS apply regardless of scope
+    ============================================
+    endcomment
+    if has_tier and product and product.tags
+      comment Remove spaces and convert to lowercase for matching
+      endcomment
+      assign tier_name_lower = tier_name | downcase | replace: ' ', '' | replace: '_', ''
+      assign tag_prefix = 'tier-' | append: tier_name_lower | append: '-'
+      assign found_matching_tag = false
+      
+      for tag in product.tags
+        assign tag_lower = tag | downcase | strip
+        if tag_lower contains tag_prefix
+          comment Extract percent from tag
+          endcomment
+          assign tag_parts = tag_lower | split: '-'
+          if tag_parts.size == 3
+            assign custom_percent = tag_parts[2] | plus: 0
+            if custom_percent > 0 and custom_percent <= 100
+              assign tier_discount = custom_percent
+              assign tier_discount_source = 'product_tag'
+              assign found_matching_tag = true
+              comment Force tier_scope_applies = true for this product
+              endcomment
+              assign tier_scope_applies = true
+              break
+            endif
+          endif
+        endif
+      endfor
+    endif
+  endif
+  
+  comment ============================================
+    FINAL CHECK: Only apply tier discount if scope allows
+    Reset tier info if scope doesn't apply
+  ============================================
+  endcomment
+  unless tier_scope_applies
+    assign tier_discount = 0
+    assign tier_name = ""
+    assign has_tier = false
+  endunless
+  
+  comment Tính giá tier
+  endcomment
+  assign discount_multiplier = 100 | minus: tier_discount | divided_by: 100.0
+  assign tier_price = price | times: discount_multiplier | round
+  
+  assign has_sale = false
+  if compare_at_price and compare_at_price > price
+    assign has_sale = true
+  endif
+%}
+
+
+
+<div class="tier-pricing-wrapper tier-pricing-injected" 
+     data-tier="{{ tier_name }}"
+     data-customer-tier="{{ tier_name }}"
+     data-customer-total-spent="{{ total_spent }}"
+     data-tier-discount="{{ tier_discount }}"
+     data-has-customer="{% if customer %}true{% else %}false{% endif %}"
+     data-tier-scope="{{ tier_scope }}"
+     data-tier-allowed-tags="{{ settings.tier_pricing_product_tags }}"
+     data-tier-allowed-collections="{{ settings.tier_pricing_collection_handles }}"
+     data-product-tags="{% if product and product.tags %}{{ product.tags | join: ',' }}{% endif %}"
+     data-tier-discount-source="{{ tier_discount_source | default: 'default' }}"
+     data-product-id="{% if product %}{{ product.id }}{% endif %}"
+     data-product-handle="{% if product %}{{ product.handle }}{% endif %}">
+  
+  <div class="tier-pricing-prices">
+    {% comment %} Giá sau tier discount (hiển thị đầu tiên) {% endcomment %}
+    <span class="tier-price-final {% if has_tier and tier_discount > 0 %}tier-price-discounted{% endif %}" style="display: inline-block;">
+      <span class="theme-money">{%- render "price", price: tier_price -%}</span>
+    </span>
+
+    {% comment %} Giá gốc (nếu có tier discount) {% endcomment %}
+    {% if has_tier and show_original and tier_discount > 0 %}
+      <span class="tier-price-original" style="display: inline-block;">
+        <span class="theme-money">{%- render "price", price: price -%}</span>
+      </span>
+    {% endif %}
+
+    {% comment %} Compare at price (nếu có sale) {% endcomment %}
+    {% if has_sale %}
+      <span class="tier-price-compare" style="display: inline-block;">
+        <span class="theme-money">{%- render "price", price: compare_at_price -%}</span>
+      </span>
+    {% endif %}
+  </div>
+</div>
+{% comment %} Tier Badge (sau giá) {% endcomment %}
+  {% if has_tier and show_badge and tier_discount > 0 %}
+    <span class="tier-badge tier-badge--{{ tier_name | handleize }}">
+      {% comment %} <svg class="tier-badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+      </svg> {% endcomment %}
+      <svg class="tier-badge-icon" width="12" height="12" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.89 2.119a2.084 2.084 0 0 0-1.486-.619h-5.762c-.378 0-.74.15-1.009.417L2.113 13.434a2.101 2.101 0 0 0 0 2.968l5.485 5.484a2.101 2.101 0 0 0 2.97 0l11.514-11.512c.267-.268.417-.63.418-1.008V3.6a2.074 2.074 0 0 0-.61-1.481ZM18 7.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="currentColor"></path>
+      </svg>
+      - {{ tier_discount }}% {{ tier_name }}
+    </span>
+  {% endif %}

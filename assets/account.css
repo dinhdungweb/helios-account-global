@@ -1,0 +1,475 @@
+/* HELIOS DASHBOARD V2 STYLES */
+
+/* --- GLOBAL SETTINGS --- */
+:root {
+  --helios-black: #000000;
+  --helios-dark-grey: #111111;
+  --helios-card-bg: #161616;
+  --helios-border: #2a2a2a;
+  --helios-orange: #fab320;
+  --helios-orange-dim: rgba(250, 179, 32, 0.1);
+  --helios-text-main: #ffffff;
+  --helios-text-muted: #999999;
+}
+
+.account-container {
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+body {
+  background-color: var(--helios-black);
+  color: var(--helios-text-main);
+}
+
+/* --- HERO SECTION --- */
+.account-hero {
+  position: relative;
+  background-color: var(--helios-dark-grey);
+  border-bottom: 1px solid var(--helios-border);
+  padding: 40px 0;
+  background-image: linear-gradient(to bottom, #000000, #111111);
+}
+
+.hero-profile-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Identity (Left) */
+.hero-identity {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.hero-avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.avatar-ring {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid var(--helios-orange);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--helios-orange-dim);
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  background-color: #000;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-name {
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 5px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  text-align: left!important;
+}
+
+.hero-email {
+  color: var(--helios-text-muted);
+  font-size: 14px;
+}
+
+.hero-tier-badge {
+  display: inline-block;
+  background-color: var(--helios-orange);
+  color: #000;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 20px;
+  border-radius: 2px;
+  font-size: 12px;
+  margin-top: 10px;
+  align-self: flex-start;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+}
+
+/* Stats (Right) */
+.hero-stats-container {
+  flex-grow: 1;
+  max-width: 600px;
+}
+
+.hero-stats-grid {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 25px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--helios-text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 24px;
+  color: var(--helios-orange);
+  font-weight: 600;
+}
+
+/* Hero Progress */
+.hero-progress-wrapper {
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid var(--helios-border);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #ccc;
+  font-weight: 600;
+}
+
+.hero-progress-bar {
+  background-color: #000;
+  height: 10px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-progress-fill {
+  background: #fab320;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(250, 179, 32, 0.5);
+  border-radius: 5px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-next-tier-msg {
+  font-size: 13px;
+  color: var(--helios-text-muted);
+  margin: 0;
+}
+
+.hero-next-tier-msg strong {
+  color: #fff;
+}
+
+/* --- NAVIGATION (HORIZONTAL) --- */
+.account-nav-wrapper {
+  background-color: var(--helios-black);
+  border-bottom: 1px solid var(--helios-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.account-nav-tabs {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Hide scrollbar Firefox */
+}
+
+.account-nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-tab {
+  padding: 20px 25px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: all 0.3s;
+  color: var(--helios-text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-tab:hover {
+  color: #fff;
+}
+
+.nav-tab.active {
+  color: var(--helios-orange);
+  border-bottom-color: var(--helios-orange);
+}
+
+.logout-tab {
+  margin-left: auto;
+  /* Push to right */
+}
+
+.logout-tab a {
+  color: var(--helios-text-muted);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.logout-tab a:hover {
+  color: #fff;
+}
+
+/* --- CONTENT BODY --- */
+.account-dashboard-body {
+  padding-top: 40px;
+  padding-bottom: 60px;
+  min-height: 500px;
+}
+
+.dashboard-tab-content {
+  display: none;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.dashboard-tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cards */
+.dashboard-card {
+  background-color: var(--helios-dark-grey);
+  border: 1px solid var(--helios-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.welcome-card {
+  /* Special styling if needed */
+}
+
+.card-title {
+  background-color: rgba(255, 255, 255, 0.02);
+  padding: 20px 30px;
+  margin: 0;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--helios-border);
+  color: #fff;
+  border-left: 4px solid var(--helios-orange);
+}
+
+.card-body {
+  padding: 30px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+}
+
+/* Info List */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--helios-border);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: var(--helios-text-muted);
+}
+
+.info-value {
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Buttons */
+.dashboard-btn {
+  display: inline-block;
+  background-color: var(--helios-orange);
+  color: #000;
+  border: none;
+  padding: 12px 30px;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.dashboard-btn:hover {
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.dashboard-btn.outline {
+  background: transparent;
+  border: 1px solid var(--helios-orange);
+  color: var(--helios-orange);
+}
+
+.dashboard-btn.outline:hover {
+  background: var(--helios-orange);
+  color: #000;
+}
+
+/* Table */
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dashboard-table th {
+  text-align: left;
+  padding: 15px;
+  color: var(--helios-text-muted);
+  text-transform: uppercase;
+  font-size: 12px;
+  border-bottom: 1px solid var(--helios-border);
+}
+
+.dashboard-table td {
+  padding: 20px 15px;
+  border-bottom: 1px solid var(--helios-border);
+  color: #fff;
+}
+
+.order-link {
+  color: var(--helios-orange);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.order-link:hover {
+  text-decoration: underline;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  background: #333;
+  color: #ccc;
+}
+
+.status-badge.paid,
+.status-badge.fulfilled {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+/* Community */
+.community-layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.community-img {
+  flex: 0 0 40%;
+}
+
+.community-img img {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--helios-border);
+}
+
+.community-text {
+  flex: 1;
+}
+
+.community-text p {
+  margin-bottom: 15px;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* Tier Welcome Content */
+.tier-image-container img {
+  margin-top: 30px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--helios-border);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-profile-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+
+  .hero-stats-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .community-layout {
+    flex-direction: column;
+  }
+
+  .nav-tab {
+    padding: 15px 15px;
+    font-size: 14px;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+}

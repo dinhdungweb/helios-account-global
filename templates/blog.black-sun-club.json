@@ -1,0 +1,90 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1764900512d19b01e2": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_87d4051_g39Ef3": {
+          "type": "ai_gen_block_87d4051",
+          "settings": {
+            "title": "BLACK SUNDAY IS COMING",
+            "text": "Black Sunday - sự kiện lớn nhất năm của hội viên HELIOS chỉ cách bạn:",
+            "button_text": "Đăng nhập / Đăng ký",
+            "button_link": "https://helios.vn/account",
+            "end_date": "2025-12-05 23:59:59",
+            "display_delay": 3,
+            "show_once": true,
+            "popup_width": 500,
+            "padding": 40,
+            "border_radius": 12,
+            "popup_bg_color": "#000000",
+            "title_color": "#ffffff",
+            "text_color": "#f2f2f2",
+            "title_size": 28,
+            "text_size": 16,
+            "timer_size": 32,
+            "timer_bg_color": "#fab320",
+            "timer_text_color": "#000000",
+            "button_text_size": 16,
+            "button_border_radius": 6,
+            "button_bg_color": "#fab320",
+            "button_text_color": "#000000",
+            "button_hover_bg_color": "#ffe600"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_87d4051_g39Ef3"
+      ],
+      "settings": {}
+    },
+    "featured_blog_CYCTne": {
+      "type": "featured-blog",
+      "name": "Blog posts",
+      "settings": {
+        "title": "",
+        "blog": "black-sun-club",
+        "post_limit": 3,
+        "show_view_all": false,
+        "blog_show_author": false,
+        "blog_show_date": true,
+        "layout": "slideshow",
+        "blog_first_post_big": false,
+        "alternate_bg_color": false,
+        "height": "full",
+        "height_desktop": 700,
+        "height_mobile": 500,
+        "full_width": true,
+        "overlay_style_tint": true,
+        "autoplay": true,
+        "autoplay_speed": 10,
+        "slide_transition": "slide"
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "blog_layout": "rows",
+        "blog_posts_per_page": 10,
+        "blog_posts_per_row_mobile": "1",
+        "blog_show_title": true,
+        "blog_show_filter": false,
+        "blog_show_rss_link": false
+      }
+    }
+  },
+  "order": [
+    "1764900512d19b01e2",
+    "featured_blog_CYCTne",
+    "main"
+  ]
+}

@@ -1,0 +1,532 @@
+<!-- phân hạng khách hàng -->
+{% if customer %}
+  {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
+    {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
+  {% else %}
+    {% assign total_spent = customer.total_spent | divided_by: 100 %}
+  {% endif %}
+
+  {% if customer.tags contains "BLACK DIAMOND" %}
+    {% assign tier = "BLACK DIAMOND" %}
+  {% elsif customer.tags contains "DIAMOND" %}
+    {% assign tier = "DIAMOND" %}
+  {% elsif customer.tags contains "PLATINUM" %}
+    {% assign tier = "PLATINUM" %}
+  {% elsif customer.tags contains "GOLD" %}
+    {% assign tier = "GOLD" %}
+  {% elsif customer.tags contains "SILVER" %}
+    {% assign tier = "SILVER" %}
+  {% else %}
+    {% if total_spent < 3000000 %}
+      {% assign tier = "MEMBER" %}
+    {% elsif total_spent >= 3000000 and total_spent < 6000000 %}
+      {% assign tier = "SILVER" %}
+    {% elsif total_spent >= 6000000 and total_spent < 10000000 %}
+      {% assign tier = "GOLD" %}
+    {% elsif total_spent >= 10000000 and total_spent < 20000000 %}
+      {% assign tier = "PLATINUM" %}
+    {% elsif total_spent >= 20000000 and total_spent < 100000000 %}
+      {% assign tier = "DIAMOND" %}
+    {% else %}
+      {% assign tier = "BLACK DIAMOND" %}
+    {% endif %}
+  {% endif %}
+
+  {% assign has_spun = customer.metafields.custom.lucky_wheel_spun %}
+  {% assign can_spin = false %}
+  {% if tier == "SILVER" or tier == "GOLD" or tier == "PLATINUM" or tier == "DIAMOND" or tier == "BLACK DIAMOND" %}
+    {% if has_spun == "true" or has_spun == true %}
+      {% assign can_spin = false %}
+      {% assign already_spun = true %}
+    {% else %}
+      {% assign can_spin = true %}
+      {% assign already_spun = false %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Vòng Quay May Mắn",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Chữ trên nút quay",
+      "default": "QUAY"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Màu nền nút",
+      "default": "#fcbf49"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Màu chữ nút",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "prize",
+      "name": "Phần thưởng",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Tên phần thưởng",
+          "default": "Giảm 10%"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Màu phần thưởng",
+          "default": "#f8f9fa"
+        },
+        {
+          "type": "text",
+          "id": "code",
+          "label": "Mã giảm giá",
+          "default": "LUCKY10"
+        },
+        {
+          "type": "number",
+          "id": "probability",
+          "label": "Xác suất (%)",
+          "default": 20
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Vòng Quay May Mắn",
+      "category": "Khuyến mãi",
+      "blocks": [
+        { "type": "prize" },
+        { "type": "prize" },
+        { "type": "prize" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<!-- Modal kết quả -->
+<div id="lucky-wheel-modal" class="wheel-modal" style="display: none;">
+  <div class="wheel-modal-box">
+    <h2>🎉 Bạn đã trúng thưởng!</h2>
+    <p id="modal-prize-text"></p>
+    <button onclick="document.getElementById('lucky-wheel-modal').style.display='none'">Đóng</button>
+  </div>
+</div>
+
+<!-- Vòng quay -->
+<div id="lucky-wheel-container">
+  {% if customer == null %}
+    <!-- Chưa đăng nhập -->
+    <div class="wheel-message">
+      <h3>Vui lòng đăng nhập để tham gia vòng quay may mắn</h3>
+      <a href="/account/login" class="login-button">Đăng nhập</a>
+    </div>
+  {% elsif can_spin == false %}
+    <!-- Chưa đủ hạng -->
+    <div class="wheel-message">
+      <h3>Chỉ khách hàng hạng SILVER trở lên mới được tham gia</h3>
+      <p>Hạng hiện tại của bạn: <strong>{{ tier }}</strong></p>
+      <p>Chi tiêu thêm để lên hạng SILVER và nhận quyền quay thưởng!</p>
+    </div>
+  {% else %}
+    <!-- Được phép quay -->
+    <div class="lucky-wheel-frame">
+      <canvas id="lucky-wheel-canvas" width="600" height="600"></canvas>
+      <div id="lucky-wheel-spin">{{ section.settings.button_text }}</div>
+      <div id="lucky-wheel-pointer"></div>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  .wheel-message {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .wheel-message h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .wheel-message p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .wheel-message .login-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s ease;
+  }
+
+  .wheel-message .login-button:hover {
+    transform: scale(1.05);
+  }
+
+  .lucky-wheel-frame {
+    position: relative;
+    width: 90vw;
+    max-width: 600px;
+    height: 90vw;
+    max-height: 600px;
+    margin: 60px auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, #dddddd, #e9ecef);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  #lucky-wheel-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50%;
+    z-index: 1;
+    display: block;
+  }
+
+  #lucky-wheel-spin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    width: 18vw;
+    height: 18vw;
+    max-width: 100px;
+    max-height: 100px;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease;
+  }
+
+  #lucky-wheel-spin:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  #lucky-wheel-pointer {
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 32px solid #EEAF2E;
+    max-width: 30px;
+    max-height: 35px;
+    z-index: 4;
+}
+
+  .wheel-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .wheel-modal-box {
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 90vw;
+    animation: zoomIn 0.4s ease-out;
+  }
+
+  .wheel-modal-box h2 {
+    font-size: 5vw;
+    color: #f2f2f2;
+  }
+
+  .wheel-modal-box #modal-prize-text {
+    font-size: 4.5vw;
+    font-weight: bold;
+    color: #fab320;
+  }
+
+  .wheel-modal-box #modal-prize-code {
+    background: #f1f1f1;
+    padding: 3vw;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 4vw;
+    margin: 2vw 0;
+  }
+
+  .wheel-modal-box button {
+    background: #f2f2f2;
+    color: #111;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 4vw;
+    cursor: pointer;
+  }
+
+  @keyframes zoomIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  @media (min-width: 768px) {
+    .wheel-modal-box h2 {
+      font-size: 24px;
+    }
+
+    .wheel-modal-box #modal-prize-text {
+      font-size: 25px;
+    }
+
+    .wheel-modal-box #modal-prize-code {
+      font-size: 18px;
+    }
+
+    .wheel-modal-box button {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const canvas = document.getElementById('lucky-wheel-canvas');
+  if (!canvas) return; // Không có canvas nếu chưa đăng nhập hoặc không đủ điều kiện
+  
+  const ctx = canvas.getContext('2d');
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = Math.min(centerX, centerY) * 0.9;
+
+  const prizes = [
+    {% for block in section.blocks %}
+      {
+        text: "{{ block.settings.text | escape }}",
+        color: "{{ block.settings.color }}",
+        code: "{{ block.settings.code }}",
+        probability: {{ block.settings.probability }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  const totalProb = prizes.reduce((sum, p) => sum + p.probability, 0);
+  if (totalProb !== 100) {
+    prizes.forEach(p => p.probability = (p.probability / totalProb) * 100);
+  }
+
+  let currentAngle = 0;
+  const equalAngle = (Math.PI * 2) / prizes.length;
+  prizes.forEach(p => {
+    p.startAngle = currentAngle;
+    p.angle = equalAngle;
+    p.endAngle = currentAngle + equalAngle;
+    currentAngle = p.endAngle;
+  });
+
+  function drawWheel() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    prizes.forEach(p => {
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, radius, p.startAngle, p.endAngle);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+      ctx.strokeStyle = '#000';
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(p.startAngle + p.angle / 2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '14px Font-1736240127176';
+      ctx.fillText(p.text, radius * 0.85, 0);
+      ctx.restore();
+    });
+  }
+
+  drawWheel();
+
+  let isSpinning = false;
+  let startAngle = 0;
+  let currentRotation = 0;
+
+  // Kiểm tra localStorage xem đã quay chưa (theo ngày)
+  const customerId = '{{ customer.id }}';
+  const customerEmail = '{{ customer.email }}';
+  const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+  const lastSpinDate = localStorage.getItem(`lucky_wheel_date_${customerId}`);
+  const hasSpunToday = lastSpinDate === today;
+  
+  // Tính thời gian còn lại đến 00:00 ngày mai
+  function getTimeUntilMidnight() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const diff = tomorrow - now;
+    
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    return `${hours} giờ ${minutes} phút`;
+  }
+
+  document.getElementById('lucky-wheel-spin').addEventListener('click', function () {
+    if (isSpinning) return;
+    
+    // Kiểm tra đã quay hôm nay chưa
+    const currentDate = new Date().toISOString().split('T')[0];
+    const lastSpin = localStorage.getItem(`lucky_wheel_date_${customerId}`);
+    
+    if (lastSpin === currentDate) {
+      const timeLeft = getTimeUntilMidnight();
+      alert(`Bạn đã quay hôm nay rồi!\nQuay lại sau: ${timeLeft}`);
+      return;
+    }
+    
+    isSpinning = true;
+
+    const rnd = Math.random() * 100;
+    let cumulative = 0;
+    let selectedPrize = null;
+    
+    // Lọc ra các phần thưởng có xác suất > 0
+    const validPrizes = prizes.filter(p => p.probability > 0);
+    
+    for (let prize of validPrizes) {
+      cumulative += prize.probability;
+      if (rnd < cumulative) {
+        selectedPrize = prize;
+        break;
+      }
+    }
+    
+    // Fallback nếu không tìm thấy (không nên xảy ra)
+    if (!selectedPrize) {
+      selectedPrize = validPrizes[validPrizes.length - 1];
+    }
+
+    const midAngle = selectedPrize.startAngle + selectedPrize.angle / 2;
+    const stopAt = (Math.PI * 3 / 2 - midAngle + Math.PI * 2) % (Math.PI * 2);
+    const fullRotations = 5 + Math.floor(Math.random() * 3);
+    const finalAngle = fullRotations * Math.PI * 2 + stopAt;
+
+    animateSpin(finalAngle, selectedPrize);
+  });
+
+  function animateSpin(targetAngle, selectedPrize) {
+    const duration = 5000;
+    const frameRate = 1000 / 60;
+    const totalFrames = duration / frameRate;
+    let frame = 0;
+    const start = currentRotation;
+    const change = targetAngle - currentRotation;
+
+    const spinInterval = setInterval(() => {
+      frame++;
+      if (frame >= totalFrames) {
+        clearInterval(spinInterval);
+        isSpinning = false;
+        currentRotation = targetAngle % (Math.PI * 2);
+
+        // Reset canvas về trạng thái ban đầu
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        drawWheel();
+
+        // Lưu ngày quay vào localStorage
+        const spinTime = new Date().toISOString();
+        const spinDate = new Date().toISOString().split('T')[0];
+        localStorage.setItem(`lucky_wheel_date_${customerId}`, spinDate);
+        localStorage.setItem(`lucky_wheel_prize_${customerId}`, selectedPrize.text);
+        localStorage.setItem(`lucky_wheel_prize_date_${customerId}`, spinTime);
+
+        const winner = {
+          user_id: `${customerId}`,
+          user_email: `${customerEmail}`,
+          prize: `${selectedPrize.text}`,
+          won_time: spinTime
+        };
+
+        {% comment %} console.log(winner); {% endcomment %}
+
+        setTimeout(() => {
+          document.getElementById('modal-prize-text').innerText = `${selectedPrize.text}`;
+          document.getElementById('lucky-wheel-modal').style.display = 'flex';
+          // sent result to backend
+          sendToBackend(winner);
+        }, 500);
+        return;
+      }
+
+      const easedAngle = easeOutCubic(frame, start, change, totalFrames);
+      startAngle = easedAngle;
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(startAngle);
+      ctx.translate(-centerX, -centerY);
+      drawWheel();
+      ctx.restore();
+    }, frameRate);
+  }
+
+  function easeOutCubic(t, b, c, d) {
+    t /= d;
+    t--;
+    return c * (t * t * t + 1) + b;
+  }
+
+  function sendToBackend(winner) {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Basic cWNkNHJkYTl2enk5Znp0QEVETjp0ZHRfdmpjIVRDVDZyeWIzcW1w");
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(winner),
+      redirect: "follow"
+    };
+    fetch("https://v3.mvphsp.com/api/winners", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+  }
+
+});
+</script>

@@ -1,0 +1,82 @@
+{% comment %}
+  Snippet: Account Hero Section
+  Usage: {% render 'account-hero', customer: customer, tier: tier, points: points, total_spent: total_spent, progress_percentage: progress_percentage, next_tier: next_tier, remaining_amount: remaining_amount %}
+{% endcomment %}
+
+<div class="account-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content account-container">
+    <div class="hero-profile-flex">
+      <div class="hero-identity">
+        <div class="hero-avatar">
+            <div class="avatar-ring"></div>
+            <div class="avatar-img" style="background-image: url('https://cdn.shopify.com/s/files/1/0644/2958/8701/files/464413022_945803257578038_2084379289906124096_n.jpg?v=1764122552');"></div>
+        </div>
+        <div class="hero-text">
+          <div class="hero-name">{{ customer.name }}</div>
+          <div class="hero-email">{{ customer.email }}</div>
+          <div class="hero-tier-badge">{{ tier }} TIER</div>
+        </div>
+      </div>
+
+      <div class="hero-stats-container">
+        <div class="hero-stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Tổng chi tiêu</span>
+            <span class="stat-value">
+                {% assign formatted_total_spent = total_spent | floor | split: '' | reverse %}
+                {% assign formatted_number = '' %}
+                {% for digit in formatted_total_spent %}
+                  {% assign remainder = forloop.index0 | modulo: 3 %}
+                  {% if remainder == 0 and forloop.index0 != 0 %}
+                    {% assign formatted_number = formatted_number | append: '.' %}
+                  {% endif %}
+                  {% assign formatted_number = formatted_number | append: digit %}
+                {% endfor %}
+                {{ formatted_number | split: '' | reverse | join: '' }} VND
+            </span>
+          </div>
+          <div class="stat-item">
+             <span class="stat-label">Điểm thưởng</span>
+             {%- assign formatted_points = points | floor | split: '' | reverse -%}
+             {%- assign formatted_points_str = '' -%}
+             {%- for digit in formatted_points -%}
+               {%- assign remainder = forloop.index0 | modulo: 3 -%}
+               {%- if remainder == 0 and forloop.index0 != 0 -%}
+                 {%- assign formatted_points_str = formatted_points_str | append: '.' -%}
+               {%- endif -%}
+               {%- assign formatted_points_str = formatted_points_str | append: digit -%}
+             {%- endfor -%}
+             <span class="stat-value" id="heroPointsDisplay" data-points="{{ points | default: 0 }}">{{ formatted_points_str | split: '' | reverse | join: '' }}</span>
+          </div>
+        </div>
+
+        <div class="hero-progress-wrapper">
+          <div class="progress-info">
+             <span>Tiến trình thăng hạng</span>
+             <span>{{ progress_percentage }}%</span>
+          </div>
+          <div class="hero-progress-bar">
+            <div class="hero-progress-fill" style="width: {{ progress_percentage }}%;"></div>
+          </div>
+          <p class="hero-next-tier-msg">
+            {% if tier == "BLACK DIAMOND" %}
+              Bạn đã đạt hạng cao nhất!
+            {% else %}
+               {% assign formatted_remaining_amount = remaining_amount | floor | split: '' | reverse %}
+               {% assign formatted_remaining = '' %}
+               {% for digit in formatted_remaining_amount %}
+                 {% assign remainder = forloop.index0 | modulo: 3 %}
+                 {% if remainder == 0 and forloop.index0 != 0 %}
+                   {% assign formatted_remaining = formatted_remaining | append: '.' %}
+                 {% endif %}
+                 {% assign formatted_remaining = formatted_remaining | append: digit %}
+               {% endfor %}
+               Còn <strong>{{ formatted_remaining | split: '' | reverse | join: '' }} VND</strong> để lên hạng <strong>{{ next_tier }}</strong>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
