@@ -251,22 +251,23 @@
           "1599643486667": {
             "type": "menu",
             "settings": {
-              "title": "CHĂM SÓC KHÁCH HÀNG",
+              "title": "CUSTOMER CARE",
               "menu": "footer"
             }
           },
           "1599643512956": {
             "type": "menu",
             "settings": {
-              "title": "VỀ CHÚNG TÔI",
-              "menu": ""
+              "title": "COMMUNITY",
+              "menu": "footer-3"
             }
           },
-          "0e6cc1c0-857c-46ce-a06b-ebd10615e90f": {
-            "type": "menu",
+          "newsletter_ARgnqy": {
+            "type": "newsletter",
             "settings": {
-              "title": "DÀNH CHO KHÁCH HÀNG",
-              "menu": ""
+              "title": "Newsletter",
+              "text": "<p>Are you ready to join us on a journey of freedom and individuality?</p>",
+              "show_social_icons_newsletter": false
             }
           }
         },
@@ -274,7 +275,7 @@
           "1599643458732",
           "1599643486667",
           "1599643512956",
-          "0e6cc1c0-857c-46ce-a06b-ebd10615e90f"
+          "newsletter_ARgnqy"
         ],
         "custom_css": [],
         "settings": {
