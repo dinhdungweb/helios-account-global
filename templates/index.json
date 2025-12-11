@@ -8,6 +8,373 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "background_video_responsive_38PECG": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 920,
+        "video_height_mobile": 630,
+        "video_link": "shopify://collections/faith-collection",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/banner web Đức tin 19x9 GLOBAL.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/banner web Đức tin 2x3 GLOBAL.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": "shopify://collections/cyber-monday-2025"
+      }
+    },
+    "slideshow_3KJMhV": {
+      "type": "slideshow",
+      "blocks": {
+        "image_HHzFgj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1_4.jpg",
+            "mobile_image": "shopify://shop_images/POSTER_4X5_64d1a199-995b-497a-8cbd-90bc4d125999.jpg",
+            "slide_link": "shopify://collections/new-arrivals",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--bottom",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_RTaHQK": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/4.9_DESIGN_BANNER_TTSN-01.jpg",
+            "mobile_image": "shopify://shop_images/4.9_DESIGN_BANNER_TTSN-02.jpg",
+            "slide_link": "shopify://collections/lucisnoir-collection",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_pVjqmz": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/30.7_design_nh_global-03.jpg",
+            "mobile_image": "shopify://shop_images/30.7_design_nh_global-04.jpg",
+            "slide_link": "shopify://collections/silver-ring-s925",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_HHzFgj",
+        "image_RTaHQK",
+        "image_pVjqmz"
+      ],
+      "disabled": true,
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "zoom",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "featured_collection_MemUg9": {
+      "type": "featured-collection",
+      "custom_css": [],
+      "settings": {
+        "title": "BEST SELLERS",
+        "featured_collection_align": "center",
+        "collection": "best-seller",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "slideshow_cXHCJy": {
+      "type": "slideshow",
+      "blocks": {
+        "image_zjFCij": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/BANNER_BS_GB.jpg",
+            "mobile_image": "shopify://shop_images/POSTER_BS_GB.jpg",
+            "slide_link": "https://heliosglobalbrand.com/account",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_zjFCij"
+      ],
+      "disabled": true,
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "custom_liquid_CQw7Dm": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "custom_css": [],
+      "name": "Custom Liquid/HTML",
+      "settings": {
+        "no_margins": true,
+        "custom_liquid": "<div class=\"half-size\">\nHalf size. Small difference. Big comfort</div>\n<style>\n.half-size {\n    text-align: center;\n    font-weight: bold;\n    font-size: 1.6rem;\n    line-height: 1.3;\n    position: absolute;\n    z-index: 10;\n    margin-top: -33px;\n    width: 100%;\n}\n@media screen and (max-width:991px) {\n.half-size {\nfont-size: 1.2rem;\nmargin-top: -30px;\n}\n}\n</style>"
+      }
+    },
+    "grid_image_YiMfwg": {
+      "type": "grid-image",
+      "blocks": {
+        "image_6FNHJW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/8_1_1.jpg",
+            "link": "shopify://collections/pendants-necklaces",
+            "text": "NECKLACES & PENDANTS"
+          }
+        },
+        "image_iEUJfd": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/wanderlust-3.jpg",
+            "link": "shopify://collections/silver-ring-s925",
+            "text": "SILVER RINGS"
+          }
+        }
+      },
+      "block_order": [
+        "image_6FNHJW",
+        "image_iEUJfd"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".section-id-template--18773812936873__grid_image_YiMfwg.custom-image-grid {padding-top: 0px; padding-bottom: 0px;}"
+      ],
+      "settings": {
+        "grid_image_full_width": true,
+        "grid_image_with": 1400,
+        "item_for_row": 2,
+        "item_per_row_mobile": "1"
+      }
+    },
+    "featured_collection_TfeVNp": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "NEW ARRIVALS",
+        "featured_collection_align": "center",
+        "collection": "new-arrivals",
+        "layout": "carousel",
+        "featured_addtocart_hide": false,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "featured_blog_AVzfM6": {
+      "type": "featured-blog",
+      "custom_css": [],
+      "settings": {
+        "title": "PROVEN QUALITY, WITH COUNTLESS CELEBRITIES CHOOSING OUR PRODUCT",
+        "blog": "influencer",
+        "post_limit": 12,
+        "show_view_all": false,
+        "blog_show_author": false,
+        "blog_show_date": true,
+        "layout": "carousel",
+        "blog_first_post_big": false,
+        "alternate_bg_color": false,
+        "height": "full",
+        "height_desktop": 700,
+        "height_mobile": 500,
+        "full_width": true,
+        "overlay_style_tint": true,
+        "autoplay": true,
+        "autoplay_speed": 7,
+        "slide_transition": "slide"
+      }
+    },
+    "background_video_Qq3yNT": {
+      "type": "background-video",
+      "name": "Background video",
+      "settings": {
+        "video_shopify": "shopify://files/videos/Video chế tác trên trang chủ website 29.3.3025 (1).mp4",
+        "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "subheading": "",
+        "title": "9 Years of Handcrafted Heritage",
+        "title_size": 32,
+        "title_width": 16,
+        "heading_h1": false,
+        "text": "<p>Every Helios piece is lovingly handcrafted by master jewelers from a city with 800 years of heritage where passion and precision are etched into every detail.</p>",
+        "enlarge_text": false,
+        "button_label": "",
+        "button_link": "",
+        "overlay_position": "position--hcenter position--vcenter",
+        "height": "fixed",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "overlay_style_tint": true
+      }
+    },
+    "custom_liquid_93Kzt8": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Custom Liquid/HTML",
+      "settings": {
+        "no_margins": true,
+        "custom_liquid": "<div class=\"klaviyo-form-S7CBie\"></div>"
+      }
+    },
+    "helios_email_signup_CUQQNf": {
+      "type": "helios-email-signup",
+      "blocks": {
+        "benefit_KQDknz": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Get early access to exclusive, limited-edition releases"
+          }
+        },
+        "benefit_A6dCEA": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Enjoy special benefits designed for our members"
+          }
+        },
+        "benefit_89fGBp": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Be the first to know about personalized offers"
+          }
+        },
+        "benefit_Pb88QC": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Discover the stories behind our creations"
+          }
+        },
+        "benefit_deWdUf": {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Experience our Half Size rings crafted for a perfect emotional fit"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_KQDknz",
+        "benefit_A6dCEA",
+        "benefit_89fGBp",
+        "benefit_Pb88QC",
+        "benefit_deWdUf"
+      ],
+      "name": "Helios Email Signup",
+      "settings": {
+        "section_height": 60,
+        "banner_image": "shopify://shop_images/917b7080-e1cb-4897-afb6-24a0f0c919da.jpg",
+        "title": "HELIOS CLUB",
+        "title_size": 48,
+        "subtitle": "Embrace the path of distinction and true freedom within",
+        "subtitle_size": 16,
+        "klaviyo_list_id": "Rhf4TX",
+        "form_source": "Helios Club Signup",
+        "email_placeholder": "Enter your email address",
+        "first_name_placeholder": "First Name",
+        "last_name_placeholder": "Last Name",
+        "button_text": "SUBSCRIBE",
+        "show_consent_checkbox": true,
+        "consent_text": "I agree that HELIOS GLOBAL may contact me via digital media, including email with personalized marketing content about their products and events at HELIOS GLOBAL stores. I understand that I can unsubscribe at any time.",
+        "success_message": "Thank you for joining Helios Club! Welcome to the path of distinction.",
+        "error_message": "There was an error submitting your information. Please try again.",
+        "consent_error": "Please accept the consent to continue.",
+        "accent_color": "#daa520",
+        "button_color": "#daa520",
+        "button_hover_color": "#b8860b",
+        "button_text_color": "#000000"
+      }
+    },
+    "popup_newsletter_6FmbAP": {
+      "type": "popup-newsletter",
+      "name": "Popup Newsletter",
+      "settings": {
+        "image": "shopify://shop_images/z7292394833378_e3cfad03f7230631f2e65fe3cadc5fe9.jpg",
+        "title": "",
+        "description": "",
+        "button_link": "https://heliosglobalbrand.com/pages/christmas-shipping-notice",
+        "delay": 3000,
+        "show_once": true
+      }
+    }
+  },
+  "order": [
+    "background_video_responsive_38PECG",
+    "slideshow_3KJMhV",
+    "featured_collection_MemUg9",
+    "slideshow_cXHCJy",
+    "custom_liquid_CQw7Dm",
+    "grid_image_YiMfwg",
+    "featured_collection_TfeVNp",
+    "featured_blog_AVzfM6",
+    "background_video_Qq3yNT",
+    "custom_liquid_93Kzt8",
+    "helios_email_signup_CUQQNf",
+    "popup_newsletter_6FmbAP"
+  ]
 }
