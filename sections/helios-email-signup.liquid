@@ -1,0 +1,584 @@
+{% comment %}
+  Helios Club Email Signup Section
+  Save as: sections/helios-email-signup.liquid
+{% endcomment %}
+
+<style>
+  .helios-email-section {
+    background-color: #000;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .helios-container {
+    min-height: {{ section.settings.section_height }}vh;
+    display: flex;
+    max-width: 100%;
+    width: 1600px;
+    margin: auto;
+  }
+  h1.helios-title {
+    margin-bottom: 30px;
+    text-align: left;
+}
+  label {
+    text-transform: none;
+  }
+  .helios-left-section {
+    flex: 1;
+    padding: 0;
+    position: relative;
+    min-height: {{ section.settings.section_height }}vh;
+    background-image: url('{{ section.settings.banner_image | image_url }}');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .helios-right-section {
+    flex: 1;
+    padding: 80px 60px;
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  }
+
+  .helios-form-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .helios-title {
+    font-size: {{ section.settings.title_size | default: 48 }}px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .helios-subtitle {
+    font-size: {{ section.settings.subtitle_size | default: 18 }}px;
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .helios-benefits {
+    margin-bottom: 40px;
+  }
+
+  .helios-benefits ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .helios-benefits li {
+    color: #bbb;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+    font-size: 15px;
+  }
+
+  .helios-benefits li::before {
+    content: '✓';
+    color: {{ section.settings.accent_color | default: '#DAA520' }};
+    position: absolute;
+    left: 0;
+    font-size: 18px;
+  }
+
+  .helios-form-group {
+    margin-bottom: 20px;
+  }
+
+  .helios-form-row {
+    display: flex;
+    gap: 15px;
+  }
+
+  .helios-form-row .helios-form-group {
+    flex: 1;
+  }
+
+  .helios-input {
+    width: 100%;
+    padding: 15px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .helios-input:focus {
+    outline: none;
+    border-color: {{ section.settings.accent_color | default: '#DAA520' }};
+    box-shadow: 0 0 20px rgba(218, 165, 32, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .helios-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .helios-checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    gap: 12px;
+  }
+
+  .helios-checkbox {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: {{ section.settings.accent_color | default: '#DAA520' }};
+  }
+
+  .helios-checkbox-text {
+    font-size: 14px;
+    color: #bbb;
+    line-height: 1.5;
+  }
+
+  .helios-submit-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, {{ section.settings.button_color | default: '#DAA520' }}, {{ section.settings.button_hover_color | default: '#B8860B' }});
+    color: {{ section.settings.button_text_color | default: '#000' }};
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(218, 165, 32, 0.3);
+  }
+
+  .helios-submit-btn:hover {
+    background: linear-gradient(135deg, #FFD700, {{ section.settings.accent_color | default: '#DAA520' }});
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(218, 165, 32, 0.4);
+  }
+
+  .helios-success-message {
+    display: none;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid #22c55e;
+    color: #22c55e;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  {% comment %} Responsive Design {% endcomment %}
+  @media (max-width: 768px) {
+    .helios-container {
+      flex-direction: column;
+    }
+    
+    .helios-left-section {
+      padding: 0;
+    }
+    
+    .helios-right-section {
+      padding: 40px 20px;
+    }
+    
+    .helios-title {
+      font-size: {{ section.settings.title_size | default: 48 | divided_by: 1.5 }}px;
+    }
+    
+    .helios-form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+
+  {% comment %} Animation {% endcomment %}
+  @keyframes helios-fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .helios-form-container > * {
+    animation: helios-fadeInUp 0.8s ease forwards;
+  }
+
+  .helios-form-container > *:nth-child(2) { animation-delay: 0.1s; }
+  .helios-form-container > *:nth-child(3) { animation-delay: 0.2s; }
+  .helios-form-container > *:nth-child(4) { animation-delay: 0.3s; }
+  .helios-form-container > *:nth-child(5) { animation-delay: 0.4s; }
+</style>
+
+<section class="helios-email-section" id="helios-email-{{ section.id }}">
+  <div class="helios-container">
+    <div class="helios-left-section"></div>
+    
+    <div class="helios-right-section">
+      <div class="helios-form-container">
+        <h1 class="helios-title">{{ section.settings.title | default: 'HELIOS CLUB' }}</h1>
+        <p class="helios-subtitle">{{ section.settings.subtitle | default: 'Embrace the path of distinction and true freedom within' }}</p>
+        
+        {% if section.blocks.size > 0 %}
+        <div class="helios-benefits">
+          <ul>
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'benefit' %}
+                  <li>{{ block.settings.benefit_text }}</li>
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        
+        {% comment %} Klaviyo Form {% endcomment %}
+        <form class="klaviyo-form" action="//manage.kmail-lists.com/subscriptions/subscribe" method="POST" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe">
+          <input type="hidden" name="g" value="{{ section.settings.klaviyo_list_id }}">
+          <input type="hidden" name="$fields" value="$source">
+          <input type="hidden" name="$source" value="{{ section.settings.form_source | default: 'Helios Club Signup' }}">
+          
+          <div class="helios-form-group">
+            <input type="email" 
+                   class="helios-input" 
+                   name="email" 
+                   placeholder="{{ section.settings.email_placeholder | default: 'Enter your email address' }}" 
+                   required>
+          </div>
+          
+          <div class="helios-form-row">
+            <div class="helios-form-group">
+              <input type="text" 
+                     class="helios-input" 
+                     name="$first_name" 
+                     placeholder="{{ section.settings.first_name_placeholder | default: 'First Name' }}" 
+                     required>
+            </div>
+            <div class="helios-form-group">
+              <input type="text" 
+                     class="helios-input" 
+                     name="$last_name" 
+                     placeholder="{{ section.settings.last_name_placeholder | default: 'Last Name' }}" 
+                     required>
+            </div>
+          </div>
+          
+          {% if section.settings.show_consent_checkbox %}
+          <div class="helios-checkbox-container">
+            <input type="checkbox" 
+                   class="helios-checkbox" 
+                   id="consent-{{ section.id }}" 
+                   name="$consent" 
+                   required>
+            <label for="consent-{{ section.id }}" class="helios-checkbox-text">
+              {{ section.settings.consent_text | default: 'I agree that HELIOS GLOBAL may contact me via digital media, including email with personalized marketing content about their products and events at HELIOS GLOBAL stores. I understand that I can unsubscribe at any time.' }}
+            </label>
+          </div>
+          {% endif %}
+          
+          <button type="submit" class="helios-submit-btn">
+            {{ section.settings.button_text | default: 'SUBSCRIBE' }}
+          </button>
+          
+          <div class="helios-success-message">
+            {{ section.settings.success_message | default: 'Thank you for joining Helios Club! Welcome to the path of distinction.' }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('#helios-email-{{ section.id }} .klaviyo-form');
+  const successMessage = document.querySelector('#helios-email-{{ section.id }} .helios-success-message');
+  
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const submitUrl = this.getAttribute('data-ajax-submit');
+      
+      // Basic validation
+      const email = formData.get('email');
+      const firstName = formData.get('$first_name');
+      const lastName = formData.get('$last_name');
+      const consent = formData.get('$consent');
+      
+      if (!email || !firstName || !lastName) {
+        alert('{{ section.settings.error_message | default: "Please fill in all required fields." }}');
+        return;
+      }
+      
+      {% if section.settings.show_consent_checkbox %}
+      if (!consent) {
+        alert('{{ section.settings.consent_error | default: "Please accept the consent to continue." }}');
+        return;
+      }
+      {% endif %}
+      
+      // Submit to Klaviyo
+      fetch(submitUrl, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Show success message
+          form.style.display = 'none';
+          successMessage.style.display = 'block';
+          
+          // Track in Shopify Analytics if available
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'sign_up', {
+              method: 'Helios Club'
+            });
+          }
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('{{ section.settings.error_message | default: "There was an error submitting your information. Please try again." }}');
+      });
+    });
+  }
+  
+  // Add interactive effects
+  document.querySelectorAll('#helios-email-{{ section.id }} .helios-input').forEach(input => {
+    input.addEventListener('focus', function() {
+      this.parentNode.style.transform = 'translateY(-2px)';
+      this.parentNode.style.transition = 'transform 0.3s ease';
+    });
+    
+    input.addEventListener('blur', function() {
+      this.parentNode.style.transform = 'translateY(0)';
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Helios Email Signup",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 60,
+      "max": 120,
+      "step": 10,
+      "unit": "vh",
+      "label": "Section Height",
+      "default": 100
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image (used as full background)"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "HELIOS CLUB"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "label": "Title Size",
+      "default": 48
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Embrace the path of distinction and true freedom within"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle Size",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID",
+      "info": "Get this from your Klaviyo account"
+    },
+    {
+      "type": "text",
+      "id": "form_source",
+      "label": "Form Source Tag",
+      "default": "Helios Club Signup"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "first_name_placeholder",
+      "label": "First Name Placeholder",
+      "default": "First Name"
+    },
+    {
+      "type": "text",
+      "id": "last_name_placeholder",
+      "label": "Last Name Placeholder",
+      "default": "Last Name"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "SUBSCRIBE"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_consent_checkbox",
+      "label": "Show Consent Checkbox",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "consent_text",
+      "label": "Consent Text",
+      "default": "I agree that HELIOS GLOBAL may contact me via digital media, including email with personalized marketing content about their products and events at HELIOS GLOBAL stores. I understand that I can unsubscribe at any time."
+    },
+    {
+      "type": "header",
+      "content": "Messages"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Thank you for joining Helios Club! Welcome to the path of distinction."
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error Message",
+      "default": "There was an error submitting your information. Please try again."
+    },
+    {
+      "type": "text",
+      "id": "consent_error",
+      "label": "Consent Error Message",
+      "default": "Please accept the consent to continue."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#DAA520"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#DAA520"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button Hover Color",
+      "default": "#B8860B"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "benefit_text",
+          "label": "Benefit Text",
+          "default": "Get early access to exclusive, limited-edition releases"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Helios Email Signup",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Get early access to exclusive, limited-edition releases"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Enjoy special benefits designed for our members"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Be the first to know about personalized offers"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "benefit_text": "Discover the stories behind our creations"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
