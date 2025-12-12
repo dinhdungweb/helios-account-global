@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "angel-3d-scene",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

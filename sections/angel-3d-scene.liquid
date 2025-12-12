@@ -1,0 +1,225 @@
+{% schema %}
+{
+  "name": "Angel 3D Scene",
+  "settings": [
+    {
+      "type": "header",
+      "content": "3D Scene Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "angel_color",
+      "label": "Angel Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "particle_color",
+      "label": "Particle Color",
+      "default": "#fab320"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Angel 3D Scene"
+    }
+  ]
+}
+{% endschema %}
+
+<div id="angel-3d-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; overflow: hidden; background-color: {{ section.settings.bg_color }};"></div>
+
+<div class="angel-scroll-content" style="position: relative; z-index: 2; pointer-events: none;">
+  <section style="height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+    <h1 style="color: #fff; font-size: 5vw; text-transform: uppercase; letter-spacing: 0.5em; opacity: 0; animation: fadeIn 2s forwards 1s;">Angel Collection</h1>
+  </section>
+  <section style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <h2 style="color: #fff; font-size: 3vw; opacity: 0; transition: opacity 0.5s;" class="scroll-reveal">Ascend</h2>
+  </section>
+  <section style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <h2 style="color: #fff; font-size: 3vw; opacity: 0; transition: opacity 0.5s;" class="scroll-reveal">Eternal Light</h2>
+  </section>
+  <section style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <a href="/collections/all" style="pointer-events: auto; padding: 20px 40px; border: 1px solid #fab320; color: #fab320; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; background: rgba(0,0,0,0.5);">Explore Collection</a>
+  </section>
+</div>
+
+<div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 1s;">
+  <div style="color: #fab320; font-family: monospace; letter-spacing: 2px;">LOADING ANGEL...</div>
+</div>
+
+<style>
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  .scroll-reveal.visible {
+    opacity: 1 !important;
+  }
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: #000;
+  }
+  /* Hide standard header/footer if possible via CSS, though template logic is better */
+  #shopify-section-header, #shopify-section-footer {
+    display: none !important;
+  }
+</style>
+
+<!-- Import Three.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. SETUP SCENE ---
+    const container = document.getElementById('angel-3d-container');
+    const loadingScreen = document.getElementById('loading-screen');
+    
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2({{ section.settings.bg_color | json }}, 0.002);
+
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // --- 2. CREATE "ABSTRACT ANGEL" ---
+    const angelGroup = new THREE.Group();
+    scene.add(angelGroup);
+
+    // Core (The "Body") - Icosahedron
+    const coreGeometry = new THREE.IcosahedronGeometry(1, 1);
+    const coreMaterial = new THREE.MeshStandardMaterial({ 
+      color: {{ section.settings.angel_color | json }}, 
+      roughness: 0.3,
+      metalness: 0.8,
+      wireframe: true
+    });
+    const core = new THREE.Mesh(coreGeometry, coreMaterial);
+    angelGroup.add(core);
+
+    // Wings (Particles)
+    const wingsGeometry = new THREE.BufferGeometry();
+    const wingsCount = 2000;
+    const posArray = new Float32Array(wingsCount * 3);
+    
+    for(let i = 0; i < wingsCount; i++) {
+      // Create wing-like distribution
+      const x = (Math.random() - 0.5) * 10; // Wide spread
+      const y = (Math.random() - 0.5) * 6;  // Height
+      const z = (Math.random() - 0.5) * 2;  // Depth
+      
+      // Shape particles into a curve (wing shape)
+      // Simple equation: y ends up following a curve relative to x
+      const yOffset = Math.sin(x * 0.5) * 2; 
+      
+      posArray[i * 3] = x;
+      posArray[i * 3 + 1] = y + yOffset;
+      posArray[i * 3 + 2] = z;
+    }
+    
+    wingsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    
+    const wingsMaterial = new THREE.PointsMaterial({
+      size: 0.03,
+      color: {{ section.settings.particle_color | json }},
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending
+    });
+    
+    const wings = new THREE.Points(wingsGeometry, wingsMaterial);
+    angelGroup.add(wings);
+
+    // --- 3. LIGHTING ---
+    const ambientLight = new THREE.AmbientLight(0x404040, 2);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, 2, 100);
+    pointLight.position.set(0, 5, 5);
+    scene.add(pointLight);
+    
+    // Moving light
+    const movingLight = new THREE.PointLight({{ section.settings.particle_color | json }}, 3, 50);
+    scene.add(movingLight);
+
+    // --- 4. ANIMATION LOOP ---
+    let time = 0;
+    
+    function animate() {
+      requestAnimationFrame(animate);
+      time += 0.005;
+
+      // Rotate Angel
+      angelGroup.rotation.y += 0.002;
+      
+      // Undulate Wings (Procedural Animation)
+      const positions = wings.geometry.attributes.position.array;
+      for(let i = 0; i < wingsCount; i++) {
+        const x = positions[i * 3];
+        // Flapping motion: modify Y based on X and Time
+        const flap = Math.sin(time * 2 + x * 0.5) * 0.02;
+        positions[i * 3 + 1] += flap;
+      }
+      wings.geometry.attributes.position.needsUpdate = true;
+      
+      // Move Light
+      movingLight.position.x = Math.sin(time) * 5;
+      movingLight.position.z = Math.cos(time) * 5;
+      
+      // Render
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // --- 5. SCROLL INTERACTIONS ---
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const scrollPercent = scrollY / (document.body.scrollHeight - windowHeight);
+      
+      // Camera Move: Ascend and Zoom out
+      camera.position.y = scrollY * 0.005;
+      camera.position.z = 5 + scrollY * 0.005;
+      
+      // Angel Transformation: Rotate faster on scroll
+      angelGroup.rotation.x = scrollY * 0.002;
+      angelGroup.rotation.z = scrollY * 0.001;
+      
+      // Reveal Text Sections
+      document.querySelectorAll('.scroll-reveal').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < windowHeight * 0.75) {
+          el.classList.add('visible');
+        }
+      });
+    });
+
+    // --- 6. RESIZE HANDLER ---
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+    
+    // --- 7. REMOVE LOADING SCREEN ---
+    setTimeout(() => {
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 1000);
+    }, 1500);
+
+  });
+</script>
