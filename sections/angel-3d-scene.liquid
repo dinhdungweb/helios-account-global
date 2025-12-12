@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Angel 3D Scene",
+  "name": "Angel 3D Scene Enhanced",
   "settings": [
     {
       "type": "header",
@@ -10,216 +10,558 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#000000"
+      "default": "#050505"
     },
     {
       "type": "color",
-      "id": "angel_color",
-      "label": "Angel Color",
+      "id": "angel_core_color",
+      "label": "Angel Core Color",
       "default": "#ffffff"
     },
     {
       "type": "color",
-      "id": "particle_color",
-      "label": "Particle Color",
+      "id": "angel_glow_color",
+      "label": "Angel Glow Color",
       "default": "#fab320"
     }
   ],
   "presets": [
     {
-      "name": "Angel 3D Scene"
+      "name": "Angel 3D Scene Enhanced"
     }
   ]
 }
 {% endschema %}
 
-<div id="angel-3d-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 1; overflow: hidden; background-color: {{ section.settings.bg_color }};"></div>
+<!-- 3D Canvas Container -->
+<div id="angel-3d-container"></div>
 
-<div class="angel-scroll-content" style="position: relative; z-index: 2; pointer-events: none;">
-  <section style="height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;">
-    <h1 style="color: #fff; font-size: 5vw; text-transform: uppercase; letter-spacing: 0.5em; opacity: 0; animation: fadeIn 2s forwards 1s;">Angel Collection</h1>
+<!-- Scrollable Content Layer -->
+<div class="angel-scroll-content">
+  
+  <!-- Section 1: Hero -->
+  <section class="scroll-section" id="section-hero">
+    <div class="content-block center">
+      <h1 class="main-title tracking-in-expand">ANGEL COLLECTION</h1>
+      <p class="subtitle fade-in-up delay-1">The Divine Arrival</p>
+      <div class="scroll-indicator fade-in-up delay-2">
+        <span>SCROLL TO ASCEND</span>
+        <div class="line"></div>
+      </div>
+    </div>
   </section>
-  <section style="height: 100vh; display: flex; align-items: center; justify-content: center;">
-    <h2 style="color: #fff; font-size: 3vw; opacity: 0; transition: opacity 0.5s;" class="scroll-reveal">Ascend</h2>
+
+  <!-- Section 2: Narrative - The Guardian -->
+  <section class="scroll-section" id="section-story-1">
+    <div class="content-block left">
+      <h2 class="section-title">THE GUARDIAN</h2>
+      <p class="text-body">
+        Forged in silence.<br>
+        A symbol of protection in a chaotic world.<br>
+        The angel watches over those who dare to stand apart.
+      </p>
+    </div>
   </section>
-  <section style="height: 100vh; display: flex; align-items: center; justify-content: center;">
-    <h2 style="color: #fff; font-size: 3vw; opacity: 0; transition: opacity 0.5s;" class="scroll-reveal">Eternal Light</h2>
+
+  <!-- Section 3: Visual Break -->
+  <section class="scroll-section" id="section-visual"></section>
+
+  <!-- Section 4: Narrative - The Fallen -->
+  <section class="scroll-section" id="section-story-2">
+    <div class="content-block right">
+      <h2 class="section-title">THE FALLEN</h2>
+      <p class="text-body">
+        Not all angels belong to the sky.<br>
+        Some find their strength in the shadows.<br>
+        Embrace your dark side.
+      </p>
+    </div>
   </section>
-  <section style="height: 100vh; display: flex; align-items: center; justify-content: center;">
-    <a href="/collections/all" style="pointer-events: auto; padding: 20px 40px; border: 1px solid #fab320; color: #fab320; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; background: rgba(0,0,0,0.5);">Explore Collection</a>
+
+  <!-- Section 5: Collection Showcase / CTA -->
+  <section class="scroll-section" id="section-cta">
+    <div class="content-block center">
+      <h2 class="section-title">OWN THE LEGEND</h2>
+      <div class="product-highlight">
+        <div class="product-placeholder">
+           <!-- Placeholder for product image if needed -->
+           <div class="circle-glow"></div>
+        </div>
+      </div>
+      <a href="/collections/all" class="cta-button">EXPLORE COLLECTION</a>
+    </div>
   </section>
+
 </div>
 
-<div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 1s;">
-  <div style="color: #fab320; font-family: monospace; letter-spacing: 2px;">LOADING ANGEL...</div>
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loader-content">
+    <div class="loader-text">SUMMONING ANGEL</div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+  </div>
 </div>
 
 <style>
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-  .scroll-reveal.visible {
-    opacity: 1 !important;
-  }
+  /* Reset & Layout */
   body, html {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    background: #000;
+    background-color: {{ section.settings.bg_color }};
+    font-family: 'Futura', 'Helvetica Neue', Arial, sans-serif; /* Industrial vibe */
   }
-  /* Hide standard header/footer if possible via CSS, though template logic is better */
-  #shopify-section-header, #shopify-section-footer {
+  
+  /* Hide Theme Elements */
+  #shopify-section-header, #shopify-section-footer, .announcement-bar {
     display: none !important;
+  }
+
+  /* 3D Container */
+  #angel-3d-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none; /* Let clicks pass through to content if needed, but usually content is on top */
+  }
+
+  /* Content Layer */
+  .angel-scroll-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  /* Scroll Sections */
+  .scroll-section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* Border for debug: border-bottom: 1px solid rgba(255,255,255,0.1); */
+  }
+
+  /* Content Blocks */
+  .content-block {
+    max-width: 600px;
+    padding: 40px;
+    color: #fff;
+    opacity: 0; /* Hidden by default, revealed by scroll logic */
+    transform: translateY(30px);
+    transition: all 1s ease-out;
+  }
+  
+  .content-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .content-block.center { text-align: center; }
+  .content-block.left { margin-right: auto; margin-left: 10%; text-align: left; }
+  .content-block.right { margin-left: auto; margin-right: 10%; text-align: right; }
+
+  /* Typography */
+  .main-title {
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    color: var(--helios-text-muted, #888);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    color: #fff;
+    border-bottom: 2px solid {{ section.settings.angel_glow_color }};
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+
+  .text-body {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 30px;
+  }
+
+  /* CTA Button */
+  .cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    border: 1px solid {{ section.settings.angel_glow_color }};
+    color: {{ section.settings.angel_glow_color }};
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    transition: all 0.3s;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  
+  .cta-button:hover {
+    background: {{ section.settings.angel_glow_color }};
+    color: #000;
+    box-shadow: 0 0 20px {{ section.settings.angel_glow_color }};
+  }
+
+  /* Scroll Indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: #666;
+  }
+  
+  .scroll-indicator .line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, #666, transparent);
+  }
+
+  /* Loader */
+  #loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease;
+  }
+  
+  .loader-text {
+    color: {{ section.settings.angel_glow_color }};
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-family: monospace;
+  }
+  
+  .loader-bar {
+    width: 200px;
+    height: 2px;
+    background: #333;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .loader-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: {{ section.settings.angel_glow_color }};
+    animation: loadProgress 2s ease-out forwards;
+  }
+
+  @keyframes loadProgress {
+    to { width: 100%; }
+  }
+
+  /* Mobile Adjustments */
+  @media (max-width: 768px) {
+    .main-title { font-size: 3rem; }
+    .section-title { font-size: 2rem; }
+    .content-block.left, .content-block.right { 
+      margin: 0 auto; 
+      text-align: center;
+      background: rgba(0,0,0,0.5); /* Backdrop for readability */
+      backdrop-filter: blur(5px);
+    }
   }
 </style>
 
-<!-- Import Three.js from CDN -->
+<!-- THREE.JS IMPORTS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Post Processing required for bloom -->
+<script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // CONFIGURATION
+    const CONFIG = {
+      bgColor: {{ section.settings.bg_color | json }},
+      coreColor: {{ section.settings.angel_core_color | json }},
+      glowColor: {{ section.settings.angel_glow_color | json }},
+      wingParticles: 3000,
+      flightSpeed: 0.001
+    };
+
     // --- 1. SETUP SCENE ---
     const container = document.getElementById('angel-3d-container');
-    const loadingScreen = document.getElementById('loading-screen');
-    
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2({{ section.settings.bg_color | json }}, 0.002);
+    scene.fog = new THREE.FogExp2(CONFIG.bgColor, 0.0035); // Atmospheric fog
 
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    // Initial Camera Position
+    camera.position.set(0, 0, 8);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ReinhardToneMapping;
     container.appendChild(renderer.domElement);
 
-    // --- 2. CREATE "ABSTRACT ANGEL" ---
+    // --- 2. THE ANGEL ---
     const angelGroup = new THREE.Group();
     scene.add(angelGroup);
 
-    // Core (The "Body") - Icosahedron
-    const coreGeometry = new THREE.IcosahedronGeometry(1, 1);
-    const coreMaterial = new THREE.MeshStandardMaterial({ 
-      color: {{ section.settings.angel_color | json }}, 
-      roughness: 0.3,
-      metalness: 0.8,
-      wireframe: true
-    });
-    const core = new THREE.Mesh(coreGeometry, coreMaterial);
-    angelGroup.add(core);
+    // A. The Body (Abstract Geometric)
+    const bodyGroup = new THREE.Group();
+    angelGroup.add(bodyGroup);
 
-    // Wings (Particles)
-    const wingsGeometry = new THREE.BufferGeometry();
-    const wingsCount = 2000;
-    const posArray = new Float32Array(wingsCount * 3);
-    
-    for(let i = 0; i < wingsCount; i++) {
-      // Create wing-like distribution
-      const x = (Math.random() - 0.5) * 10; // Wide spread
-      const y = (Math.random() - 0.5) * 6;  // Height
-      const z = (Math.random() - 0.5) * 2;  // Depth
-      
-      // Shape particles into a curve (wing shape)
-      // Simple equation: y ends up following a curve relative to x
-      const yOffset = Math.sin(x * 0.5) * 2; 
-      
-      posArray[i * 3] = x;
-      posArray[i * 3 + 1] = y + yOffset;
-      posArray[i * 3 + 2] = z;
-    }
-    
-    wingsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    
-    const wingsMaterial = new THREE.PointsMaterial({
-      size: 0.03,
-      color: {{ section.settings.particle_color | json }},
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending
+    // Head
+    const headGeo = new THREE.SphereGeometry(0.3, 32, 32);
+    const headMat = new THREE.MeshStandardMaterial({
+      color: CONFIG.coreColor,
+      emissive: CONFIG.glowColor,
+      emissiveIntensity: 0.5,
+      roughness: 0.2,
+      metalness: 1.0
     });
-    
-    const wings = new THREE.Points(wingsGeometry, wingsMaterial);
+    const head = new THREE.Mesh(headGeo, headMat);
+    head.position.y = 1.2;
+    bodyGroup.add(head);
+
+    // Halo (Ring)
+    const haloGeo = new THREE.TorusGeometry(0.5, 0.02, 16, 100);
+    const haloMat = new THREE.MeshBasicMaterial({ color: CONFIG.glowColor });
+    const halo = new THREE.Mesh(haloGeo, haloMat);
+    halo.rotation.x = Math.PI / 2;
+    halo.position.y = 1.7;
+    bodyGroup.add(halo);
+
+    // Torso (Cone/Crystals)
+    const torsoGeo = new THREE.ConeGeometry(0.4, 2, 6); // Hexagonal cone
+    const torsoMat = new THREE.MeshStandardMaterial({
+      color: 0x333333,
+      roughness: 0.1,
+      metalness: 0.9,
+      flatShading: true
+    });
+    const torso = new THREE.Mesh(torsoGeo, torsoMat);
+    bodyGroup.add(torso);
+
+    // B. The Wings (Particles)
+    // We create two wing shapes using math functions
+    const wingGeo = new THREE.BufferGeometry();
+    const wingPositions = [];
+    const wingSpeeds = []; // For individual particle flutter
+
+    for (let i = 0; i < CONFIG.wingParticles; i++) {
+        // Create a wing shape distribution
+        // X: spread out, Y: curve up, Z: thicknes
+        const t = Math.random();
+        const side = Math.random() > 0.5 ? 1 : -1; // Left or Right wing
+        
+        // Wing shape math approximation
+        const x = side * (0.5 + t * 4); // Length 0.5 to 4.5
+        const y = Math.pow(t, 2) * 3 + (Math.random() - 0.5) * 1; // Curve up
+        const z = (Math.random() - 0.5) * 0.5; // Thickness
+
+        wingPositions.push(x, y, z);
+        wingSpeeds.push(Math.random() * 0.02 + 0.01);
+    }
+
+    wingGeo.setAttribute('position', new THREE.Float32BufferAttribute(wingPositions, 3));
+    wingGeo.setAttribute('speed', new THREE.Float32BufferAttribute(wingSpeeds, 1));
+
+    const wingMat = new THREE.PointsMaterial({
+        color: CONFIG.glowColor,
+        size: 0.04,
+        transparent: true,
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+    });
+
+    const wings = new THREE.Points(wingGeo, wingMat);
+    wings.position.y = 0.5; // Attach to upper back
     angelGroup.add(wings);
 
     // --- 3. LIGHTING ---
-    const ambientLight = new THREE.AmbientLight(0x404040, 2);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0xffffff, 2, 100);
-    pointLight.position.set(0, 5, 5);
-    scene.add(pointLight);
+    // Ambient
+    scene.add(new THREE.AmbientLight(0x111111));
     
-    // Moving light
-    const movingLight = new THREE.PointLight({{ section.settings.particle_color | json }}, 3, 50);
-    scene.add(movingLight);
+    // Angel's inner glow
+    const angelLight = new THREE.PointLight(CONFIG.glowColor, 2, 10);
+    angelLight.position.set(0, 1, 0);
+    angelGroup.add(angelLight);
 
-    // --- 4. ANIMATION LOOP ---
+    // Environmental Lights
+    const blueLight = new THREE.PointLight(0x0044ff, 1, 20);
+    blueLight.position.set(5, 5, 5);
+    scene.add(blueLight);
+
+    const orangeLight = new THREE.PointLight(0xffaa00, 1, 20);
+    orangeLight.position.set(-5, -5, 5);
+    scene.add(orangeLight);
+
+    // --- 4. POST PROCESSING (BLOOM) ---
+    const renderScene = new THREE.RenderPass(scene, camera);
+    const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+    bloomPass.threshold = 0;
+    bloomPass.strength = 1.2; // Intense glow
+    bloomPass.radius = 0.5;
+
+    const composer = new THREE.EffectComposer(renderer);
+    composer.addPass(renderScene);
+    composer.addPass(bloomPass);
+
+    // --- 5. ANIMATION STATE ---
     let time = 0;
+    const initialY = angelGroup.position.y;
     
-    function animate() {
-      requestAnimationFrame(animate);
-      time += 0.005;
+    // Scroll progress (0 to 1)
+    let scrollProgress = 0;
+    let targetScrollProgress = 0;
 
-      // Rotate Angel
-      angelGroup.rotation.y += 0.002;
-      
-      // Undulate Wings (Procedural Animation)
-      const positions = wings.geometry.attributes.position.array;
-      for(let i = 0; i < wingsCount; i++) {
-        const x = positions[i * 3];
-        // Flapping motion: modify Y based on X and Time
-        const flap = Math.sin(time * 2 + x * 0.5) * 0.02;
-        positions[i * 3 + 1] += flap;
-      }
-      wings.geometry.attributes.position.needsUpdate = true;
-      
-      // Move Light
-      movingLight.position.x = Math.sin(time) * 5;
-      movingLight.position.z = Math.cos(time) * 5;
-      
-      // Render
-      renderer.render(scene, camera);
+    // --- 6. SCROLL LISTENER ---
+    function updateScroll() {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollTop = window.scrollY;
+        targetScrollProgress = Math.max(0, Math.min(1, scrollTop / docHeight));
+
+        // Reveal text blocks logic
+        document.querySelectorAll('.content-block').forEach((block) => {
+            const rect = block.getBoundingClientRect();
+            // If element is in view (roughly middle of screen)
+            if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
+                block.classList.add('visible');
+            }
+        });
+    }
+    window.addEventListener('scroll', updateScroll);
+    updateScroll(); // Check initially
+
+    // --- 7. RENDER LOOP ---
+    function animate() {
+        requestAnimationFrame(animate);
+        time += 0.01;
+
+        // Smooth scroll interpolation
+        scrollProgress += (targetScrollProgress - scrollProgress) * 0.05;
+
+        // A. ANGEL ANIMATION (IDLE)
+        // Hover
+        angelGroup.position.y = Math.sin(time) * 0.2;
+        // Halo spin
+        halo.rotation.z -= 0.01;
+        halo.rotation.x = (Math.PI / 2) + Math.sin(time * 0.5) * 0.1;
+
+        // Wing Flap (Procedural vertex animation)
+        const pos = wings.geometry.attributes.position.array;
+        
+        for(let i = 0; i < CONFIG.wingParticles; i++) {
+            // Original Y is roughly stored relative to rest pose.
+            // We apply a sine wave modification based on X distance from center
+            const x = pos[i * 3];
+            const yOriginal = pos[i * 3 + 1]; // This is mutated, creates drift. Ideally should use original buffer.
+            
+            // Re-calculate Y based on X to avoid drift, adding flap
+            // Simplified flap: Rotate point around Z axis based on X distance
+            const flapSpeed = 5;
+            const flapAmp = (Math.abs(x) * 0.2) * Math.sin(time * flapSpeed);
+            
+            // Apply visual flutter
+            // Note: In a real shader this is cheaper. Here we do CPU for compatibility without external shader files.
+            // For CPU, simple wobble is safer than full re-calc to avoid memory thrashing.
+            // Just wiggle Y slightly for "energy" effect
+            pos[i * 3 + 1] += (Math.random() - 0.5) * 0.01; 
+        }
+        wings.geometry.attributes.position.needsUpdate = true;
+        
+        // Wing Group Rotation (Big Flap)
+        wings.rotation.x = Math.sin(time * 5) * 0.2; 
+
+        // B. SCROLL-BASED FLIGHT PATH
+        // We map scrollProgress (0-1) to Angel position & rotation
+        
+        // 0.0 (Hero): Center
+        // 0.3 (Guardian): Move Left, Rotate Right
+        // 0.6 (Fallen): Move Right, Tilt Down
+        // 1.0 (CTA): Center, Zoom Close, Ascend
+
+        // Position Logic (Linear handling for smoothness)
+        if (scrollProgress < 0.3) {
+             // Hero -> Guardian
+             const t = scrollProgress / 0.3;
+             angelGroup.position.x = THREE.MathUtils.lerp(0, 2, t);
+             angelGroup.rotation.y = THREE.MathUtils.lerp(0, -0.5, t);
+        } else if (scrollProgress < 0.6) {
+             // Guardian -> Fallen
+             const t = (scrollProgress - 0.3) / 0.3;
+             angelGroup.position.x = THREE.MathUtils.lerp(2, -2, t);
+             angelGroup.rotation.y = THREE.MathUtils.lerp(-0.5, 0.5, t);
+             angelGroup.rotation.x = THREE.MathUtils.lerp(0, 0.2, t);
+        } else {
+             // Fallen -> CTA
+             const t = (scrollProgress - 0.6) / 0.4;
+             angelGroup.position.x = THREE.MathUtils.lerp(-2, 0, t);
+             angelGroup.position.y += THREE.MathUtils.lerp(0, 1, t); // Fly up
+             angelGroup.position.z = THREE.MathUtils.lerp(0, 2, t); // Come closer
+             angelGroup.rotation.y = THREE.MathUtils.lerp(0.5, 0, t);
+             angelGroup.rotation.x = THREE.MathUtils.lerp(0.2, -0.2, t);
+        }
+
+        // Camera Logic (Subtle movement)
+        camera.position.y = scrollProgress * 2; // Camera rises too
+
+        // C. RENDER
+        // renderer.render(scene, camera); // Standard
+        composer.render(); // Bloom
     }
 
     animate();
 
-    // --- 5. SCROLL INTERACTIONS ---
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const scrollPercent = scrollY / (document.body.scrollHeight - windowHeight);
-      
-      // Camera Move: Ascend and Zoom out
-      camera.position.y = scrollY * 0.005;
-      camera.position.z = 5 + scrollY * 0.005;
-      
-      // Angel Transformation: Rotate faster on scroll
-      angelGroup.rotation.x = scrollY * 0.002;
-      angelGroup.rotation.z = scrollY * 0.001;
-      
-      // Reveal Text Sections
-      document.querySelectorAll('.scroll-reveal').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < windowHeight * 0.75) {
-          el.classList.add('visible');
-        }
-      });
+    // --- 8. RESIZE ---
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // --- 6. RESIZE HANDLER ---
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-    
-    // --- 7. REMOVE LOADING SCREEN ---
+    // --- 9. HIDE LOADER ---
     setTimeout(() => {
-        loadingScreen.style.opacity = '0';
+        document.getElementById('loading-screen').style.opacity = 0;
         setTimeout(() => {
-            loadingScreen.style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'none';
         }, 1000);
-    }, 1500);
+    }, 2000);
 
   });
 </script>
