@@ -1,10 +1,29 @@
 {% schema %}
 {
-  "name": "Angel 3D Scene Enhanced",
+  "name": "Angel 3D Scene Real",
   "settings": [
     {
       "type": "header",
-      "content": "3D Scene Settings"
+      "content": "Model Settings"
+    },
+    {
+      "type": "text",
+      "id": "model_url",
+      "label": "3D Model URL (.glb)",
+      "info": "Upload your .glb file to Shopify Files and paste the URL here. If empty, a placeholder cube will be shown."
+    },
+    {
+      "type": "range",
+      "id": "model_scale",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "label": "Model Scale",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Scene Appearance"
     },
     {
       "type": "color",
@@ -14,20 +33,23 @@
     },
     {
       "type": "color",
-      "id": "angel_core_color",
-      "label": "Angel Core Color",
-      "default": "#ffffff"
+      "id": "light_color",
+      "label": "Light Color",
+      "default": "#fab320"
     },
     {
-      "type": "color",
-      "id": "angel_glow_color",
-      "label": "Angel Glow Color",
-      "default": "#fab320"
+      "type": "range",
+      "id": "bloom_strength",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "label": "Glow/Bloom Strength",
+      "default": 1.5
     }
   ],
   "presets": [
     {
-      "name": "Angel 3D Scene Enhanced"
+      "name": "Angel 3D Scene Real"
     }
   ]
 }
@@ -82,12 +104,6 @@
   <section class="scroll-section" id="section-cta">
     <div class="content-block center">
       <h2 class="section-title">OWN THE LEGEND</h2>
-      <div class="product-highlight">
-        <div class="product-placeholder">
-           <!-- Placeholder for product image if needed -->
-           <div class="circle-glow"></div>
-        </div>
-      </div>
       <a href="/collections/all" class="cta-button">EXPLORE COLLECTION</a>
     </div>
   </section>
@@ -97,7 +113,7 @@
 <!-- Loading Screen -->
 <div id="loading-screen">
   <div class="loader-content">
-    <div class="loader-text">SUMMONING ANGEL</div>
+    <div class="loader-text">SUMMONING ANGEL...</div>
     <div class="loader-bar"><div class="loader-progress"></div></div>
   </div>
 </div>
@@ -109,13 +125,11 @@
     padding: 0;
     overflow-x: hidden;
     background-color: {{ section.settings.bg_color }};
-    font-family: 'Futura', 'Helvetica Neue', Arial, sans-serif; /* Industrial vibe */
+    font-family: 'Futura', 'Helvetica Neue', Arial, sans-serif;
   }
   
-  /* Hide Theme Elements - RESTORED */
-  /* #shopify-section-header, #shopify-section-footer, .announcement-bar {
-    display: none !important;
-  } */
+  /* Hide Header/Footer initially restored, can be toggled via CSS if needed 
+     For now we keep them VISIBLE as requested */
 
   /* 3D Container */
   #angel-3d-container {
@@ -125,7 +139,7 @@
     width: 100%;
     height: 100vh;
     z-index: 1;
-    pointer-events: none; /* Let clicks pass through to content if needed, but usually content is on top */
+    pointer-events: none;
   }
 
   /* Content Layer */
@@ -143,7 +157,6 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Border for debug: border-bottom: 1px solid rgba(255,255,255,0.1); */
   }
 
   /* Content Blocks */
@@ -151,7 +164,7 @@
     max-width: 600px;
     padding: 40px;
     color: #fff;
-    opacity: 0; /* Hidden by default, revealed by scroll logic */
+    opacity: 0;
     transform: translateY(30px);
     transition: all 1s ease-out;
   }
@@ -177,7 +190,7 @@
   .subtitle {
     font-size: 1.2rem;
     letter-spacing: 0.1em;
-    color: var(--helios-text-muted, #888);
+    color: #888;
     text-transform: uppercase;
   }
 
@@ -187,7 +200,7 @@
     letter-spacing: 0.15em;
     margin-bottom: 20px;
     color: #fff;
-    border-bottom: 2px solid {{ section.settings.angel_glow_color }};
+    border-bottom: 2px solid {{ section.settings.light_color }};
     display: inline-block;
     padding-bottom: 10px;
   }
@@ -203,8 +216,8 @@
   .cta-button {
     display: inline-block;
     padding: 15px 40px;
-    border: 1px solid {{ section.settings.angel_glow_color }};
-    color: {{ section.settings.angel_glow_color }};
+    border: 1px solid {{ section.settings.light_color }};
+    color: {{ section.settings.light_color }};
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -216,9 +229,9 @@
   }
   
   .cta-button:hover {
-    background: {{ section.settings.angel_glow_color }};
+    background: {{ section.settings.light_color }};
     color: #000;
-    box-shadow: 0 0 20px {{ section.settings.angel_glow_color }};
+    box-shadow: 0 0 20px {{ section.settings.light_color }};
   }
 
   /* Scroll Indicator */
@@ -258,7 +271,7 @@
   }
   
   .loader-text {
-    color: {{ section.settings.angel_glow_color }};
+    color: {{ section.settings.light_color }};
     letter-spacing: 2px;
     margin-bottom: 10px;
     font-family: monospace;
@@ -278,12 +291,8 @@
     left: 0;
     height: 100%;
     width: 0%;
-    background: {{ section.settings.angel_glow_color }};
-    animation: loadProgress 2s ease-out forwards;
-  }
-
-  @keyframes loadProgress {
-    to { width: 100%; }
+    background: {{ section.settings.light_color }};
+    transition: width 0.2s;
   }
 
   /* Mobile Adjustments */
@@ -293,7 +302,7 @@
     .content-block.left, .content-block.right { 
       margin: 0 auto; 
       text-align: center;
-      background: rgba(0,0,0,0.5); /* Backdrop for readability */
+      background: rgba(0,0,0,0.5);
       backdrop-filter: blur(5px);
     }
   }
@@ -301,7 +310,9 @@
 
 <!-- THREE.JS IMPORTS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<!-- Post Processing required for bloom -->
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+<!-- Post Processing -->
 <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
 <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
 <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
@@ -313,255 +324,213 @@
   document.addEventListener('DOMContentLoaded', () => {
     // CONFIGURATION
     const CONFIG = {
+      modelUrl: "{{ section.settings.model_url }}",
+      modelScale: {{ section.settings.model_scale }},
       bgColor: {{ section.settings.bg_color | json }},
-      coreColor: {{ section.settings.angel_core_color | json }},
-      glowColor: {{ section.settings.angel_glow_color | json }},
-      wingParticles: 3000,
-      flightSpeed: 0.001
+      lightColor: {{ section.settings.light_color | json }},
+      bloomStrength: {{ section.settings.bloom_strength }}
     };
 
-    // --- 1. SETUP SCENE ---
+    // SETUP SCENE
     const container = document.getElementById('angel-3d-container');
+    const loadingBar = document.querySelector('.loader-progress');
+    const loadingScreen = document.getElementById('loading-screen');
+    
+    // Create Scene with matching background
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(CONFIG.bgColor, 0.0035); // Atmospheric fog
+    scene.background = new THREE.Color(CONFIG.bgColor);
+    scene.fog = new THREE.FogExp2(CONFIG.bgColor, 0.0035);
 
+    // Camera
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    // Initial Camera Position
     camera.position.set(0, 0, 8);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ReinhardToneMapping;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.shadowMap.enabled = true;
     container.appendChild(renderer.domElement);
 
-    // --- 2. THE ANGEL ---
-    const angelGroup = new THREE.Group();
-    scene.add(angelGroup);
-
-    // A. The Body (Abstract Geometric)
-    const bodyGroup = new THREE.Group();
-    angelGroup.add(bodyGroup);
-
-    // Head
-    const headGeo = new THREE.SphereGeometry(0.3, 32, 32);
-    const headMat = new THREE.MeshStandardMaterial({
-      color: CONFIG.coreColor,
-      emissive: CONFIG.glowColor,
-      emissiveIntensity: 0.5,
-      roughness: 0.2,
-      metalness: 1.0
-    });
-    const head = new THREE.Mesh(headGeo, headMat);
-    head.position.y = 1.2;
-    bodyGroup.add(head);
-
-    // Halo (Ring)
-    const haloGeo = new THREE.TorusGeometry(0.5, 0.02, 16, 100);
-    const haloMat = new THREE.MeshBasicMaterial({ color: CONFIG.glowColor });
-    const halo = new THREE.Mesh(haloGeo, haloMat);
-    halo.rotation.x = Math.PI / 2;
-    halo.position.y = 1.7;
-    bodyGroup.add(halo);
-
-    // Torso (Cone/Crystals)
-    const torsoGeo = new THREE.ConeGeometry(0.4, 2, 6); // Hexagonal cone
-    const torsoMat = new THREE.MeshStandardMaterial({
-      color: 0x333333,
-      roughness: 0.1,
-      metalness: 0.9,
-      flatShading: true
-    });
-    const torso = new THREE.Mesh(torsoGeo, torsoMat);
-    bodyGroup.add(torso);
-
-    // B. The Wings (Particles)
-    // We create two wing shapes using math functions
-    const wingGeo = new THREE.BufferGeometry();
-    const wingPositions = [];
-    const wingSpeeds = []; // For individual particle flutter
-
-    for (let i = 0; i < CONFIG.wingParticles; i++) {
-        // Create a wing shape distribution
-        // X: spread out, Y: curve up, Z: thicknes
-        const t = Math.random();
-        const side = Math.random() > 0.5 ? 1 : -1; // Left or Right wing
-        
-        // Wing shape math approximation
-        const x = side * (0.5 + t * 4); // Length 0.5 to 4.5
-        const y = Math.pow(t, 2) * 3 + (Math.random() - 0.5) * 1; // Curve up
-        const z = (Math.random() - 0.5) * 0.5; // Thickness
-
-        wingPositions.push(x, y, z);
-        wingSpeeds.push(Math.random() * 0.02 + 0.01);
-    }
-
-    wingGeo.setAttribute('position', new THREE.Float32BufferAttribute(wingPositions, 3));
-    wingGeo.setAttribute('speed', new THREE.Float32BufferAttribute(wingSpeeds, 1));
-
-    const wingMat = new THREE.PointsMaterial({
-        color: CONFIG.glowColor,
-        size: 0.04,
-        transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-    });
-
-    const wings = new THREE.Points(wingGeo, wingMat);
-    wings.position.y = 0.5; // Attach to upper back
-    angelGroup.add(wings);
-
-    // --- 3. LIGHTING ---
-    // Ambient
-    scene.add(new THREE.AmbientLight(0x111111));
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
     
-    // Angel's inner glow
-    const angelLight = new THREE.PointLight(CONFIG.glowColor, 2, 10);
-    angelLight.position.set(0, 1, 0);
-    angelGroup.add(angelLight);
+    const spotLight = new THREE.SpotLight(CONFIG.lightColor, 2);
+    spotLight.position.set(5, 10, 5);
+    spotLight.castShadow = true;
+    scene.add(spotLight);
+    
+    const backLight = new THREE.PointLight(0x0044ff, 1.5);
+    backLight.position.set(-5, 0, -5);
+    scene.add(backLight);
 
-    // Environmental Lights
-    const blueLight = new THREE.PointLight(0x0044ff, 1, 20);
-    blueLight.position.set(5, 5, 5);
-    scene.add(blueLight);
-
-    const orangeLight = new THREE.PointLight(0xffaa00, 1, 20);
-    orangeLight.position.set(-5, -5, 5);
-    scene.add(orangeLight);
-
-    // --- 4. POST PROCESSING (BLOOM) ---
+    // Post Processing
     const renderScene = new THREE.RenderPass(scene, camera);
     const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
-    bloomPass.threshold = 0;
-    bloomPass.strength = 1.2; // Intense glow
+    bloomPass.threshold = 0.1;
+    bloomPass.strength = CONFIG.bloomStrength;
     bloomPass.radius = 0.5;
 
     const composer = new THREE.EffectComposer(renderer);
     composer.addPass(renderScene);
     composer.addPass(bloomPass);
 
-    // --- 5. ANIMATION STATE ---
-    let time = 0;
-    const initialY = angelGroup.position.y;
+    // LOAD MODEL
+    const loader = new THREE.GLTFLoader();
     
-    // Scroll progress (0 to 1)
-    let scrollProgress = 0;
-    let targetScrollProgress = 0;
+    // Optional: Setup Draco if your models are compressed
+    const dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+    loader.setDRACOLoader(dracoLoader);
 
-    // --- 6. SCROLL LISTENER ---
-    function updateScroll() {
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollTop = window.scrollY;
-        targetScrollProgress = Math.max(0, Math.min(1, scrollTop / docHeight));
+    let angelModel = null;
+    let mixer = null;
+    let clock = new THREE.Clock();
 
-        // Reveal text blocks logic
-        document.querySelectorAll('.content-block').forEach((block) => {
-            const rect = block.getBoundingClientRect();
-            // If element is in view (roughly middle of screen)
-            if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
-                block.classList.add('visible');
-            }
-        });
+    function onModelLoaded(gltf) {
+      angelModel = gltf.scene;
+      angelModel.scale.set(CONFIG.modelScale, CONFIG.modelScale, CONFIG.modelScale);
+      
+      // Center the model roughly
+      const box = new THREE.Box3().setFromObject(angelModel);
+      const center = box.getCenter(new THREE.Vector3());
+      angelModel.position.x += (angelModel.position.x - center.x);
+      angelModel.position.y += (angelModel.position.y - center.y);
+      angelModel.position.z += (angelModel.position.z - center.z);
+      
+      // Shadow setup
+      angelModel.traverse((node) => {
+        if (node.isMesh) {
+          node.castShadow = true;
+          node.receiveShadow = true;
+          // Add emissive material if texturing isn't strong enough
+          if (node.material) {
+             node.material.envMapIntensity = 1;
+          }
+        }
+      });
+
+      scene.add(angelModel);
+
+      // Animation Mixer
+      if (gltf.animations && gltf.animations.length > 0) {
+        mixer = new THREE.AnimationMixer(angelModel);
+        // Play all animations or the first one
+        const action = mixer.clipAction(gltf.animations[0]);
+        action.play();
+      }
+
+      hideLoader();
     }
-    window.addEventListener('scroll', updateScroll);
-    updateScroll(); // Check initially
 
-    // --- 7. RENDER LOOP ---
+    if (CONFIG.modelUrl && CONFIG.modelUrl !== "") {
+      loader.load(
+        CONFIG.modelUrl,
+        onModelLoaded,
+        (xhr) => {
+           // Progress
+           const percent = (xhr.loaded / xhr.total) * 100;
+           loadingBar.style.width = percent + '%';
+        },
+        (error) => {
+           console.error('An error happened', error);
+           createPlaceholder();
+           hideLoader();
+        }
+      );
+    } else {
+      console.log('No model URL provided, using placeholder.');
+      createPlaceholder();
+      hideLoader();
+    }
+
+    function createPlaceholder() {
+      // Fallback Cube/Placeholder if no model
+      const geometry = new THREE.IcosahedronGeometry(1, 1);
+      const material = new THREE.MeshStandardMaterial({ 
+        color: CONFIG.lightColor, 
+        wireframe: true,
+        emissive: 0x222222
+      });
+      angelModel = new THREE.Mesh(geometry, material);
+      scene.add(angelModel);
+    }
+
+    function hideLoader() {
+      loadingScreen.style.opacity = 0;
+      setTimeout(() => { loadingScreen.style.display = 'none'; }, 1000);
+    }
+
+    // SCROLL ANIMATION VARS
+    let scrollProgress = 0;
+    
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress = Math.max(0, Math.min(1, window.scrollY / docHeight));
+      
+      // Reveal text
+      document.querySelectorAll('.content-block').forEach((block) => {
+        const rect = block.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
+          block.classList.add('visible');
+        }
+      });
+    });
+
+    // RENDER LOOP
     function animate() {
-        requestAnimationFrame(animate);
-        time += 0.01;
+      requestAnimationFrame(animate);
+      
+      const delta = clock.getDelta();
+      if (mixer) mixer.update(delta);
 
-        // Smooth scroll interpolation
-        scrollProgress += (targetScrollProgress - scrollProgress) * 0.05;
-
-        // A. ANGEL ANIMATION (IDLE)
-        // Hover
-        angelGroup.position.y = Math.sin(time) * 0.2;
-        // Halo spin
-        halo.rotation.z -= 0.01;
-        halo.rotation.x = (Math.PI / 2) + Math.sin(time * 0.5) * 0.1;
-
-        // Wing Flap (Procedural vertex animation)
-        const pos = wings.geometry.attributes.position.array;
-        
-        for(let i = 0; i < CONFIG.wingParticles; i++) {
-            // Original Y is roughly stored relative to rest pose.
-            // We apply a sine wave modification based on X distance from center
-            const x = pos[i * 3];
-            const yOriginal = pos[i * 3 + 1]; // This is mutated, creates drift. Ideally should use original buffer.
-            
-            // Re-calculate Y based on X to avoid drift, adding flap
-            // Simplified flap: Rotate point around Z axis based on X distance
-            const flapSpeed = 5;
-            const flapAmp = (Math.abs(x) * 0.2) * Math.sin(time * flapSpeed);
-            
-            // Apply visual flutter
-            // Note: In a real shader this is cheaper. Here we do CPU for compatibility without external shader files.
-            // For CPU, simple wobble is safer than full re-calc to avoid memory thrashing.
-            // Just wiggle Y slightly for "energy" effect
-            pos[i * 3 + 1] += (Math.random() - 0.5) * 0.01; 
+      if (angelModel) {
+        // Idle Motion
+        if (!mixer) {
+              angelModel.rotation.y += 0.005;
+             angelModel.position.y += Math.sin(clock.getElapsedTime()) * 0.002;
         }
-        wings.geometry.attributes.position.needsUpdate = true;
-        
-        // Wing Group Rotation (Big Flap)
-        wings.rotation.x = Math.sin(time * 5) * 0.2; 
 
-        // B. SCROLL-BASED FLIGHT PATH
-        // We map scrollProgress (0-1) to Angel position & rotation
+        // SCROLL PATH LOGIC
+        // Map 0 -> 1 scroll to position curve
+        // Start: Center (0,0,0)
+        // Mid: Left (-2, 0, 0)
+        // End: Up/Center (0, 2, 2)
         
-        // 0.0 (Hero): Center
-        // 0.3 (Guardian): Move Left, Rotate Right
-        // 0.6 (Fallen): Move Right, Tilt Down
-        // 1.0 (CTA): Center, Zoom Close, Ascend
-
-        // Position Logic (Linear handling for smoothness)
-        if (scrollProgress < 0.3) {
-             // Hero -> Guardian
-             const t = scrollProgress / 0.3;
-             angelGroup.position.x = THREE.MathUtils.lerp(0, 2, t);
-             angelGroup.rotation.y = THREE.MathUtils.lerp(0, -0.5, t);
-        } else if (scrollProgress < 0.6) {
-             // Guardian -> Fallen
-             const t = (scrollProgress - 0.3) / 0.3;
-             angelGroup.position.x = THREE.MathUtils.lerp(2, -2, t);
-             angelGroup.rotation.y = THREE.MathUtils.lerp(-0.5, 0.5, t);
-             angelGroup.rotation.x = THREE.MathUtils.lerp(0, 0.2, t);
+        const t = scrollProgress;
+        
+        // Simple interpolation
+        if (t < 0.5) {
+          // 0 to 0.5: Move Left & Rotate
+          const phase = t * 2; // 0 to 1
+          angelModel.position.x = THREE.MathUtils.lerp(0, 2, phase);
+          angelModel.rotation.y = THREE.MathUtils.lerp(0, -0.5, phase) + (mixer ? 0 : clock.getElapsedTime()*0.5);
         } else {
-             // Fallen -> CTA
-             const t = (scrollProgress - 0.6) / 0.4;
-             angelGroup.position.x = THREE.MathUtils.lerp(-2, 0, t);
-             angelGroup.position.y += THREE.MathUtils.lerp(0, 1, t); // Fly up
-             angelGroup.position.z = THREE.MathUtils.lerp(0, 2, t); // Come closer
-             angelGroup.rotation.y = THREE.MathUtils.lerp(0.5, 0, t);
-             angelGroup.rotation.x = THREE.MathUtils.lerp(0.2, -0.2, t);
+          // 0.5 to 1: Move Right -> Center -> Up
+          const phase = (t - 0.5) * 2; // 0 to 1
+          angelModel.position.x = THREE.MathUtils.lerp(2, 0, phase);
+          angelModel.position.y = THREE.MathUtils.lerp(0, 2, phase);
+          angelModel.position.z = THREE.MathUtils.lerp(0, 3, phase);
+          angelModel.rotation.x = THREE.MathUtils.lerp(0, 0.2, phase);
         }
+        
+        // Camera also moves slightly
+        camera.position.y = t * 1;
+      }
 
-        // Camera Logic (Subtle movement)
-        camera.position.y = scrollProgress * 2; // Camera rises too
-
-        // C. RENDER
-        // renderer.render(scene, camera); // Standard
-        composer.render(); // Bloom
+      composer.render();
     }
 
     animate();
 
-    // --- 8. RESIZE ---
     window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        composer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
     });
-
-    // --- 9. HIDE LOADER ---
-    setTimeout(() => {
-        document.getElementById('loading-screen').style.opacity = 0;
-        setTimeout(() => {
-            document.getElementById('loading-screen').style.display = 'none';
-        }, 1000);
-    }, 2000);
-
   });
 </script>
