@@ -7,11 +7,8 @@
 
 {% if customer %}
   {% comment %} Tính total_spent {% endcomment %}
-  {% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
-    {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
-  {% else %}
-    {% assign total_spent = customer.total_spent | divided_by: 100 %}
-  {% endif %}
+  {% comment %} Tính total_spent {% endcomment %}
+  {% assign total_spent = customer.total_spent | divided_by: 100 %}
   
   {% comment %} Xác định discount code từ settings {% endcomment %}
   {% liquid
@@ -66,18 +63,18 @@
     comment Nếu chưa có tier từ tags, dùng total_spent
     endcomment
     if customer_tier_name == ""
-      if total_spent >= tier_1_threshold
-        assign customer_tier_name = tier_1_name
-      elsif total_spent >= tier_2_threshold
-        assign customer_tier_name = tier_2_name
-      elsif total_spent >= tier_3_threshold
-        assign customer_tier_name = tier_3_name
-      elsif total_spent >= tier_4_threshold
-        assign customer_tier_name = tier_4_name
-      elsif total_spent >= tier_5_threshold
-        assign customer_tier_name = tier_5_name
-      else
+      if total_spent < 250
         assign customer_tier_name = tier_6_name
+      elsif total_spent >= 250 and total_spent < 500
+        assign customer_tier_name = tier_1_name
+      elsif total_spent >= 500 and total_spent < 2000
+        assign customer_tier_name = tier_2_name
+      elsif total_spent >= 2000 and total_spent < 5000
+        assign customer_tier_name = tier_3_name
+      elsif total_spent >= 5000 and total_spent < 10000
+        assign customer_tier_name = tier_4_name
+      else
+        assign customer_tier_name = tier_5_name
       endif
     endif
   %}

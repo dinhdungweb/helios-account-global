@@ -21,7 +21,7 @@
           </div>
           <div class="points-stat">
             <span class="points-stat-label">Exchange Rate</span>
-            <span class="points-stat-info">1,000 points = 10,000 VND</span>
+            <span class="points-stat-info">1,000 points = $10</span>
           </div>
         </div>
       </div>
@@ -34,33 +34,33 @@
           
           <div class="exchange-grid">
             <label class="exchange-card">
-              <input type="radio" name="discount_value" value="50000" checked>
+              <input type="radio" name="discount_value" value="50" checked>
               <div class="exchange-card-inner">
-                <span class="card-amount">50.000 VND</span>
+                <span class="card-amount">$50</span>
                 <span class="card-points">5,000 points</span>
               </div>
             </label>
             
             <label class="exchange-card">
-              <input type="radio" name="discount_value" value="100000">
+              <input type="radio" name="discount_value" value="100">
               <div class="exchange-card-inner">
-                <span class="card-amount">100.000 VND</span>
+                <span class="card-amount">$100</span>
                 <span class="card-points">10,000 points</span>
               </div>
             </label>
             
             <label class="exchange-card {% if points < 20000 %}is-locked{% endif %}">
-              <input type="radio" name="discount_value" value="200000" {% if points < 20000 %}disabled{% endif %}>
+              <input type="radio" name="discount_value" value="200" {% if points < 20000 %}disabled{% endif %}>
               <div class="exchange-card-inner">
-                <span class="card-amount">200.000 VND</span>
+                <span class="card-amount">$200</span>
                 <span class="card-points">20,000 points</span>
               </div>
             </label>
             
             <label class="exchange-card {% if points < 50000 %}is-locked{% endif %}">
-              <input type="radio" name="discount_value" value="500000" {% if points < 50000 %}disabled{% endif %}>
+              <input type="radio" name="discount_value" value="500" {% if points < 50000 %}disabled{% endif %}>
               <div class="exchange-card-inner">
-                <span class="card-amount">500.000 VND</span>
+                <span class="card-amount">$500</span>
                 <span class="card-points">50,000 points</span>
               </div>
             </label>
@@ -764,7 +764,7 @@
             <div class="discount-code">${data.discount_code}</div>
             <div class="detail-row">
               <span class="detail-label">Value</span>
-              <span class="detail-value">${parseInt(discountValue).toLocaleString()} VND</span>
+              <span class="detail-value">$${parseInt(discountValue).toLocaleString()}</span>
             </div>
             <div class="detail-row">
               <span class="detail-label">Points used</span>
@@ -811,7 +811,7 @@
             <td data-label="Date">${new Date(item.date).toLocaleDateString('en-GB')}</td>
             <td data-label="Points">-${formatNumber(item.points_used)}</td>
             <td data-label="Code"><code>${item.discount_code}</code></td>
-            <td data-label="Value">${formatNumber(item.amount_vnd)} VND</td>
+            <td data-label="Value">$${formatNumber(item.amount_vnd)}</td>
           </tr>
         `).join('');
         

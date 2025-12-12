@@ -98,7 +98,7 @@
       if (typeof theme !== 'undefined' && theme.Shopify && theme.Shopify.formatMoney) {
         return theme.Shopify.formatMoney(cents, theme.money_format_with_code_preference || theme.money_format);
       }
-      return new Intl.NumberFormat('vi-VN').format(cents / 100) + ' VND';
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100);
     };
     
     const tierSlug = tierInfo.tier.toLowerCase().replace(/\s+/g, '-');

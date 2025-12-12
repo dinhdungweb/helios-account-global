@@ -176,11 +176,7 @@
             assign total_spent = 0
             
             if tier_enabled and customer
-              if use_custom_metafield and customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0
-                assign total_spent = customer.metafields.custom.total_spent | plus: 0
-              else
-                assign total_spent = customer.total_spent | divided_by: 100
-              endif
+              assign total_spent = customer.total_spent | divided_by: 100
               
               if prioritize_tags
                 if customer.tags contains tier_1_tag
@@ -207,29 +203,29 @@
               endif
               
               unless has_tier
-                if total_spent >= tier_1_threshold
+                if total_spent < 250
+                  assign tier_discount_percent = tier_6_discount
+                  assign customer_tier = tier_6_name
+                  assign has_tier = true
+                elsif total_spent >= 250 and total_spent < 500
                   assign tier_discount_percent = tier_1_discount
                   assign customer_tier = tier_1_name
                   assign has_tier = true
-                elsif total_spent >= tier_2_threshold
+                elsif total_spent >= 500 and total_spent < 2000
                   assign tier_discount_percent = tier_2_discount
                   assign customer_tier = tier_2_name
                   assign has_tier = true
-                elsif total_spent >= tier_3_threshold
+                elsif total_spent >= 2000 and total_spent < 5000
                   assign tier_discount_percent = tier_3_discount
                   assign customer_tier = tier_3_name
                   assign has_tier = true
-                elsif total_spent >= tier_4_threshold
+                elsif total_spent >= 5000 and total_spent < 10000
                   assign tier_discount_percent = tier_4_discount
                   assign customer_tier = tier_4_name
                   assign has_tier = true
-                elsif total_spent >= tier_5_threshold
+                else
                   assign tier_discount_percent = tier_5_discount
                   assign customer_tier = tier_5_name
-                  assign has_tier = true
-                else
-                  assign tier_discount_percent = tier_6_discount
-                  assign customer_tier = tier_6_name
                   assign has_tier = true
                 endif
               endunless
