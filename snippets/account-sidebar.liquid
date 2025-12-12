@@ -4,33 +4,21 @@
       <div class="customer-info-name flex align-center">
         <div class="customer-avatar"></div>
         <div class="customer-name-email">
-          <div>Xin chào, <strong>{{ customer.name }}</strong></div>
+          <div>Hello, <strong>{{ customer.name }}</strong></div>
           <div class="text-ellipsis">{{ customer.email }}</div>
         </div>
       </div> 
-      <a href="{{ routes.account_logout_url }}" class="logout-button">Đăng xuất</a>
+      <a href="{{ routes.account_logout_url }}" class="logout-button">Logout</a>
     </div>
     <div class="customer-total-spent flex justify-between align-center mt-14 mb-5">
-      <div>Tổng chi tiêu: </div>
+      <div>Total spent: </div>
       <div>
-        {% assign formatted_total_spent = total_spent | floor | split: '' | reverse %}
-        {% assign formatted_number = '' %}
-        
-        {% for digit in formatted_total_spent %}
-          {% assign remainder = forloop.index0 | modulo: 3 %}
-          {% if remainder == 0 and forloop.index0 != 0 %}
-            {% assign formatted_number = formatted_number | append: '.' %}
-          {% endif %}
-          {% assign formatted_number = formatted_number | append: digit %}
-        {% endfor %}
-        
-        {% assign formatted_number = formatted_number | split: '' | reverse | join: '' %}
-        <strong>{{ formatted_number }} VND</strong>
+        <strong>${{ total_spent | number_with_delimiter: ',' }}</strong>
       </div>
     </div>
     <div class="customer-tier flex justify-between align-center mb-14">
-      <div>Hạng — <strong>{{ tier }}</strong></div>
-      <div>Điểm — <strong>{{ points }}</strong></div>
+      <div>Tier — <strong>{{ tier }}</strong></div>
+      <div>Points — <strong>{{ points }}</strong></div>
     </div>
     <div class="progress-container">
       <div class="progress-bar">
@@ -38,22 +26,9 @@
       </div>
       <p class="progress-status">
         {% if tier == "BLACK DIAMOND" %}
-          Bạn đã đạt hạng cao nhất!
+          You have reached the highest tier!
         {% else %}
-          {% assign formatted_remaining_amount = remaining_amount | floor | split: '' | reverse %}
-          {% assign formatted_remaining = '' %}
-          
-          {% for digit in formatted_remaining_amount %}
-            {% assign remainder = forloop.index0 | modulo: 3 %}
-            {% if remainder == 0 and forloop.index0 != 0 %}
-              {% assign formatted_remaining = formatted_remaining | append: '.' %}
-            {% endif %}
-            {% assign formatted_remaining = formatted_remaining | append: digit %}
-          {% endfor %}
-          
-          {% assign formatted_remaining = formatted_remaining | split: '' | reverse | join: '' %}
-
-          Cần tiêu thêm <strong>{{ formatted_remaining }} VND</strong> để lên hạng <strong>{{ next_tier }}</strong>.
+          Spend <strong>${{ remaining_amount | number_with_delimiter: ',' }}</strong> more to reach <strong>{{ next_tier }}</strong>.
         {% endif %}
       </p>
     </div>
@@ -61,8 +36,8 @@
   </div>
   <ul class="account-tabs">
     <li class="tab-link active" data-tab="rewards">Welcome to Helios</li>
-    <li class="tab-link" data-tab="account">Tài khoản</li>
-    <li class="tab-link" data-tab="orders">Đơn hàng</li>
+    <li class="tab-link" data-tab="account">Account</li>
+    <li class="tab-link" data-tab="orders">Orders</li>
     <li class="tab-link" data-tab="benefits">Benefits / Promos</li>
     <li class="tab-link" data-tab="discord">Helios Club</li>
     

@@ -22,22 +22,13 @@
       <div class="hero-stats-container">
         <div class="hero-stats-grid">
           <div class="stat-item">
-            <span class="stat-label">Tổng chi tiêu</span>
+            <span class="stat-label">Total Spent</span>
             <span class="stat-value">
-                {% assign formatted_total_spent = total_spent | floor | split: '' | reverse %}
-                {% assign formatted_number = '' %}
-                {% for digit in formatted_total_spent %}
-                  {% assign remainder = forloop.index0 | modulo: 3 %}
-                  {% if remainder == 0 and forloop.index0 != 0 %}
-                    {% assign formatted_number = formatted_number | append: '.' %}
-                  {% endif %}
-                  {% assign formatted_number = formatted_number | append: digit %}
-                {% endfor %}
-                {{ formatted_number | split: '' | reverse | join: '' }} VND
+                ${{ total_spent | number_with_delimiter: ',' }}
             </span>
           </div>
           <div class="stat-item">
-             <span class="stat-label">Điểm thưởng</span>
+             <span class="stat-label">Rewards Points</span>
              {%- assign formatted_points = points | floor | split: '' | reverse -%}
              {%- assign formatted_points_str = '' -%}
              {%- for digit in formatted_points -%}
@@ -53,7 +44,7 @@
 
         <div class="hero-progress-wrapper">
           <div class="progress-info">
-             <span>Tiến trình thăng hạng</span>
+             <span>Tier Progress</span>
              <span>{{ progress_percentage }}%</span>
           </div>
           <div class="hero-progress-bar">
@@ -61,18 +52,9 @@
           </div>
           <p class="hero-next-tier-msg">
             {% if tier == "BLACK DIAMOND" %}
-              Bạn đã đạt hạng cao nhất!
+              You have reached the highest tier!
             {% else %}
-               {% assign formatted_remaining_amount = remaining_amount | floor | split: '' | reverse %}
-               {% assign formatted_remaining = '' %}
-               {% for digit in formatted_remaining_amount %}
-                 {% assign remainder = forloop.index0 | modulo: 3 %}
-                 {% if remainder == 0 and forloop.index0 != 0 %}
-                   {% assign formatted_remaining = formatted_remaining | append: '.' %}
-                 {% endif %}
-                 {% assign formatted_remaining = formatted_remaining | append: digit %}
-               {% endfor %}
-               Còn <strong>{{ formatted_remaining | split: '' | reverse | join: '' }} VND</strong> để lên hạng <strong>{{ next_tier }}</strong>
+               Spend <strong>${{ remaining_amount | number_with_delimiter: ',' }}</strong> more to reach <strong>{{ next_tier }}</strong>
             {% endif %}
           </p>
         </div>

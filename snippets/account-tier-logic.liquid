@@ -11,16 +11,12 @@
     - remaining_amount
 {% endcomment %}
 
-{% comment %} Tính tổng chi tiêu {% endcomment %}
-{% if customer.metafields.custom.total_spent != blank and customer.metafields.custom.total_spent != 0 %}
-  {% assign total_spent = customer.metafields.custom.total_spent | plus: 0 %}
-{% else %}
-  {% assign total_spent = customer.total_spent | divided_by: 100 %}
-{% endif %}
+{% comment %} Calculate total spent (Directly from Shopify) {% endcomment %}
+{% assign total_spent = customer.total_spent | divided_by: 100 %}
 
 {% assign points = customer.metafields.rewards.points | default: 0 %}
 
-{% comment %} Kiểm tra tag khách hàng {% endcomment %}
+{% comment %} Check customer tags first (Overrides calculated tier) {% endcomment %}
 {% if customer.tags contains "BLACK DIAMOND" %}
   {% assign tier = "BLACK DIAMOND" %}
   {% assign next_tier = "MAX LEVEL" %}
@@ -28,42 +24,42 @@
 {% elsif customer.tags contains "DIAMOND" %}
   {% assign tier = "DIAMOND" %}
   {% assign next_tier = "BLACK DIAMOND" %}
-  {% assign next_tier_amount = 100000000 %}
+  {% assign next_tier_amount = 10000 %}
 {% elsif customer.tags contains "PLATINUM" %}
   {% assign tier = "PLATINUM" %}
   {% assign next_tier = "DIAMOND" %}
-  {% assign next_tier_amount = 20000000 %}
+  {% assign next_tier_amount = 5000 %}
 {% elsif customer.tags contains "GOLD" %}
   {% assign tier = "GOLD" %}
   {% assign next_tier = "PLATINUM" %}
-  {% assign next_tier_amount = 10000000 %}
+  {% assign next_tier_amount = 2000 %}
 {% elsif customer.tags contains "SILVER" %}
   {% assign tier = "SILVER" %}
   {% assign next_tier = "GOLD" %}
-  {% assign next_tier_amount = 6000000 %}
+  {% assign next_tier_amount = 500 %}
 {% else %}
 
-  {% comment %} Nếu không có tag, xác định cấp bậc bằng tổng tiền đã chi {% endcomment %}
-  {% if total_spent < 3000000 %}
+  {% comment %} If no tag, determine tier by total spent {% endcomment %}
+  {% if total_spent < 250 %}
     {% assign tier = "MEMBER" %}
     {% assign next_tier = "SILVER" %}
-    {% assign next_tier_amount = 3000000 %}
-  {% elsif total_spent >= 3000000 and total_spent < 6000000 %}
+    {% assign next_tier_amount = 250 %}
+  {% elsif total_spent >= 250 and total_spent < 500 %}
     {% assign tier = "SILVER" %}
     {% assign next_tier = "GOLD" %}
-    {% assign next_tier_amount = 6000000 %}
-  {% elsif total_spent >= 6000000 and total_spent < 10000000 %}
+    {% assign next_tier_amount = 500 %}
+  {% elsif total_spent >= 500 and total_spent < 2000 %}
     {% assign tier = "GOLD" %}
     {% assign next_tier = "PLATINUM" %}
-    {% assign next_tier_amount = 10000000 %}
-  {% elsif total_spent >= 10000000 and total_spent < 20000000 %}
+    {% assign next_tier_amount = 2000 %}
+  {% elsif total_spent >= 2000 and total_spent < 5000 %}
     {% assign tier = "PLATINUM" %}
     {% assign next_tier = "DIAMOND" %}
-    {% assign next_tier_amount = 20000000 %}
-  {% elsif total_spent >= 20000000 and total_spent < 100000000 %}
+    {% assign next_tier_amount = 5000 %}
+  {% elsif total_spent >= 5000 and total_spent < 10000 %}
     {% assign tier = "DIAMOND" %}
     {% assign next_tier = "BLACK DIAMOND" %}
-    {% assign next_tier_amount = 100000000 %}
+    {% assign next_tier_amount = 10000 %}
   {% else %}
     {% assign tier = "BLACK DIAMOND" %}
     {% assign next_tier = "MAX LEVEL" %}
@@ -71,6 +67,11 @@
   {% endif %}
 {% endif %}
 
-{% comment %} Tính phần trăm tiến trình {% endcomment %}
-{% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
-{% assign remaining_amount = next_tier_amount | minus: total_spent %}
+{% comment %} Calculate progress percentage {% endcomment %}
+{% if tier == "BLACK DIAMOND" %}
+  {% assign progress_percentage = 100 %}
+  {% assign remaining_amount = 0 %}
+{% else %}
+  {% assign progress_percentage = total_spent | times: 100 | divided_by: next_tier_amount %}
+  {% assign remaining_amount = next_tier_amount | minus: total_spent %}
+{% endif %}
