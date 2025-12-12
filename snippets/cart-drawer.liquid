@@ -4,7 +4,7 @@
       <div class="cart-title">Shopping Cart</div>
       <div class="cart-drawer-header-right">
         <span class="cart-drawer-header-right-items">{{ cart.item_count }} items</span>
-        <button id="btn-close" title="Đóng" class="cart-drawer-header-right-close" type="button">
+        <button id="btn-close" title="Close" class="cart-drawer-header-right-close" type="button">
           {% render 'svg-close' %}
         </button>
       </div>
@@ -12,7 +12,7 @@
 
     {% form 'cart', cart, class: 'cart-drawer-form' %}
       {% if cart.item_count == 0 %}
-        <p class="cart-drawer-empty">Giỏ hàng của bạn đang trống!</p>
+        <p class="cart-drawer-empty">Your cart is empty!</p>
       {% else %}
         <div class="cart-drawer-items">
           {% for item in cart.items %}
@@ -99,7 +99,7 @@
                           {% endfor %}
                       
                           {% if sold_out %}
-                              <button class="add-to-cart-btn product-variant-submit-button" disabled>Hết hàng</button>
+                              <button class="add-to-cart-btn product-variant-submit-button" disabled>Out of stock</button>
                           {% else %}
                               <div class="product-variant-dropdown">
                                   <form class="product-add-to-cart" action="/cart/add" method="post">
@@ -108,7 +108,7 @@
                                               <option value="{{ variant.id }}" {% unless variant.available %}disabled="disabled"{% endunless %}>
                                                   {{ variant.title }}
                                                   {% unless variant.available %}
-                                                      - Hết hàng
+                                                      - Out of stock
                                                   {% endunless %}
                                               </option>
                                           {% endfor %}
@@ -351,12 +351,12 @@
           {% comment %} Show price breakdown {% endcomment %}
           {% if has_tier and tier_discount_percent > 0 %}
             <div class="cart-drawer-footer-row">
-              <h3>Tổng phụ</h3>
+              <h3>Subtotal</h3>
               <span>{{ cart.original_total_price | money }}</span>
             </div>
             <div class="cart-drawer-footer-row">
               {% comment %} Don't show percentage as it may not be accurate with product-specific discounts {% endcomment %}
-              <h3>Giảm giá {{ customer_tier }}</h3>
+              <h3>Discount {{ customer_tier }}</h3>
               <span>- {{ cart_tier_discount | money }}</span>
             </div>
           {% endif %}
@@ -364,18 +364,18 @@
           {% if cart.total_discounts > 0 %}
             {% unless has_tier and tier_discount_percent > 0 %}
               <div class="cart-drawer-footer-row">
-                <h3>Tổng phụ</h3>
+                <h3>Subtotal</h3>
                 <span>{{ cart.original_total_price | money }}</span>
               </div>
             {% endunless %}
             <div class="cart-drawer-footer-row">
-              <h3>Giảm giá khác</h3>
+              <h3>Other discounts</h3>
               <span>- {{ cart.total_discounts | money }}</span>
             </div>
           {% endif %}
           
           <div class="cart-drawer-footer-row">
-            <h3>Tổng cộng</h3>
+            <h3>Total</h3>
             {% if has_tier and tier_discount_percent > 0 %}
               <span>{{ cart_tier_total | money }}</span>
             {% else %}
