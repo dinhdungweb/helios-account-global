@@ -32,10 +32,10 @@
 
                 if (isExpanded) {
                     descriptionContent.classList.remove('expanded');
-                    toggleButton.innerHTML = `<div class="a-bar">Xem thêm <svg class="icon-chevron-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M12 15.6L5.1 8.7 6.5 7.3 12 12.8 17.5 7.3 18.9 8.7z"/></svg></div>`;
+                    toggleButton.innerHTML = `<div class="a-bar">View more <svg class="icon-chevron-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M12 15.6L5.1 8.7 6.5 7.3 12 12.8 17.5 7.3 18.9 8.7z"/></svg></div>`;
                 } else {
                     descriptionContent.classList.add('expanded');
-                    toggleButton.innerHTML = `<div class="a-bar-up">Thu gọn <svg class="icon-chevron-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M12 8.4l6.9 6.9-1.4 1.4L12 11.2 6.5 16.7 5.1 15.3z"/></svg></div>`;
+                    toggleButton.innerHTML = `<div class="a-bar-up">View less <svg class="icon-chevron-up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M12 8.4l6.9 6.9-1.4 1.4L12 11.2 6.5 16.7 5.1 15.3z"/></svg></div>`;
                 }
             });
         }
