@@ -48,21 +48,20 @@
             "variant_style": "underlined",
             "show_realtime_availability": true,
             "show_size_chart": true,
-            "size_chart_variant_ring": "Size, Cỡ",
+            "size_chart_variant_ring": "Size",
             "size_chart_page_ring": "size-chart",
-            "size_chart_variant_bracelet": "Size vòng tay",
+            "size_chart_variant_bracelet": "Bracelet size",
             "size_chart_page_bracelet": "huong-dan-do-size-vong-tay",
-            "size_chart_variant_accessories": "Size áo",
-            "size_chart_page_accessories": "huong-dan-do-size-ao"
+            "size_chart_variant_accessories": "Jacket Size",
+            "size_chart_page_accessories": "jacket-size"
           }
         },
         "inventory_level": {
           "type": "inventory_level",
-          "disabled": true,
           "settings": {
             "inventory_threshold": 10,
             "show_inventory_notice": "low",
-            "show_inventory_count": "never",
+            "show_inventory_count": "low",
             "show_inventory_indicator_bar": true,
             "col_indicator_below": "#dd9a1a",
             "col_indicator_above": "#108043"
@@ -74,85 +73,74 @@
             "show_quantity_selector": true,
             "enable_payment_button": true,
             "show_pickup_availability": false,
-            "enable_mobile_sticky_cart": true,
+            "enable_mobile_sticky_cart": false,
             "show_gift_card_recipient": false
           }
         },
         "complementary_pwBz8L": {
           "type": "complementary",
+          "disabled": true,
           "settings": {
-            "block_heading": "MUA CÙNG SẢN PHẨM",
+            "block_heading": "Ưu đãi khi mua cùng",
             "enable_carousel": true,
             "max_products": 10,
             "show_vendor": false,
             "hide_swatches": false
           }
         },
-        "trust_icons_TyrExf": {
-          "type": "trust_icons",
-          "settings": {
-            "icon_size": 26,
-            "show_icon1": true,
-            "text1": "<p><a href=\"https://helios.vn/pages/chinh-sach-bao-hanh\" title=\"https://helios.vn/pages/chinh-sach-bao-hanh\">Miễn phí đánh sáng trọn đời</a></p>",
-            "icon1": "price_tag",
-            "show_icon2": true,
-            "text2": "<p><a href=\"https://helios.vn/pages/chinh-sach-doi-tra-san-pham\" title=\"https://helios.vn/pages/chinh-sach-doi-tra-san-pham\">Đổi sản phẩm trong vòng 7 ngày với đơn online</a></p>",
-            "icon2": "box",
-            "show_icon3": true,
-            "text3": "<p><a href=\"https://helios.vn/pages/giao-hang\" title=\"https://helios.vn/pages/giao-hang\">Freeship toàn quốc với đơn trên 250.000Đ</a></p>",
-            "icon3": "truck",
-            "show_icon4": false,
-            "text4": "<p>Trust label</p>",
-            "icon4": "check_mark"
-          }
-        },
-        "richtext_3YiAcR": {
+        "richtext_qhyGLp": {
           "type": "richtext",
           "settings": {
-            "text": "{{ product.metafields.custom.short_description | metafield_tag }}"
+            "text": "<p>Different isn’t abnormal — it’s powerful. Helios stands with you. <strong>Own it.</strong></p>"
           }
         },
-        "custom_liquid_FW6ge8": {
+        "custom_liquid_YdC76J": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<a href=\"https://helios.vn/pages/helios-private-call\" style=\"color: #fab320\">ĐĂNG KÝ TƯ VẤN 1:1 ĐỂ TRẢI NGHIỆM TRỰC TIẾP SẢN PHẨM</a>"
+            "custom_liquid": "{% render \"delivery-info\" %}"
           }
         },
-        "text_HiAnXA": {
-          "type": "text",
-          "disabled": true,
+        "richtext_fQjCLU": {
+          "type": "richtext",
           "settings": {
-            "text": "Đối với các kích cỡ ngoại size, chúng tôi cần một thời gian để nghiên cứu, căn chỉnh để đảm bảo chất lượng đầu ra của sản phẩm. Do đó, thời gian pre-order có thể lên tới 12 - 14 ngày!",
-            "text_style": "body"
+            "text": "<p><strong>Craft takes time</strong>. Helios chooses meaning over speed.</p>"
+          }
+        },
+        "image_nhxU6d": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/boxzx-NEW.webp",
+            "image_width": 700,
+            "url": ""
           }
         },
         "accordion_9czNHQ": {
           "type": "accordion",
           "settings": {
-            "icon": "none",
-            "title": "Thông tin thêm",
-            "content": "<p>Đối với các kích cỡ ngoại size, chúng tôi cần một thời gian để nghiên cứu, căn chỉnh để đảm bảo chất lượng đầu ra của sản phẩm. Do đó, thời gian pre-order có thể lên tới 12 - 14 ngày!</p>",
-            "page": "",
+            "icon": "ruler",
+            "title": "SIZE GUIDE",
+            "content": "<p> </p>",
+            "page": "size-chart",
             "open": false
           }
         },
         "accordion_RN6Adz": {
           "type": "accordion",
           "settings": {
-            "icon": "none",
-            "title": "Chính sách bảo hành",
-            "content": "<p>&gt; <a href=\"/pages/chinh-sach-bao-hanh\" target=\"_blank\" title=\"CHÍNH SÁCH BẢO HÀNH\">Chính sách bảo hành</a></p>",
-            "page": "",
+            "icon": "truck",
+            "title": "SHIPPING POLICY",
+            "content": "",
+            "page": "shipping-policy",
             "open": false
           }
         },
         "accordion_WnzprC": {
           "type": "accordion",
           "settings": {
-            "icon": "none",
-            "title": "Hướng dẫn bảo quản sản phẩm",
+            "icon": "return",
+            "title": "RETURN & EXCHANGE",
             "content": "<p>Add the content to appear when the content is expanded</p>",
-            "page": "huong-dan-bao-quan",
+            "page": "return-exchange",
             "open": false
           }
         }
@@ -166,16 +154,13 @@
         "inventory_level",
         "buy_buttons",
         "complementary_pwBz8L",
-        "trust_icons_TyrExf",
-        "richtext_3YiAcR",
-        "custom_liquid_FW6ge8",
-        "text_HiAnXA",
+        "richtext_qhyGLp",
+        "custom_liquid_YdC76J",
+        "richtext_fQjCLU",
+        "image_nhxU6d",
         "accordion_9czNHQ",
         "accordion_RN6Adz",
         "accordion_WnzprC"
-      ],
-      "custom_css": [
-        ".product-detail__gap-lg.product-detail__trust-icons {padding-top: 0;}"
       ],
       "settings": {
         "media_style": "one-column",
@@ -184,7 +169,7 @@
         "show_backorder_text": true,
         "slide_nav_style": "arrows",
         "media_crop": "center",
-        "enable_zoom": false,
+        "enable_zoom": true,
         "zoom_cursor": "plus-light",
         "show_thumbnails": true,
         "enable_video_looping": false,
@@ -205,63 +190,22 @@
       ],
       "settings": {
         "subheading": "",
-        "title": "CÂU CHUYỆN TỪ CHẤT LIỆU TẠO NÊN CÁI NHÌN ĐẦY CHIÊM NGHIỆM",
-        "title_size": 24,
-        "title_width": 22,
-        "text": "<p>Với các dòng trang sức bạc, Helios chọn bạc S925 vì độ bền và thẩm mỹ cao. Qua năm tháng, món đồ giữ dáng, đồng hành cùng chủ nhân ở mọi khoảnh khắc, mọi chặng đường.<br/><br/>Ở các chế tác gắn đá, chúng tôi ưu ái những viên đá có vân sóng và sắc độ tự nhiên khác biệt, để mỗi thiết kế mang một dấu ấn độc bản — không chiếc nào giống chiếc nào.<br/><br/>Lớp xi đen như một “lớp phủ thời gian”, tiết chế hào nhoáng để nổi bật chiều sâu trải nghiệm.<br/>Mỗi hành trình đều lưu lại ký ức cá nhân; và với Helios, chất liệu bền vững chính là hành trang tạo nên một cái nhìn trầm ổn, nam tính.</p>",
-        "button_label": "",
-        "button_link": "",
-        "text_alignment": "left",
-        "text_width": 50,
-        "button_style": "auto",
-        "image": "shopify://shop_images/1_1.webp",
-        "image_width": 100,
-        "image_position": "right",
-        "media_size": "cover",
-        "color_scheme": "custom",
-        "color_bg": "#0c0c0c",
-        "color_text": ""
-      }
-    },
-    "image_with_text_xAeKkA": {
-      "type": "image-with-text",
-      "settings": {
-        "subheading": "",
-        "title": "10 NĂM HÀNH TRÌNH CHẾ TÁC THỦ CÔNG BẠC",
+        "title": "SINCE DAY ONE: 10 YEARS OF STORIES IN SILVER.",
         "title_size": 24,
         "title_width": 12,
-        "text": "<p>Mỗi món trang sức của Helios đều được chế tác thủ công bởi người thợ kim hoàn lành nghề, mang trọn tâm huyết và niềm đam mê trong từng nét chạm khắc tỉ mỉ.</p>",
+        "text": "<p>Each piece from Helios is a story, hand-forged with passion and precision.<br/>Crafted by skilled hands, driven by heart.</p>",
         "button_label": "",
         "button_link": "",
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "image": "shopify://shop_images/che-tac-thu-cong.webp",
+        "image": "shopify://shop_images/Untitled_design_4_1024x1024_c278b6c9-a350-4f0d-82dc-e0413b48132b.webp",
         "image_width": 100,
         "image_position": "left",
         "media_size": "cover",
         "color_scheme": "custom",
         "color_bg": "#0c0c0c",
         "color_text": ""
-      }
-    },
-    "product_feedback_gallery_XyZ123": {
-      "type": "product-feedback-gallery",
-      "settings": {
-        "heading": "Feedback Từ Khách Hàng",
-        "description": "<p>Những hình ảnh thực tế từ khách hàng đã sử dụng sản phẩm</p>",
-        "section_width": "custom",
-        "custom_width": 1350,
-        "images_per_row_desktop": 4,
-        "images_per_row_tablet": 2,
-        "images_per_row_mobile": 2,
-        "heading_color": "#ffffff",
-        "text_color": "#777777",
-        "grid_gap": 20,
-        "border_radius": 6,
-        "show_overlay": false,
-        "margin_top": 72,
-        "margin_bottom": 40
       }
     },
     "accordions_gkjQkM": {
@@ -320,6 +264,7 @@
         "accordion_CHQwjD",
         "accordion_tKwP9N"
       ],
+      "disabled": true,
       "custom_css": [
         ".accordion-container .h2 {text-align: center; padding-right: 0;}",
         ".accordion-container .section-heading {display: block;}",
@@ -348,8 +293,6 @@
     "main",
     "tab_description_Mct6Bb",
     "image_with_text_kUyLYN",
-    "image_with_text_xAeKkA",
-    "product_feedback_gallery_XyZ123",
     "accordions_gkjQkM",
     "product-recommendations"
   ]
