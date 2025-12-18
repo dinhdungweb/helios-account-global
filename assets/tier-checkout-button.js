@@ -209,7 +209,7 @@
 
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
-          alert('Có lỗi xảy ra. Vui lòng thử lại!');
+          alert('An error occurred. Please try again!');
           this.disabled = false;
           this.textContent = originalText;
           this.style.opacity = '1';
