@@ -12,41 +12,40 @@
     "video_with_text_EebWjf": {
       "type": "video-with-text",
       "blocks": {
-        "button_D3k84m": {
+        "button_peCC4P": {
           "type": "button",
           "settings": {
-            "button_text": "GỢI Ý MÙA THU",
-            "button_link": "shopify://collections/goi-y-cho-mua-thu"
-          }
-        },
-        "button_j6yiRi": {
-          "type": "button",
-          "settings": {
-            "button_text": "GỢI Ý MUA LẦN ĐẦU",
-            "button_link": "shopify://collections/goi-y-mua-lan-dau"
+            "button_text": "FIRST-TIME PICKS",
+            "button_link": "shopify://collections/first-time-picks"
           }
         },
         "button_nUNyzj": {
           "type": "button",
           "settings": {
-            "button_text": "BÁN CHẠY NHẤT",
-            "button_link": "shopify://collections/best-sellers"
+            "button_text": "BEST SELLERS",
+            "button_link": "shopify://collections/best-seller"
           }
         },
-        "button_WUUUNU": {
+        "button_VXPdza": {
           "type": "button",
-          "disabled": true,
           "settings": {
-            "button_text": "HÀNG MỚI VỀ",
-            "button_link": "shopify://collections/chrysaber-collection"
+            "button_text": "RINGS",
+            "button_link": "shopify://collections/silver-ring-s925"
+          }
+        },
+        "button_j6yiRi": {
+          "type": "button",
+          "settings": {
+            "button_text": "EARRINGS",
+            "button_link": "shopify://collections/silver-earrings-s925"
           }
         }
       },
       "block_order": [
-        "button_D3k84m",
-        "button_j6yiRi",
+        "button_peCC4P",
         "button_nUNyzj",
-        "button_WUUUNU"
+        "button_VXPdza",
+        "button_j6yiRi"
       ],
       "settings": {
         "media_type": "image",
@@ -54,10 +53,10 @@
         "text_alignment": "left",
         "desktop_video_url": "",
         "mobile_video_url": "",
-        "desktop_image_url": "shopify://shop_images/Up_bai_12.jpg",
-        "mobile_image_url": "shopify://shop_images/Up_bai_12.jpg",
+        "desktop_image_url": "shopify://shop_images/10.7_design_nh_banner_web_global-03.jpg",
+        "mobile_image_url": "shopify://shop_images/10.7_design_nh_banner_web_global-03.jpg",
         "heading": "ALL PRODUCTS",
-        "paragraph": "Mọi sản phẩm bạn đang tìm kiếm đều ở đây. Nếu bạn gặp khó khăn, chúng tôi có vài gợi ý"
+        "paragraph": "Crafted with purpose. Designed to speak your soul. Perfectly made to fit. If you’re looking for something truly different, start here:"
       }
     },
     "text_width_icon_Nr4rbc": {
@@ -102,47 +101,47 @@
     "main": {
       "type": "main-collection",
       "blocks": {
-        "promotion_image_tccrBe": {
+        "promotion_image_LH8nCw": {
           "type": "promotion_image",
           "settings": {
             "position_in_grid": 7,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/z7211707051522_85ef01237e8c48d084cb1f99fa7a4bc0.jpg",
-            "mobile_image": "shopify://shop_images/z7211707051522_85ef01237e8c48d084cb1f99fa7a4bc0_3b157b5d-648e-4189-ace3-ad993258e172.jpg",
-            "heading": "HELIOS PRIVATE CALL",
+            "image": "shopify://shop_images/10.7_design_nh_banner_web_global-05.jpg",
+            "mobile_image": "shopify://shop_images/10.7_design_nh_banner_web_global-02.jpg",
+            "heading": "",
             "content": "",
-            "link_url": "shopify://pages/helios-private-call"
+            "link_url": "shopify://collections/lucisnoir-collection"
           }
         },
-        "promotion_image_egT8fp": {
+        "promotion_image_KdDMLt": {
+          "type": "promotion_image",
+          "settings": {
+            "position_in_grid": 25,
+            "desktop_size": "two-columns",
+            "image": "shopify://shop_images/10.7_design_nh_banner_web_global-04_1_copy.jpg",
+            "mobile_image": "shopify://shop_images/10.7_design_nh_banner_web_global-01_copy.jpg",
+            "heading": "",
+            "content": "",
+            "link_url": "shopify://collections/best-seller"
+          }
+        },
+        "promotion_image_RxQ7HY": {
           "type": "promotion_image",
           "settings": {
             "position_in_grid": 15,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/z7211707034893_1a56a4ee44e3bf183ad8e9f596b2ac1a.jpg",
-            "mobile_image": "shopify://shop_images/z7211707034893_1a56a4ee44e3bf183ad8e9f596b2ac1a_ed15616a-ef31-430a-a488-bfcf41a0ec45.jpg",
-            "heading": "Khẳng định bản lĩnh vững vàng",
+            "image": "shopify://shop_images/6.8_design_mail_global_winback_2-03.jpg",
+            "mobile_image": "shopify://shop_images/30.7_design_nh_global-04-1-1.jpg",
+            "heading": "",
             "content": "",
-            "link_url": "shopify://collections/men-armor"
-          }
-        },
-        "promotion_image_8A8P8K": {
-          "type": "promotion_image",
-          "settings": {
-            "position_in_grid": 31,
-            "desktop_size": "two-columns",
-            "image": "shopify://shop_images/z7048815292340_0954504efa928d871dd28d6d29487666.jpg",
-            "mobile_image": "shopify://shop_images/Up_bai_1900_x_900_px_1080_x_1350_px_22.jpg",
-            "heading": "Những item phù hợp nhất cho mùa thu 2025",
-            "content": "",
-            "link_url": "shopify://collections/goi-y-cho-mua-thu"
+            "link_url": "shopify://collections/silver-ring-s925"
           }
         }
       },
       "block_order": [
-        "promotion_image_tccrBe",
-        "promotion_image_egT8fp",
-        "promotion_image_8A8P8K"
+        "promotion_image_LH8nCw",
+        "promotion_image_KdDMLt",
+        "promotion_image_RxQ7HY"
       ],
       "custom_css": [
         ".pb-medium.sm\\:pt-medium.cc-animate-init.-in.cc-animate-complete,.wide-container.half-gutter.cc-product-filter-container.pt-0 {padding-top: 0;}"
