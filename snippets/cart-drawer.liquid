@@ -203,29 +203,62 @@
               endif
               
               unless has_tier
-                if total_spent < 250
-                  assign tier_discount_percent = tier_6_discount
-                  assign customer_tier = tier_6_name
-                  assign has_tier = true
-                elsif total_spent >= 250 and total_spent < 500
+                comment Dynamic tier assignment based on total_spent (matches tier-price.liquid)
+                endcomment
+                assign current_max_threshold = -1
+                
+                comment Check Tier 1
+                endcomment
+                if total_spent >= tier_1_threshold and tier_1_threshold > current_max_threshold
                   assign tier_discount_percent = tier_1_discount
                   assign customer_tier = tier_1_name
+                  assign current_max_threshold = tier_1_threshold
                   assign has_tier = true
-                elsif total_spent >= 500 and total_spent < 2000
+                endif
+                
+                comment Check Tier 2
+                endcomment
+                if total_spent >= tier_2_threshold and tier_2_threshold > current_max_threshold
                   assign tier_discount_percent = tier_2_discount
                   assign customer_tier = tier_2_name
+                  assign current_max_threshold = tier_2_threshold
                   assign has_tier = true
-                elsif total_spent >= 2000 and total_spent < 5000
+                endif
+                
+                comment Check Tier 3
+                endcomment
+                if total_spent >= tier_3_threshold and tier_3_threshold > current_max_threshold
                   assign tier_discount_percent = tier_3_discount
                   assign customer_tier = tier_3_name
+                  assign current_max_threshold = tier_3_threshold
                   assign has_tier = true
-                elsif total_spent >= 5000 and total_spent < 10000
+                endif
+                
+                comment Check Tier 4
+                endcomment
+                if total_spent >= tier_4_threshold and tier_4_threshold > current_max_threshold
                   assign tier_discount_percent = tier_4_discount
                   assign customer_tier = tier_4_name
+                  assign current_max_threshold = tier_4_threshold
                   assign has_tier = true
-                else
+                endif
+                
+                comment Check Tier 5
+                endcomment
+                if total_spent >= tier_5_threshold and tier_5_threshold > current_max_threshold
                   assign tier_discount_percent = tier_5_discount
                   assign customer_tier = tier_5_name
+                  assign current_max_threshold = tier_5_threshold
+                  assign has_tier = true
+                endif
+                
+                comment Check Tier 6 (MEMBER - threshold 0)
+                endcomment
+                assign tier_6_threshold = 0
+                if total_spent >= tier_6_threshold and tier_6_threshold > current_max_threshold
+                  assign tier_discount_percent = tier_6_discount
+                  assign customer_tier = tier_6_name
+                  assign current_max_threshold = tier_6_threshold
                   assign has_tier = true
                 endif
               endunless
