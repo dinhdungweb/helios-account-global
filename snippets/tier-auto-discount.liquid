@@ -16,68 +16,101 @@
   
   {% comment %} Determine customer tier name (same logic as tier-price.liquid) {% endcomment %}
   {% liquid
-    assign customer_tier_name = ""
-    assign prioritize_tags = settings.tier_prioritize_tags
-    assign tier_scope = settings.tier_pricing_scope | default: 'all'
-    
-    comment Đọc tier names và thresholds từ settings
-    endcomment
-    assign tier_1_name = settings.tier_1_name
-    assign tier_1_tag = settings.tier_1_tag
-    assign tier_1_threshold = settings.tier_1_threshold | plus: 0
-    
-    assign tier_2_name = settings.tier_2_name
-    assign tier_2_tag = settings.tier_2_tag
-    assign tier_2_threshold = settings.tier_2_threshold | plus: 0
-    
-    assign tier_3_name = settings.tier_3_name
-    assign tier_3_tag = settings.tier_3_tag
-    assign tier_3_threshold = settings.tier_3_threshold | plus: 0
-    
-    assign tier_4_name = settings.tier_4_name
-    assign tier_4_tag = settings.tier_4_tag
-    assign tier_4_threshold = settings.tier_4_threshold | plus: 0
-    
-    assign tier_5_name = settings.tier_5_name
-    assign tier_5_tag = settings.tier_5_tag
-    assign tier_5_threshold = settings.tier_5_threshold | plus: 0
-    
-    assign tier_6_name = settings.tier_6_name
-
-    comment Ưu tiên tags nếu bật trong settings
-    endcomment
-    if prioritize_tags
-      if customer.tags contains tier_1_tag
-        assign customer_tier_name = tier_1_name
-      elsif customer.tags contains tier_2_tag
-        assign customer_tier_name = tier_2_name
-      elsif customer.tags contains tier_3_tag
-        assign customer_tier_name = tier_3_name
-      elsif customer.tags contains tier_4_tag
-        assign customer_tier_name = tier_4_name
-      elsif customer.tags contains tier_5_tag
-        assign customer_tier_name = tier_5_name
+    {% comment %} 
+      DETERMINE CUSTOMER TIER (Dynamic Logic)
+      Logic: Loop through all tiers (1-6). Find the tier with the HIGHEST threshold that the customer has surpassed.
+      This supports any currency (USD/VND) and any order in settings.
+    {% endcomment %}
+    {% liquid
+      assign customer_tier_name = ""
+      assign current_max_threshold = -1
+      
+      assign tier_scope = settings.tier_pricing_scope | default: 'all'
+      
+      comment Define Tiers from Settings
+      endcomment
+      assign t1_name = settings.tier_1_name
+      assign t1_threshold = settings.tier_1_threshold | plus: 0
+      
+      assign t2_name = settings.tier_2_name
+      assign t2_threshold = settings.tier_2_threshold | plus: 0
+      
+      assign t3_name = settings.tier_3_name
+      assign t3_threshold = settings.tier_3_threshold | plus: 0
+      
+      assign t4_name = settings.tier_4_name
+      assign t4_threshold = settings.tier_4_threshold | plus: 0
+      
+      assign t5_name = settings.tier_5_name
+      assign t5_threshold = settings.tier_5_threshold | plus: 0
+      
+      assign t6_name = settings.tier_6_name
+      assign t6_threshold = settings.tier_6_threshold | plus: 0 # Usually 0 for member
+      
+      comment Check Tier 1
+      endcomment
+      if total_spent >= t1_threshold and t1_threshold > current_max_threshold
+        assign customer_tier_name = t1_name
+        assign current_max_threshold = t1_threshold
       endif
-    endif
-    
-    comment Nếu chưa có tier từ tags, dùng total_spent
-    endcomment
-    if customer_tier_name == ""
-      if total_spent < 250
-        assign customer_tier_name = tier_6_name
-      elsif total_spent >= 250 and total_spent < 500
-        assign customer_tier_name = tier_1_name
-      elsif total_spent >= 500 and total_spent < 2000
-        assign customer_tier_name = tier_2_name
-      elsif total_spent >= 2000 and total_spent < 5000
-        assign customer_tier_name = tier_3_name
-      elsif total_spent >= 5000 and total_spent < 10000
-        assign customer_tier_name = tier_4_name
-      else
-        assign customer_tier_name = tier_5_name
+      
+      comment Check Tier 2
+      endcomment
+      if total_spent >= t2_threshold and t2_threshold > current_max_threshold
+        assign customer_tier_name = t2_name
+        assign current_max_threshold = t2_threshold
       endif
-    endif
-  %}
+      
+      comment Check Tier 3
+      endcomment
+      if total_spent >= t3_threshold and t3_threshold > current_max_threshold
+        assign customer_tier_name = t3_name
+        assign current_max_threshold = t3_threshold
+      endif
+      
+      comment Check Tier 4
+      endcomment
+      if total_spent >= t4_threshold and t4_threshold > current_max_threshold
+        assign customer_tier_name = t4_name
+        assign current_max_threshold = t4_threshold
+      endif
+      
+      comment Check Tier 5
+      endcomment
+      if total_spent >= t5_threshold and t5_threshold > current_max_threshold
+        assign customer_tier_name = t5_name
+        assign current_max_threshold = t5_threshold
+      endif
+      
+      comment Check Tier 6
+      endcomment
+      if total_spent >= t6_threshold and t6_threshold > current_max_threshold
+        assign customer_tier_name = t6_name
+        assign current_max_threshold = t6_threshold
+      endif
+      
+      comment Override with Tags if enabled
+      endcomment
+      if settings.tier_prioritize_tags
+        assign tier_1_tag = settings.tier_1_tag
+        assign tier_2_tag = settings.tier_2_tag
+        assign tier_3_tag = settings.tier_3_tag
+        assign tier_4_tag = settings.tier_4_tag
+        assign tier_5_tag = settings.tier_5_tag
+        
+        if customer.tags contains tier_1_tag
+          assign customer_tier_name = t1_name
+        elsif customer.tags contains tier_2_tag
+          assign customer_tier_name = t2_name
+        elsif customer.tags contains tier_3_tag
+          assign customer_tier_name = t3_name
+        elsif customer.tags contains tier_4_tag
+          assign customer_tier_name = t4_name
+        elsif customer.tags contains tier_5_tag
+          assign customer_tier_name = t5_name
+        endif
+      endif
+    %}
   
   <script>
     (function() {
