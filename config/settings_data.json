@@ -185,29 +185,12 @@
               "text": "HALF SIZE. FULL DESTINY",
               "link": "shopify://collections/silver-ring-s925"
             }
-          },
-          "image_TmBCqG": {
-            "type": "image",
-            "settings": {
-              "menu_item": "MENU",
-              "subheading1": "",
-              "title1": "New in",
-              "text1": "<p>Sản phẩm mới</p>",
-              "button_label1": "Shop now",
-              "cta_link1": "shopify://collections/new-in",
-              "subheading2": "",
-              "title2": "Best seller",
-              "text2": "<p>Sản phẩm bán chạy</p>",
-              "button_label2": "Shop now",
-              "cta_link2": "shopify://collections/best-sellers"
-            }
           }
         },
         "block_order": [
           "slide_LnQdra",
           "slide_fea8Dc",
-          "slide_QL8AxT",
-          "image_TmBCqG"
+          "slide_QL8AxT"
         ],
         "custom_css": [],
         "settings": {
