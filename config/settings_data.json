@@ -343,13 +343,8 @@
       "cart-drawer": {
         "type": "cart-drawer",
         "settings": {
-          "recommend-product-heading": "Recommend Products",
-          "product-list": [
-            "bo-dung-cu-ve-sinh-bac",
-            "hop-go-helios",
-            "hop-go-helios-belem",
-            "packaging-helios"
-          ]
+          "recommend-product-heading": "",
+          "product-list": []
         }
       }
     },
