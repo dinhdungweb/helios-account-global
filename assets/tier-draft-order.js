@@ -99,7 +99,7 @@
       items = await Promise.all(cart.items.map(async (item) => {
         let discountPercent = 0;
         let foundWrapper = false;
-        
+
         // Try to get discount from cart drawer (if available)
         // Match by variant_id, NOT by index
         const cartItems = document.querySelectorAll('.cart-drawer-item');
@@ -114,7 +114,7 @@
             }
           }
         }
-        
+
         // Only calculate discount if wrapper NOT found
         // If wrapper found with discount=0, trust Liquid's scope check
         if (!foundWrapper) {
@@ -261,15 +261,15 @@
     }
 
     // Fallback to hardcoded values if config is missing
-    // These should match your theme settings
+    // These MUST match your theme settings (settings_data.json)
     const tierDiscounts = {
-      'BLACK DIAMOND': 20,
-      'BLACKDIAMOND': 20,
-      'DIAMOND': 20,
-      'PLATINUM': 15,
-      'GOLD': 10,
-      'SILVER': 7,
-      'MEMBER': 5
+      'BLACK DIAMOND': 10,
+      'BLACKDIAMOND': 10,
+      'DIAMOND': 8,
+      'PLATINUM': 6,
+      'GOLD': 4,
+      'SILVER': 2,
+      'MEMBER': 0
     };
 
     return tierDiscounts[tierName.toUpperCase()] || 0;
