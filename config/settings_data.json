@@ -125,7 +125,7 @@
     "tier_4_name": "GOLD",
     "tier_4_tag": "GOLD",
     "tier_4_discount": 4,
-    "tier_4_threshold": "400",
+    "tier_4_threshold": "500",
     "tier_4_color_start": "#fab320",
     "tier_4_color_end": "#ffe600",
     "tier_5_name": "SILVER",
