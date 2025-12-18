@@ -1045,31 +1045,54 @@
         "footer": {
           "type": "footer",
           "blocks": {
-            "1601536191916": {
+            "1599643458732": {
               "type": "text",
               "settings": {
-                "image_width": 100,
-                "show_social_icons": true
+                "image_width": 140,
+                "title": "FOLLOW US",
+                "text": "<p><strong>Helios Global LLC<br/>US Address:</strong> 1942 Broadway St. STE 314C<br/>Boulder CO 80302<br/>United States<br/><br/>Helios Global stands with you on your journey of freedom and individuality. At Helios Global, we don’t just tell our story through every crafted piece; we accompany you in engraving your story into each item you own.</p><p>--------    ---------   --------</p><p>Email: support@heliosglobalbrand.com</p>",
+                "show_social_icons": true,
+                "enable_follow_on_shop": false
               }
             },
-            "1601536195594": {
+            "1599643486667": {
               "type": "menu",
-              "settings": {}
+              "settings": {
+                "title": "CUSTOMER CARE",
+                "menu": "footer"
+              }
             },
-            "1601536182566": {
+            "1599643512956": {
+              "type": "menu",
+              "settings": {
+                "title": "COMMUNITY",
+                "menu": "footer-3"
+              }
+            },
+            "newsletter_jLhwqh": {
               "type": "newsletter",
-              "settings": {}
+              "settings": {
+                "title": "NEWSLETTER",
+                "text": "<p>Are you ready to join us on a journey of freedom and individuality?</p>",
+                "show_social_icons_newsletter": false
+              }
             }
           },
           "block_order": [
-            "1601536191916",
-            "1601536195594",
-            "1601536182566"
+            "1599643458732",
+            "1599643486667",
+            "1599643512956",
+            "newsletter_jLhwqh"
           ],
+          "custom_css": [],
           "settings": {
-            "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "lower_menu": "",
+            "show_powered_by": true,
+            "show_payment_icons": false,
+            "show_country_selector": false,
+            "footer_desktop_image": "shopify://shop_images/Banner_2.jpg",
+            "footer_mobile_image": "shopify://shop_images/Banner_2_adcb3305-6dba-4fa1-abfd-536438774144.jpg",
+            "show_language_selector": false
           }
         }
       }
