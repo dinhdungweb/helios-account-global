@@ -11,10 +11,178 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "customer_care_y4RFdp": {
+      "type": "customer-care",
+      "blocks": {
+        "sidebar_group_czdkzG": {
+          "type": "sidebar_group",
+          "settings": {
+            "group_title": "Orders"
+          }
+        },
+        "sidebar_link_aXiCLT": {
+          "type": "sidebar_link",
+          "disabled": true,
+          "settings": {
+            "link_url": "shopify://pages/order-tracking",
+            "link_label": "ORDER TRACKING"
+          }
+        },
+        "sidebar_link_Ny4tdh": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/order-processing-production-times",
+            "link_label": "ORDER PROCESSING & PRODUCTION TIMES"
+          }
+        },
+        "sidebar_link_D4XWQR": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "/pages/shipping-policy",
+            "link_label": "Shipping Policy"
+          }
+        },
+        "sidebar_link_8kUhML": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/return-exchange",
+            "link_label": "Returns & Exchanges"
+          }
+        },
+        "sidebar_group_C6JJLq": {
+          "type": "sidebar_group",
+          "settings": {
+            "group_title": "Our Products"
+          }
+        },
+        "sidebar_link_LCGRCV": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/about-us",
+            "link_label": "About Our Jewelry"
+          }
+        },
+        "sidebar_link_CzEGct": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/our-pledge-to-you",
+            "link_label": "OUR PLEDGE TO YOU"
+          }
+        },
+        "sidebar_link_EN9kiT": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/warranty",
+            "link_label": "WARRANTY"
+          }
+        },
+        "sidebar_link_qh9Gcf": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/size-chart",
+            "link_label": "Sizing Guidelines"
+          }
+        },
+        "sidebar_link_iGeVk9": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/jewelry-care-warranty",
+            "link_label": "JEWELRY CARE & WARRANTY"
+          }
+        },
+        "sidebar_link_XNJxqG": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/ring-re-sizing",
+            "link_label": "RING RE-SIZING"
+          }
+        },
+        "sidebar_link_LLFkNd": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "",
+            "link_label": ""
+          }
+        },
+        "sidebar_group_Qn6Vzg": {
+          "type": "sidebar_group",
+          "settings": {
+            "group_title": "My Account"
+          }
+        },
+        "sidebar_link_WDXCwB": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "/account/login",
+            "link_label": "Sign In"
+          }
+        },
+        "sidebar_link_waAkwQ": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "",
+            "link_label": "Order Tracking"
+          }
+        },
+        "sidebar_link_nX7cqC": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "",
+            "link_label": "ORDER HISTORY"
+          }
+        },
+        "sidebar_group_n7nKQ8": {
+          "type": "sidebar_group",
+          "settings": {
+            "group_title": "Contact"
+          }
+        },
+        "sidebar_link_wGUTQQ": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/contact-us-2",
+            "link_label": "CONTACT US"
+          }
+        },
+        "sidebar_link_dmcLa7": {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "shopify://pages/helios-global-affiliate-program",
+            "link_label": "Affiliate Program"
+          }
+        }
+      },
+      "block_order": [
+        "sidebar_group_czdkzG",
+        "sidebar_link_aXiCLT",
+        "sidebar_link_Ny4tdh",
+        "sidebar_link_D4XWQR",
+        "sidebar_link_8kUhML",
+        "sidebar_group_C6JJLq",
+        "sidebar_link_LCGRCV",
+        "sidebar_link_CzEGct",
+        "sidebar_link_EN9kiT",
+        "sidebar_link_qh9Gcf",
+        "sidebar_link_iGeVk9",
+        "sidebar_link_XNJxqG",
+        "sidebar_link_LLFkNd",
+        "sidebar_group_Qn6Vzg",
+        "sidebar_link_WDXCwB",
+        "sidebar_link_waAkwQ",
+        "sidebar_link_nX7cqC",
+        "sidebar_group_n7nKQ8",
+        "sidebar_link_wGUTQQ",
+        "sidebar_link_dmcLa7"
+      ],
+      "name": "Customer Care Layout",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "customer_care_y4RFdp"
   ]
 }

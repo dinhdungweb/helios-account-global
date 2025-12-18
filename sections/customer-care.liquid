@@ -1,0 +1,208 @@
+{% schema %}
+{
+  "name": "Customer Care Layout",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "sidebar_group",
+      "name": "Sidebar Group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "group_title",
+          "label": "Tiêu đề nhóm",
+          "default": "Orders"
+        }
+      ]
+    },
+    {
+      "type": "sidebar_link",
+      "name": "Sidebar Link",
+      "settings": [
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Đường dẫn trang"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Tiêu đề hiển thị"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Care Layout",
+      "blocks": [
+        {
+          "type": "sidebar_group",
+          "settings": {
+            "group_title": "Orders"
+          }
+        },
+        {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "/pages/order-processing",
+            "link_label": "Order Processing"
+          }
+        },
+        {
+          "type": "sidebar_link",
+          "settings": {
+            "link_url": "/pages/shipping-policy",
+            "link_label": "Shipping Policy"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.customer-care {
+  display: flex;
+  gap: 50px;
+}
+.customer-care-sidebar {
+  width: 300px;
+}
+.customer-care-sidebar h4 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+.customer-care-sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0 35px;
+}
+.customer-care-sidebar ul li {
+  margin-bottom: 8px;
+}
+.customer-care-sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.customer-care-sidebar ul li a:hover {
+  text-decoration: underline;
+}
+.customer-care-content {
+  flex: 1;
+}
+.customer-care-header {
+  background-color: #111;
+}
+.page-width {
+  padding: 40px 20px;
+  width: 1300px;
+  max-width: 100%;
+  margin: auto;
+}
+.page-title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  line-height: 1;
+}
+.customer-care-breadcrumbs {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 10px;
+}
+.customer-care-breadcrumbs a {
+  color: #aaa;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.customer-care-breadcrumbs span {
+  margin: 0 5px;
+}
+.back-to-care {
+  display: none;
+  margin-bottom: 20px;
+}
+.back-to-care a {
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+
+/* MOBILE LOGIC */
+@media screen and (max-width: 991px) {
+  .customer-care {
+    flex-direction: column;
+  }
+
+  {% if request.path == '/pages/customer-care' %}
+    .customer-care-sidebar {
+      display: block;
+    }
+    .customer-care-content {
+      display: none;
+    }
+  {% else %}
+    .customer-care-sidebar {
+      display: none;
+    }
+    .customer-care-content {
+      display: block;
+    }
+    .back-to-care {
+      display: block;
+    }
+  {% endif %}
+}
+</style>
+
+<div class="customer-care-header">
+  <div class="page-width">
+    <div class="customer-care-breadcrumbs">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/pages/customer-care">Customer Care</a>
+      {% unless request.path == '/pages/customer-care' %}
+        <span>/</span>
+        <span>{{ page.title }}</span>
+      {% endunless %}
+    </div>
+    <div class="page-title">{{ page.title | upcase }}</div>
+  </div>
+</div>
+
+<div class="customer-care page-width">
+  <div class="customer-care-sidebar">
+    {% assign current_group = '' %}
+    <ul>
+      {% for block in section.blocks %}
+        {% if block.type == 'sidebar_group' %}
+          {% if forloop.index != 1 %}</ul>{% endif %}
+          <h4>{{ block.settings.group_title }}</h4>
+          <ul>
+        {% elsif block.type == 'sidebar_link' %}
+          <li>
+            <a href="{{ block.settings.link_url }}"
+              {% if block.settings.link_url == request.path %}style="color:#fab320;"{% endif %}>
+              {{ block.settings.link_label }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="customer-care-content">
+    <div class="back-to-care">
+      <a href="/pages/customer-care"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path></svg> Back to Customer Care</a>
+    </div>
+    {{ page.content }}
+  </div>
+</div>
+
