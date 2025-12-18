@@ -1169,6 +1169,83 @@
     ]
   },
   {
+    "name": "Delivery Settings",
+    "settings": [
+      {
+        "type": "range",
+        "id": "dispatch_hour",
+        "label": "Dispatch Time - Hour",
+        "min": 0,
+        "max": 23,
+        "step": 1,
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "dispatch_minute",
+        "label": "Dispatch Time - Minute",
+        "min": 0,
+        "max": 60,
+        "step": 5,
+        "default": 0
+      },
+      {
+        "type": "number",
+        "id": "dispatch_days",
+        "label": "Dispatch Days",
+        "default": 1
+      },
+      {
+        "type": "checkbox",
+        "id": "exclude_weekends",
+        "label": "Exclude Saturday and Sunday from delivery calculation",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "default_delivery_days",
+        "label": "Default Delivery Days (e.g., 2 or 2|3)",
+        "default": "2|3"
+      },
+      {
+        "type": "textarea",
+        "id": "holiday_exceptions",
+        "label": "Holiday Dates (YYYY-MM-DD, one per line)",
+        "default": "2025-01-01\n2025-05-01"
+      },
+      {
+        "type": "text",
+        "id": "label_ordered",
+        "label": "Step Label: Ordered",
+        "default": "Ordered"
+      },
+      {
+        "type": "text",
+        "id": "label_ready",
+        "label": "Step Label: Order Ready",
+        "default": "Order Ready"
+      },
+      {
+        "type": "text",
+        "id": "label_delivered",
+        "label": "Step Label: Delivered",
+        "default": "Delivered"
+      },
+      {
+        "type": "color",
+        "id": "delivery_box_bg_color",
+        "label": "Delivery Box Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "delivery_step_bg_color",
+        "label": "Step Box Background",
+        "default": "#f5f5f5"
+      },
+    ]
+  },
+  {
     "name": "Lock Website Content",
     "settings": [
       {
