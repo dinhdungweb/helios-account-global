@@ -83,9 +83,9 @@
 
       // Check if button text indicates sold out or pre-order
       const btnText = (addToCartBtn.textContent || addToCartBtn.value || '').toLowerCase();
-      if (btnText.includes('hết hàng') || btnText.includes('sold out') || 
+      if (btnText.includes('Out of Stock') || btnText.includes('sold out') || 
           btnText.includes('unavailable') || btnText.includes('pre-order') ||
-          btnText.includes('đặt trước')) {
+          btnText.includes('Pre-order')) {
         return;
       }
 
@@ -97,7 +97,7 @@
       const checkoutBtn = document.createElement('button');
       checkoutBtn.type = 'button';
       checkoutBtn.className = 'button tier-checkout-button';
-      checkoutBtn.textContent = 'Mua ngay';
+      checkoutBtn.textContent = 'BUY NOW';
       checkoutBtn.style.cssText = `
         width: 100%;
         padding: 18px 30px;
@@ -133,7 +133,7 @@
 
         const originalText = this.textContent;
         this.disabled = true;
-        this.textContent = 'Đang xử lý...';
+        this.textContent = 'Processing...';
         this.style.opacity = '0.6';
 
         try {
