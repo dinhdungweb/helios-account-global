@@ -9,14 +9,228 @@
  */
 {
   "sections": {
+    "background_video_responsive_GWGaiN": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 900,
+        "video_height_mobile": 650,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Video key BST angel ( bản ngang ).mov",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/Video key BST angel ( bản có màu ).mov",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "slideshow_n4Wryz": {
+      "type": "slideshow",
+      "blocks": {
+        "image_WH4zHq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Artboard_1.jpg",
+            "mobile_image": "shopify://shop_images/Artboard_1_53824122-045b-413a-9b4b-942bb7a12a60.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_WH4zHq"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_qUbYyq": {
+      "type": "slideshow",
+      "blocks": {
+        "image_qFKEcM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Artboard_2.jpg",
+            "mobile_image": "shopify://shop_images/Artboard_2_de92a9b6-4fd7-4dfa-8f8c-015224b20068.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_qFKEcM"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "featured_collection_yfaM49": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "angelic-khong-ngoc-trai",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_vendor": false,
+        "grid": 3,
+        "rows": 1,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "slideshow_zfKJRr": {
+      "type": "slideshow",
+      "blocks": {
+        "image_VgHkVx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Artboard_3_5d8ec9f0-ffe9-44d4-ae79-29e61ebdcce0.jpg",
+            "mobile_image": "shopify://shop_images/Artboard_3_PE.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_VgHkVx"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "featured_collection_h7rRaf": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "angelic-ngoc-trai",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_vendor": false,
+        "grid": 3,
+        "rows": 1,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "slideshow_beztAN": {
+      "type": "slideshow",
+      "blocks": {
+        "image_8edQEH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Artboard_5.jpg",
+            "mobile_image": "shopify://shop_images/Artboard_5.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_8edQEH"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
-        "show_collection_content": true,
-        "show_collection_image": true,
+        "show_collection_content": false,
+        "show_collection_image": false,
         "description_position": "top",
         "layout": "rows",
-        "grid": 4,
+        "grid": 3,
         "grid_mobile": "2",
         "products_per_page": 24,
         "featured_addtocart_hide": false,
@@ -35,6 +249,13 @@
     }
   },
   "order": [
+    "background_video_responsive_GWGaiN",
+    "slideshow_n4Wryz",
+    "slideshow_qUbYyq",
+    "featured_collection_yfaM49",
+    "slideshow_zfKJRr",
+    "featured_collection_h7rRaf",
+    "slideshow_beztAN",
     "main"
   ]
 }
