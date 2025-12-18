@@ -1126,7 +1126,8 @@
       ".wheel-item {font-size: 13px;}",
       "button.chat-toggle.chat-toggle--text-button {border-radius: 99px !important; height: 50px !important;}",
       "button.chat-toggle {margin: 0 !important;}",
-      "#site-control .featured-link > a,#page-menu .featured-link > a {color: #111 !important; background: #fab320;}"
+      "#site-control .featured-link > a,#page-menu .featured-link > a {color: #111 !important; background: #fab320;}",
+      ".footer-image img {width: 100%;}"
     ]
   }
 }
