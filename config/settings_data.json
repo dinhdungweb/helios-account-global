@@ -283,6 +283,8 @@
           "show_powered_by": true,
           "show_payment_icons": false,
           "show_country_selector": false,
+          "footer_desktop_image": "shopify://shop_images/Banner_2.jpg",
+          "footer_mobile_image": "shopify://shop_images/Banner_2_adcb3305-6dba-4fa1-abfd-536438774144.jpg",
           "show_language_selector": false
         }
       },
