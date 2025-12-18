@@ -1,0 +1,225 @@
+<div class="delivery-box">
+  <div id="location-line" style="background: {{ settings.delivery_box_bg_color }}" class="location-line">
+    Shipping to 
+    <span id="geo-flag" class="flag-img"></span>
+    <span id="geo-country-code" class="bold" style="display:none;">...</span>
+    <strong id="geo-country-name" class="bold">your location</strong><br>
+    Order within the next <span id="countdown" class="bold"></span> for dispatch today, and you'll receive your package between
+    <strong><span id="delivery-start" class="bold"></span></strong> and <strong><span id="delivery-end" class="bold"></span></strong>.
+    <p>Expect your order at your door in just <strong>5–7 business days</strong> with our <strong>Fast Shipping</strong> option.<strong></strong> Not included production time</p>
+  </div>
+
+  <div class="delivery-timeline">
+    <div class="step" style="background: {{ settings.delivery_step_bg_color }}">
+      <div class="icon">
+        <svg width="30" height="30" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21.312 7.94a1.49 1.49 0 0 0-1.062-.44h-3v-.75a5.25 5.25 0 1 0-10.5 0v.75h-3A1.5 1.5 0 0 0 2.25 9v10.125c0 1.828 1.547 3.375 3.375 3.375h12.75c.884 0 1.734-.346 2.366-.963a3.256 3.256 0 0 0 1.009-2.353V9a1.489 1.489 0 0 0-.438-1.06Zm-5.727 4.904-4.2 5.25a.75.75 0 0 1-.573.281H10.8a.75.75 0 0 1-.57-.262l-1.8-2.104a.749.749 0 1 1 1.14-.975l1.211 1.415 3.633-4.543a.75.75 0 0 1 1.172.938ZM15.75 7.5h-7.5v-.75a3.75 3.75 0 0 1 7.5 0v.75Z"></path>
+        </svg>
+      </div>
+      <div class="label"><span class="label-status">{{ settings.label_ordered }}</span><span id="date-ordered"></span></div>
+    </div>
+    <div class="step" style="background: {{ settings.delivery_step_bg_color }}">
+      <div class="icon">
+        <svg width="30" height="30" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M17 8h3l3 4v5h-2c0 1.66-1.34 3-3 3s-3-1.34-3-3H9c0 1.66-1.34 3-3 3s-3-1.34-3-3H1V6c0-1.1.9-2 2-2h14v4ZM5 17c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1Zm14.5-7.5 1.96 2.5H17V9.5h2.5ZM17 17c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1Z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <div class="label"><span class="label-status">{{ settings.label_ready }}</span><span id="date-ready"></span></div>
+    </div>
+    <div class="step" style="background: {{ settings.delivery_step_bg_color }}">
+      <div class="icon">
+        <svg width="30" height="30" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 1.5c-4.14 0-7.5 3.024-7.5 6.75 0 6 7.5 14.25 7.5 14.25s7.5-8.25 7.5-14.25c0-3.726-3.36-6.75-7.5-6.75ZM12 12a3 3 0 1 1 0-5.999A3 3 0 0 1 12 12Z"></path>
+        </svg>
+      </div>
+      <div class="label"><span class="label-status">{{ settings.label_delivered }}</span><span id="date-delivered"></span></div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+.delivery-box {
+  font-size: 15px;
+  margin-top: 15px;
+}
+.delivery-box .location-line {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  padding: 15px;
+}
+.delivery-timeline {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    gap: 10px;
+}
+.delivery-timeline .step {
+  flex: 1;
+  padding: 10px;
+}
+.delivery-timeline .icon {
+  margin-bottom: 5px;
+}
+.delivery-timeline .label {
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+}
+.label-status {
+  font-weight: 600;
+}
+.flag-img {
+  display: inline-block;
+  width: 20px;
+  height: 15px;
+  background-size: cover;
+  background-position: center;
+  vertical-align: middle;
+}
+.bold {
+  font-weight: 600;
+  color: inherit;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const elFlag = document.getElementById("geo-flag");
+  const elCode = document.getElementById("geo-country-code");
+  const elName = document.getElementById("geo-country-name");
+
+  const CACHE_KEY = "user_country_info";
+  const CACHE_TTL = 24 * 60 * 60 * 1000;
+  const now = Date.now();
+  const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+
+  if (cached && cached.expires > now) {
+    elFlag.style.backgroundImage = `url(https://flagcdn.com/24x18/${cached.code.toLowerCase()}.png)`;
+    elCode.textContent = cached.code;
+    elName.textContent = cached.name;
+  } else {
+    fetch("https://ipwho.is/")
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.country && data.country_code) {
+          const code = data.country_code.toUpperCase();
+          const name = data.country;
+          const flagUrl = `https://flagcdn.com/24x18/${code.toLowerCase()}.png`;
+
+          elFlag.style.backgroundImage = `url(${flagUrl})`;
+          elCode.textContent = code;
+          elName.textContent = name;
+
+          localStorage.setItem(CACHE_KEY, JSON.stringify({
+            code,
+            name,
+            expires: now + CACHE_TTL
+          }));
+        }
+      });
+  }
+
+  const dispatchHour = {{ settings.dispatch_hour | default: 10 }};
+  const dispatchMinute = {{ settings.dispatch_minute | default: 0 }};
+  const dispatchDays = {{ settings.dispatch_days | default: 1 }};
+  const excludeWeekends = {{ settings.exclude_weekends | json }};
+  const deliveryRaw = {% if product.metafields.custom.delivery_days %}
+    "{{ product.metafields.custom.delivery_days.value }}"
+  {% else %}
+    "{{ settings.default_delivery_days }}"
+  {% endif %};
+  const warehouse = "{{ product.metafields.custom.delivery_warehouse.value | default: 'default' }}";
+  const holidayRaw = `{{ settings.holiday_exceptions | strip_newlines }}`.split('\\n').map(d => d.trim());
+  const holidays = holidayRaw.filter(Boolean).map(d => new Date(d + "T00:00:00"));
+  const bufferMap = { "HN": 0, "HCM": 1, "USA": 5, "default": 0 };
+  const buffer = bufferMap[warehouse] || 0;
+
+  const cutoff = new Date();
+  cutoff.setHours(dispatchHour, dispatchMinute, 0, 0);
+
+  function parseRange(s) {
+    if (s.includes("|")) {
+      const [a, b] = s.split("|").map(Number);
+      return { min: a, max: b };
+    }
+    const n = parseInt(s);
+    return { min: n, max: n };
+  }
+
+  function isHoliday(d) {
+    return (excludeWeekends && (d.getDay() === 0 || d.getDay() === 6)) || holidays.some(h =>
+      h.getFullYear() === d.getFullYear() &&
+      h.getMonth() === d.getMonth() &&
+      h.getDate() === d.getDate()
+    );
+  }
+
+  function addBusinessDays(start, days) {
+    let count = 0, date = new Date(start);
+    while (count < days) {
+      date.setDate(date.getDate() + 1);
+      if (!isHoliday(date)) count++;
+    }
+    return date;
+  }
+
+  function renderDates(baseDate) {
+    const deliveryRange = parseRange(deliveryRaw);
+    const orderedDate = new Date();
+    const orderReadyMin = addBusinessDays(baseDate, dispatchDays);
+    const orderReadyMax = addBusinessDays(baseDate, dispatchDays + 2);
+    const deliveryStart = addBusinessDays(baseDate, dispatchDays + deliveryRange.min + buffer);
+    const deliveryEnd = addBusinessDays(baseDate, dispatchDays + deliveryRange.max + buffer);
+
+    const format = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+    document.getElementById("date-ordered").textContent = format(orderedDate);
+    document.getElementById("date-ready").textContent = `${format(orderReadyMin)} – ${format(orderReadyMax)}`;
+    document.getElementById("date-delivered").textContent = `${format(deliveryStart)} – ${format(deliveryEnd)}`;
+    document.getElementById("delivery-start").textContent = format(deliveryStart);
+    document.getElementById("delivery-end").textContent = format(deliveryEnd);
+  }
+
+  function updateCountdown() {
+    const countdownEl = document.getElementById("countdown");
+
+    function renderCountdown() {
+      const now = new Date();
+      let diff = cutoff - now;
+
+      if (diff <= 0) {
+        countdownEl.innerHTML = "<strong>Orders placed now will be processed tomorrow</strong>";
+
+        cutoff.setDate(cutoff.getDate() + 1);
+        cutoff.setHours(dispatchHour, dispatchMinute, 0, 0);
+        const newBase = new Date(cutoff);
+        renderDates(newBase);
+
+        setTimeout(() => {
+          renderCountdown();
+          timer = setInterval(renderCountdown, 1000);
+        }, 5000);
+
+        clearInterval(timer);
+        return;
+      }
+
+      const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
+      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+
+      countdownEl.textContent = `${h}h ${m}m ${s}s`;
+    }
+
+    renderCountdown();
+    let timer = setInterval(renderCountdown, 1000);
+  }
+
+  const baseDate = new Date() > cutoff ? addBusinessDays(new Date(), 1) : new Date();
+  renderDates(baseDate);
+  updateCountdown();
+});
+</script>
