@@ -1036,31 +1036,77 @@
       "sections": {
         "header": {
           "type": "header",
+          "blocks": {
+            "slide_LnQdra": {
+              "type": "slide",
+              "settings": {
+                "text": "S925 SILVER",
+                "link": "shopify://collections/all-products"
+              }
+            },
+            "slide_QEjULm": {
+              "type": "slide",
+              "settings": {
+                "text": "100% HANDCRAFTED",
+                "link": "/"
+              }
+            },
+            "slide_p6DzjP": {
+              "type": "slide",
+              "settings": {
+                "text": "HALF SIZE. FULL DESTINY",
+                "link": "shopify://collections/silver-ring-s925"
+              }
+            },
+            "image_TmBCqG": {
+              "type": "image",
+              "disabled": true,
+              "settings": {
+                "menu_item": "MENU",
+                "subheading1": "",
+                "title1": "",
+                "text1": "",
+                "button_label1": "",
+                "cta_link1": "",
+                "subheading2": "",
+                "title2": "",
+                "text2": "",
+                "button_label2": "Shop now",
+                "cta_link2": ""
+              }
+            }
+          },
+          "block_order": [
+            "slide_LnQdra",
+            "slide_QEjULm",
+            "slide_p6DzjP",
+            "image_TmBCqG"
+          ],
+          "custom_css": [],
           "settings": {
+            "menu_linklist": "main-menu-2",
+            "nav_featured_link": "ANGELIC",
             "desktop_navigation": "inline",
             "nav_opacity": "transparent",
-            "nav_positioning": "sticky",
-            "logo": "{{ shop.brand.logo }}",
+            "nav_positioning": "inline",
+            "logo": "shopify://shop_images/logo_global_W.png",
+            "alt_logo": "shopify://shop_images/logo_global_W.png",
+            "desktop_logo_width": 140,
+            "mobile_logo_width": 120,
             "use_alt_logo_when_active": true,
-            "desktop_logo_width": 110,
-            "mobile_logo_width": 140,
+            "logo_h1": true,
             "show_announcement": true,
-            "announcement_text": "Announce something here",
             "announcement_home_only": false,
-            "announcement_text_size": 15,
-            "show_language_selector": true,
-            "show_country_selector": true
-          }
-        },
-        "popup": {
-          "type": "popup",
-          "settings": {
-            "mode": "disabled",
-            "popup_delay_seconds": 5,
-            "popup_dismiss_for_days": 2,
-            "position": "center",
-            "show_newsletter": true,
-            "show_social_icons": true
+            "announcement_text": "",
+            "announcement_text_size": 14,
+            "announcement_link": "shopify://collections/all",
+            "announcement_hotline": "",
+            "announcement_email": "SUPPORT@HELIOSGLOBALBRAND.COM",
+            "announcement_custom": "CONTACT US",
+            "announcement_custom_link": "shopify://pages/contact-us-1",
+            "nav_cart_icon": "basket2",
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         },
         "footer": {
