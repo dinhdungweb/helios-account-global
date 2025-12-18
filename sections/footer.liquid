@@ -121,9 +121,13 @@
 
         {% endfor %}
       </div>
+      <picture class="footer-image">
+        <source media="(min-width: 768px)" srcset="{{ section.settings.footer_desktop_image | img_url: "original" }}">
+        <img src="{{ section.settings.footer_mobile_image | img_url: "original" }}">
+      </picture>
     </div>
   {% endif %}
-
+  
   {%- assign showing_localization = false -%}
   {%- if section.settings.show_language_selector and localization.available_languages.size > 1 -%}{%- assign showing_localization = true -%}{%- endif -%}
   {%- if section.settings.show_country_selector and localization.available_countries.size > 1 -%}{%- assign showing_localization = true -%}{%- endif -%}
@@ -225,6 +229,18 @@
         "id": "show_country_selector",
         "label": "Enable country/region selector",
         "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "footer_desktop_image",
+        "label": "Footer desktop image",
+        "info": "1600x500 recommended"
+      },
+      {
+        "type": "image_picker",
+        "id": "footer_mobile_image",
+        "label": "Footer mobile image",
+        "info": "1200x1200 recommended"
       },
       {
         "type": "header",
