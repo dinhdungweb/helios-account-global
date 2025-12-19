@@ -17,7 +17,7 @@
         await createDraftOrderCheckout(e.detail);
       } catch (error) {
         console.error('[TierDraftOrder] Error:', error);
-        alert('Có lỗi xảy ra khi tạo đơn hàng. Vui lòng thử lại!');
+        alert('An error occurred while creating the order. Please try again!');
       }
     });
   }
@@ -38,16 +38,16 @@
           const originalText = checkoutBtn.textContent || checkoutBtn.value;
           checkoutBtn.disabled = true;
           if (checkoutBtn.textContent) {
-            checkoutBtn.textContent = 'Đang xử lý...';
+            checkoutBtn.textContent = 'Processing...';
           } else {
-            checkoutBtn.value = 'Đang xử lý...';
+            checkoutBtn.value = 'Processing...';
           }
 
           try {
             await createDraftOrderCheckout();
           } catch (error) {
             console.error('[TierDraftOrder] Error:', error);
-            alert('Có lỗi xảy ra. Vui lòng thử lại!');
+            alert('An error occurred while creating the order. Please try again!');
             checkoutBtn.disabled = false;
             if (checkoutBtn.textContent) {
               checkoutBtn.textContent = originalText;
