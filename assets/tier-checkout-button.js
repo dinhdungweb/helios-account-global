@@ -97,7 +97,7 @@
       const checkoutBtn = document.createElement('button');
       checkoutBtn.type = 'button';
       checkoutBtn.className = 'button tier-checkout-button';
-      checkoutBtn.textContent = 'BUY NOW';
+      checkoutBtn.textContent = 'Buy Now';
       checkoutBtn.style.cssText = `
         width: 100%;
         padding: 18px 30px;
