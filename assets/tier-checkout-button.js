@@ -98,7 +98,7 @@
       checkoutBtn.type = 'button';
       checkoutBtn.className = 'button tier-checkout-button';
       checkoutBtn.textContent = 'Buy Now';
-      checkoutBtn.style.cssText = `
+      checkoutBtn.style.cssText = `   
         width: 100%;
         padding: 18px 30px;
         margin-top: 10px;
