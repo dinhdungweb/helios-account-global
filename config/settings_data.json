@@ -131,7 +131,7 @@
     "tier_5_name": "SILVER",
     "tier_5_tag": "SILVER",
     "tier_5_discount": 5,
-    "tier_5_threshold": "150",
+    "tier_5_threshold": "250",
     "tier_6_name": "MEMBER",
     "tier_6_discount": 0,
     "tier_show_original_price": true,
