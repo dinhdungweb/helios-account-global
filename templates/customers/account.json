@@ -17,7 +17,7 @@
           "settings": {
             "tier_tag": "BLACK DIAMOND",
             "welcome_message": "",
-            "benefits_content": ""
+            "benefits_content": "<h3>Benefits & Offers</h3>"
           }
         },
         "tier_diamond": {
@@ -25,7 +25,7 @@
           "settings": {
             "tier_tag": "DIAMOND",
             "welcome_message": "",
-            "benefits_content": ""
+            "benefits_content": "<h3>Benefits & Offers</h3>"
           }
         },
         "tier_platinum": {
@@ -33,7 +33,7 @@
           "settings": {
             "tier_tag": "PLATINUM",
             "welcome_message": "",
-            "benefits_content": ""
+            "benefits_content": "<h3>Benefits & Offers</h3>"
           }
         },
         "tier_gold": {
@@ -41,7 +41,7 @@
           "settings": {
             "tier_tag": "GOLD",
             "welcome_message": "",
-            "benefits_content": ""
+            "benefits_content": "<h3>Benefits & Offers</h3>"
           }
         },
         "tier_silver": {
@@ -49,7 +49,7 @@
           "settings": {
             "tier_tag": "SILVER",
             "welcome_message": "",
-            "benefits_content": ""
+            "benefits_content": "<h3>Benefits & Offers</h3>"
           }
         },
         "tier_member": {
@@ -57,7 +57,7 @@
           "settings": {
             "tier_tag": "MEMBER",
             "welcome_message": "",
-            "benefits_content": ""
+            "benefits_content": "<h3>Benefits & Offers</h3>"
           }
         }
       },
