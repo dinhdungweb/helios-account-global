@@ -361,6 +361,7 @@
     },
     "popup_newsletter_6FmbAP": {
       "type": "popup-newsletter",
+      "disabled": true,
       "name": "Popup Newsletter",
       "settings": {
         "image": "shopify://shop_images/z7292394833378_e3cfad03f7230631f2e65fe3cadc5fe9.jpg",
