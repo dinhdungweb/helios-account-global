@@ -118,6 +118,10 @@
         "collection": "best-seller",
         "layout": "rows",
         "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
         "show_vendor": false,
         "grid": 4,
         "rows": 2,
@@ -209,6 +213,7 @@
         "grid_image_full_width": true,
         "grid_image_with": 1400,
         "item_for_row": 2,
+        "item_ratio": "natural",
         "item_per_row_mobile": "1"
       }
     },
@@ -220,6 +225,10 @@
         "collection": "new-arrivals",
         "layout": "carousel",
         "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
         "show_vendor": false,
         "grid": 4,
         "rows": 2,
@@ -256,7 +265,7 @@
       "type": "background-video",
       "name": "Background video",
       "settings": {
-        "video_shopify": "shopify://files/videos/Video chế tác trên trang chủ website 29.3.3025 (1).mp4",
+        "video_shopify": "shopify://files/videos/Video chế tác website GLOBAL 19x9.mp4",
         "video_external": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
         "subheading": "",
         "title": "9 Years of Handcrafted Heritage",
