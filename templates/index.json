@@ -109,6 +109,27 @@
         "autoplay_speed": 7
       }
     },
+    "featured_collection_TfeVNp": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "NEW ARRIVALS",
+        "featured_collection_align": "center",
+        "collection": "new-arrivals",
+        "layout": "carousel",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 4,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "featured_collection_MemUg9": {
       "type": "featured-collection",
       "custom_css": [],
@@ -215,27 +236,6 @@
         "item_for_row": 2,
         "item_ratio": "natural",
         "item_per_row_mobile": "1"
-      }
-    },
-    "featured_collection_TfeVNp": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "NEW ARRIVALS",
-        "featured_collection_align": "center",
-        "collection": "new-arrivals",
-        "layout": "carousel",
-        "featured_addtocart_hide": false,
-        "show_add_to_cart": true,
-        "show_title": true,
-        "show_price": true,
-        "show_review": true,
-        "show_vendor": false,
-        "grid": 4,
-        "rows": 2,
-        "grid_mobile": "2",
-        "hide_swatches": false,
-        "alternate_bg_color": false,
-        "show_view_all": false
       }
     },
     "featured_blog_AVzfM6": {
@@ -376,11 +376,11 @@
   "order": [
     "background_video_responsive_38PECG",
     "slideshow_3KJMhV",
+    "featured_collection_TfeVNp",
     "featured_collection_MemUg9",
     "slideshow_cXHCJy",
     "custom_liquid_CQw7Dm",
     "grid_image_YiMfwg",
-    "featured_collection_TfeVNp",
     "featured_blog_AVzfM6",
     "background_video_Qq3yNT",
     "custom_liquid_93Kzt8",
