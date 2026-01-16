@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_38PECG": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -36,8 +37,8 @@
         "image_HHzFgj": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/BANNER_6.jpg",
-            "mobile_image": "shopify://shop_images/2x3_a6dfddeb-72a9-4133-b5cc-a418f63af4e5.jpg",
+            "image": "shopify://shop_images/19X9_BANNER_GLOBAL_1.jpg",
+            "mobile_image": "shopify://shop_images/2X3_GLOBAL.jpg",
             "slide_link": "shopify://collections/angelic-collection",
             "subheading": "",
             "title": "",
@@ -95,7 +96,6 @@
         "image_RTaHQK",
         "image_pVjqmz"
       ],
-      "disabled": true,
       "settings": {
         "height": "adapt",
         "height_desktop": 600,
