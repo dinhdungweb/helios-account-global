@@ -11,7 +11,6 @@
   "sections": {
     "background_video_responsive_38PECG": {
       "type": "background-video-responsive",
-      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -95,6 +94,7 @@
         "image_RTaHQK",
         "image_pVjqmz"
       ],
+      "disabled": true,
       "settings": {
         "height": "adapt",
         "height_desktop": 600,
