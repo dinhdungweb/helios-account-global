@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": true,
         "show_collection_image": true,
@@ -32,9 +33,89 @@
         "enable_sorting": true,
         "show_featured_in_sort": true
       }
+    },
+    "slideshow_CeMRyK": {
+      "type": "slideshow",
+      "blocks": {
+        "image_LmpjqT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Landing_page_Valentine_web-01.jpg",
+            "mobile_image": "shopify://shop_images/Landing_page_Valentine_mobile-03.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_LmpjqT"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_m6KR8V": {
+      "type": "slideshow",
+      "blocks": {
+        "image_frUEPt": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Landing_page_Valentine_web-02.jpg",
+            "mobile_image": "shopify://shop_images/Landing_page_Valentine_mobile-04.jpg",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_frUEPt"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "slideshow_CeMRyK",
+    "slideshow_m6KR8V"
   ]
 }
