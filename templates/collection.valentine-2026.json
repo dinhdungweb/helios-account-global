@@ -48,8 +48,59 @@
         "autoplay_speed": 7
       }
     },
+    "product_hover_zoom_JH98Lj": {
+      "type": "product-hover-zoom",
+      "blocks": {
+        "product_YAPt96": {
+          "type": "product",
+          "settings": {
+            "product": "sunpact-black-silver",
+            "product_image": "shopify://shop_images/sunpack-helios-black-silver-collection-good.png",
+            "zoom_image_pc": "shopify://shop_images/valentine-a1.webp"
+          }
+        },
+        "product_ecGYNM": {
+          "type": "product",
+          "settings": {
+            "product": "suncrest-black-silver",
+            "product_image": "shopify://shop_images/suncrest-helios-black-silver-collection-good.png",
+            "zoom_image_pc": "shopify://shop_images/valentine-b1.webp"
+          }
+        },
+        "product_PtTTbT": {
+          "type": "product",
+          "settings": {
+            "product": "tide-black-silver",
+            "product_image": "shopify://shop_images/tide-helios-black-silver-collection-good.webp",
+            "zoom_image_pc": "shopify://shop_images/valentine-c1.webp"
+          }
+        },
+        "product_BkTUER": {
+          "type": "product",
+          "settings": {
+            "product": "ripple-black-silver",
+            "product_image": "shopify://shop_images/ripple-helios-black-silver-collection-good.webp",
+            "zoom_image_pc": "shopify://shop_images/valentine-d3.png"
+          }
+        }
+      },
+      "block_order": [
+        "product_YAPt96",
+        "product_ecGYNM",
+        "product_PtTTbT",
+        "product_BkTUER"
+      ],
+      "name": "Product Hover Zoom",
+      "settings": {
+        "section_height": 1080,
+        "list_width_px": 1400,
+        "thumb_size": 250,
+        "image_ratio": "4/5"
+      }
+    },
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "show_collection_content": false,
         "show_collection_image": false,
@@ -110,62 +161,12 @@
         "autoplay": true,
         "autoplay_speed": 7
       }
-    },
-    "product_hover_zoom_JH98Lj": {
-      "type": "product-hover-zoom",
-      "blocks": {
-        "product_YAPt96": {
-          "type": "product",
-          "settings": {
-            "product": "sunpact-black-silver",
-            "product_image": "shopify://shop_images/sunpack-helios-black-silver-collection-good.png",
-            "zoom_image_pc": "shopify://shop_images/valentine-a1.webp"
-          }
-        },
-        "product_ecGYNM": {
-          "type": "product",
-          "settings": {
-            "product": "suncrest-black-silver",
-            "product_image": "shopify://shop_images/suncrest-helios-black-silver-collection-good.png",
-            "zoom_image_pc": "shopify://shop_images/valentine-b1.webp"
-          }
-        },
-        "product_PtTTbT": {
-          "type": "product",
-          "settings": {
-            "product": "tide-black-silver",
-            "product_image": "shopify://shop_images/tide-helios-black-silver-collection-good.webp",
-            "zoom_image_pc": "shopify://shop_images/valentine-c1.webp"
-          }
-        },
-        "product_BkTUER": {
-          "type": "product",
-          "settings": {
-            "product": "ripple-black-silver",
-            "product_image": "shopify://shop_images/ripple-helios-black-silver-collection-good.webp",
-            "zoom_image_pc": "shopify://shop_images/valentine-d3.png"
-          }
-        }
-      },
-      "block_order": [
-        "product_YAPt96",
-        "product_ecGYNM",
-        "product_PtTTbT",
-        "product_BkTUER"
-      ],
-      "name": "Product Hover Zoom",
-      "settings": {
-        "section_height": 1080,
-        "list_width_px": 1400,
-        "thumb_size": 250,
-        "image_ratio": "4/5"
-      }
     }
   },
   "order": [
     "slideshow_CeMRyK",
+    "product_hover_zoom_JH98Lj",
     "main",
-    "slideshow_m6KR8V",
-    "product_hover_zoom_JH98Lj"
+    "slideshow_m6KR8V"
   ]
 }
