@@ -176,6 +176,13 @@
       "header": {
         "type": "header",
         "blocks": {
+          "slide_QL8AxT": {
+            "type": "slide",
+            "settings": {
+              "text": "Order by Feb 1 to receive before Valentine’s Day",
+              "link": "shopify://collections/all-products"
+            }
+          },
           "slide_LnQdra": {
             "type": "slide",
             "settings": {
@@ -189,19 +196,12 @@
               "text": "100% HANDCRAFTED",
               "link": "shopify://collections/all-products"
             }
-          },
-          "slide_QL8AxT": {
-            "type": "slide",
-            "settings": {
-              "text": "Order by Feb 1 to receive before Valentine’s Day",
-              "link": "shopify://collections/all-products"
-            }
           }
         },
         "block_order": [
+          "slide_QL8AxT",
           "slide_LnQdra",
-          "slide_fea8Dc",
-          "slide_QL8AxT"
+          "slide_fea8Dc"
         ],
         "custom_css": [],
         "settings": {
