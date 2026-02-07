@@ -247,9 +247,9 @@
           "type": "accordion",
           "settings": {
             "icon": "none",
-            "title": "Hướng dẫn bảo quản sản phẩm",
+            "title": "RETURN & EXCHANGE",
             "content": "<p>Add the content to appear when the content is expanded</p>",
-            "page": "huong-dan-bao-quan",
+            "page": "return-exchange",
             "open": false
           }
         }
