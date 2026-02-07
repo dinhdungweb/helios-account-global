@@ -197,13 +197,39 @@
             "text": "<p>Nếu sản phẩm anh/chị quan tâm hiển thị hết hàng trên website. Vui lòng INBOX trực tiếp với Helios  để được hỗ trợ nhanh nhất.<br/>Xin chân thành cảm ơn!</p>"
           }
         },
+        "richtext_Tiwagd": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><strong>Please be aware that due to our factory’s biggest holiday of the year, all orders placed after the 10th February will be delayed about 10 days, which is slightly longer than usual. Rest assured, your order is still being processed and will be shipped as soon as possible.</strong></p><p>Different isn’t abnormal — it’s powerful. Helios stands with you. <strong>Own it.</strong></p>"
+          }
+        },
+        "custom_liquid_4RfjgR": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render \"delivery-info\" %}"
+          }
+        },
+        "richtext_YGHyaA": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><strong>Craft takes time</strong>. Helios chooses meaning over speed.</p>"
+          }
+        },
+        "image_7W7fCd": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/boxzx-NEW.webp",
+            "image_width": 700,
+            "url": ""
+          }
+        },
         "accordion_9czNHQ": {
           "type": "accordion",
           "settings": {
-            "icon": "none",
-            "title": "Thông tin thêm",
+            "icon": "ruler",
+            "title": "SIZE GUIDE",
             "content": "<p> </p>",
-            "page": "",
+            "page": "size-chart",
             "open": false
           }
         },
@@ -211,9 +237,9 @@
           "type": "accordion",
           "settings": {
             "icon": "none",
-            "title": "Chính sách bảo hành",
-            "content": "<p>Add the content to appear when the content is expanded</p>",
-            "page": "chinh-sach-bao-hanh",
+            "title": "SHIPPING POLICY",
+            "content": "",
+            "page": "shipping-policy",
             "open": false
           }
         },
@@ -240,6 +266,10 @@
         "complementary_pwBz8L",
         "text_HiAnXA",
         "richtext_X7kXzL",
+        "richtext_Tiwagd",
+        "custom_liquid_4RfjgR",
+        "richtext_YGHyaA",
+        "image_7W7fCd",
         "accordion_9czNHQ",
         "accordion_RN6Adz",
         "accordion_WnzprC"
