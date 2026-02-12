@@ -28,6 +28,7 @@
         },
         "button_VXPdza": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_text": "RINGS",
             "button_link": "shopify://collections/silver-ring-s925"
@@ -35,6 +36,7 @@
         },
         "button_j6yiRi": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_text": "EARRINGS",
             "button_link": "shopify://collections/silver-earrings-s925"
