@@ -106,11 +106,11 @@
           "settings": {
             "position_in_grid": 7,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/10.7_design_nh_banner_web_global-05.jpg",
-            "mobile_image": "shopify://shop_images/10.7_design_nh_banner_web_global-02.jpg",
+            "image": "shopify://shop_images/banner_1_3x2_c2831756-a096-40e1-9dd4-99955cae556e.jpg",
+            "mobile_image": "shopify://shop_images/banner_1_1x1_117d4300-8205-4e4b-a19b-2a37262464ba.jpg",
             "heading": "",
             "content": "",
-            "link_url": "shopify://collections/lucisnoir-collection"
+            "link_url": "shopify://collections/best-seller"
           }
         },
         "promotion_image_KdDMLt": {
@@ -118,11 +118,11 @@
           "settings": {
             "position_in_grid": 25,
             "desktop_size": "two-columns",
-            "image": "shopify://shop_images/10.7_design_nh_banner_web_global-04_1_copy.jpg",
-            "mobile_image": "shopify://shop_images/10.7_design_nh_banner_web_global-01_copy.jpg",
+            "image": "shopify://shop_images/banner_3_3x2_e966fdd3-c199-42b5-816c-812fa8263473.jpg",
+            "mobile_image": "shopify://shop_images/banner_3_1x1_3030ec5c-ca45-4a85-9c52-800f5634532f.jpg",
             "heading": "",
             "content": "",
-            "link_url": "shopify://collections/best-seller"
+            "link_url": "shopify://pages/a-journey-of-craftsmanship"
           }
         },
         "promotion_image_RxQ7HY": {
