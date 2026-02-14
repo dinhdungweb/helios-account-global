@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_38PECG": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -36,9 +37,9 @@
         "image_HHzFgj": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/19X9_BANNER_GLOBAL_1.jpg",
-            "mobile_image": "shopify://shop_images/2X3_GLOBAL.jpg",
-            "slide_link": "shopify://products/faliraki-eyewear",
+            "image": "shopify://shop_images/z7534634042281_3fb15c1428b7fb8f4e9fc4a31922a9e7.jpg",
+            "mobile_image": "shopify://shop_images/z7534633816366_c5e193423c686844a3e2b91b84975880.jpg",
+            "slide_link": "",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -53,6 +54,7 @@
         },
         "image_RTaHQK": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/19X9_LUNAR.jpg",
             "mobile_image": "shopify://shop_images/LUNAR_NEW_YEAR.jpg",
@@ -94,7 +96,6 @@
         "image_RTaHQK",
         "image_pVjqmz"
       ],
-      "disabled": true,
       "settings": {
         "height": "adapt",
         "height_desktop": 600,
