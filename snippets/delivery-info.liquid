@@ -86,140 +86,136 @@
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const elFlag = document.getElementById("geo-flag");
-  const elCode = document.getElementById("geo-country-code");
-  const elName = document.getElementById("geo-country-name");
+(function () {
 
-  const CACHE_KEY = "user_country_info";
-  const CACHE_TTL = 24 * 60 * 60 * 1000;
-  const now = Date.now();
-  const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+  function init() {
 
-  if (cached && cached.expires > now) {
-    elFlag.style.backgroundImage = `url(https://flagcdn.com/24x18/${cached.code.toLowerCase()}.png)`;
-    elCode.textContent = cached.code;
-    elName.textContent = cached.name;
-  } else {
-    fetch("https://ipwho.is/")
-      .then(res => res.json())
-      .then(data => {
-        if (data.success && data.country && data.country_code) {
-          const code = data.country_code.toUpperCase();
-          const name = data.country;
-          const flagUrl = `https://flagcdn.com/24x18/${code.toLowerCase()}.png`;
+    const elFlag = document.getElementById("geo-flag");
+    const elCode = document.getElementById("geo-country-code");
+    const elName = document.getElementById("geo-country-name");
+    if (!elFlag || !elName) return;
 
-          elFlag.style.backgroundImage = `url(${flagUrl})`;
-          elCode.textContent = code;
-          elName.textContent = name;
+    const CACHE_KEY = "user_country_info";
+    const CACHE_TTL = 24 * 60 * 60 * 1000;
 
-          localStorage.setItem(CACHE_KEY, JSON.stringify({
-            code,
-            name,
-            expires: now + CACHE_TTL
-          }));
+    function applyCountry(code, name) {
+      elFlag.style.backgroundImage = `url(https://flagcdn.com/24x18/${code.toLowerCase()}.png)`;
+      elCode.textContent = code;
+      elName.textContent = name;
+    }
+
+    function readCache() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const data = JSON.parse(raw);
+        if (data && data.expires > Date.now()) return data;
+      } catch (e) {}
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+
+    async function fetchGeo() {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        if (!data.country_name || !data.country_code) return;
+
+        const code = data.country_code.toUpperCase();
+        const name = data.country_name;
+
+        applyCountry(code, name);
+
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          code,
+          name,
+          expires: Date.now() + CACHE_TTL
+        }));
+
+      } catch (e) {
+        console.log("Geo fetch failed", e);
+      }
+    }
+
+    const cached = readCache();
+    if (cached) {
+      applyCountry(cached.code, cached.name);
+    } else {
+      fetchGeo();
+    }
+
+    /* ================= DELIVERY LOGIC ================= */
+
+    const dispatchHour = {{ settings.dispatch_hour | default: 10 }};
+    const dispatchMinute = {{ settings.dispatch_minute | default: 0 }};
+    const dispatchDays = {{ settings.dispatch_days | default: 1 }};
+    const excludeWeekends = {{ settings.exclude_weekends | json }};
+    const deliveryRaw = "{{ settings.default_delivery_days }}";
+
+    const cutoff = new Date();
+    cutoff.setHours(dispatchHour, dispatchMinute, 0, 0);
+
+    function addBusinessDays(start, days) {
+      let date = new Date(start);
+      let count = 0;
+      while (count < days) {
+        date.setDate(date.getDate() + 1);
+        if (!(excludeWeekends && (date.getDay() === 0 || date.getDay() === 6))) {
+          count++;
         }
-      });
-  }
-
-  const dispatchHour = {{ settings.dispatch_hour | default: 10 }};
-  const dispatchMinute = {{ settings.dispatch_minute | default: 0 }};
-  const dispatchDays = {{ settings.dispatch_days | default: 1 }};
-  const excludeWeekends = {{ settings.exclude_weekends | json }};
-  const deliveryRaw = {% if product.metafields.custom.delivery_days %}
-    "{{ product.metafields.custom.delivery_days.value }}"
-  {% else %}
-    "{{ settings.default_delivery_days }}"
-  {% endif %};
-  const warehouse = "{{ product.metafields.custom.delivery_warehouse.value | default: 'default' }}";
-  const holidayRaw = `{{ settings.holiday_exceptions | strip_newlines }}`.split('\\n').map(d => d.trim());
-  const holidays = holidayRaw.filter(Boolean).map(d => new Date(d + "T00:00:00"));
-  const bufferMap = { "HN": 0, "HCM": 1, "USA": 5, "default": 0 };
-  const buffer = bufferMap[warehouse] || 0;
-
-  const cutoff = new Date();
-  cutoff.setHours(dispatchHour, dispatchMinute, 0, 0);
-
-  function parseRange(s) {
-    if (s.includes("|")) {
-      const [a, b] = s.split("|").map(Number);
-      return { min: a, max: b };
+      }
+      return date;
     }
-    const n = parseInt(s);
-    return { min: n, max: n };
-  }
 
-  function isHoliday(d) {
-    return (excludeWeekends && (d.getDay() === 0 || d.getDay() === 6)) || holidays.some(h =>
-      h.getFullYear() === d.getFullYear() &&
-      h.getMonth() === d.getMonth() &&
-      h.getDate() === d.getDate()
-    );
-  }
+    function renderDates(baseDate) {
+      const deliveryMin = addBusinessDays(baseDate, dispatchDays + 5);
+      const deliveryMax = addBusinessDays(baseDate, dispatchDays + 7);
 
-  function addBusinessDays(start, days) {
-    let count = 0, date = new Date(start);
-    while (count < days) {
-      date.setDate(date.getDate() + 1);
-      if (!isHoliday(date)) count++;
+      const format = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+
+      document.getElementById("date-ordered").textContent = format(new Date());
+      document.getElementById("date-ready").textContent = format(addBusinessDays(baseDate, dispatchDays));
+      document.getElementById("date-delivered").textContent = format(deliveryMin) + " – " + format(deliveryMax);
+      document.getElementById("delivery-start").textContent = format(deliveryMin);
+      document.getElementById("delivery-end").textContent = format(deliveryMax);
     }
-    return date;
-  }
 
-  function renderDates(baseDate) {
-    const deliveryRange = parseRange(deliveryRaw);
-    const orderedDate = new Date();
-    const orderReadyMin = addBusinessDays(baseDate, dispatchDays);
-    const orderReadyMax = addBusinessDays(baseDate, dispatchDays + 2);
-    const deliveryStart = addBusinessDays(baseDate, dispatchDays + deliveryRange.min + buffer);
-    const deliveryEnd = addBusinessDays(baseDate, dispatchDays + deliveryRange.max + buffer);
+    function updateCountdown() {
+      const el = document.getElementById("countdown");
 
-    const format = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      function tick() {
+        const now = new Date();
+        let diff = cutoff - now;
 
-    document.getElementById("date-ordered").textContent = format(orderedDate);
-    document.getElementById("date-ready").textContent = `${format(orderReadyMin)} – ${format(orderReadyMax)}`;
-    document.getElementById("date-delivered").textContent = `${format(deliveryStart)} – ${format(deliveryEnd)}`;
-    document.getElementById("delivery-start").textContent = format(deliveryStart);
-    document.getElementById("delivery-end").textContent = format(deliveryEnd);
-  }
+        if (diff <= 0) {
+          el.textContent = "processing tomorrow";
+          return;
+        }
 
-  function updateCountdown() {
-    const countdownEl = document.getElementById("countdown");
+        const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
+        const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+        const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
 
-    function renderCountdown() {
-      const now = new Date();
-      let diff = cutoff - now;
-
-      if (diff <= 0) {
-        countdownEl.innerHTML = "<strong>Orders placed now will be processed tomorrow</strong>";
-
-        cutoff.setDate(cutoff.getDate() + 1);
-        cutoff.setHours(dispatchHour, dispatchMinute, 0, 0);
-        const newBase = new Date(cutoff);
-        renderDates(newBase);
-
-        setTimeout(() => {
-          renderCountdown();
-          timer = setInterval(renderCountdown, 1000);
-        }, 5000);
-
-        clearInterval(timer);
-        return;
+        el.textContent = `${h}h ${m}m ${s}s`;
       }
 
-      const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
-      const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-      const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
-
-      countdownEl.textContent = `${h}h ${m}m ${s}s`;
+      tick();
+      setInterval(tick, 1000);
     }
 
-    renderCountdown();
-    let timer = setInterval(renderCountdown, 1000);
+    const baseDate = new Date() > cutoff
+      ? addBusinessDays(new Date(), 1)
+      : new Date();
+
+    renderDates(baseDate);
+    updateCountdown();
   }
 
-  const baseDate = new Date() > cutoff ? addBusinessDays(new Date(), 1) : new Date();
-  renderDates(baseDate);
-  updateCountdown();
-});
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+})();
 </script>
