@@ -88,19 +88,49 @@
 <script>
 (function () {
 
-  function init() {
+  /* =========================
+     SAFE INIT (Shopify AJAX)
+  ========================== */
+
+  function waitForElement(selector, callback, timeout = 5000) {
+    const start = Date.now();
+
+    (function check() {
+      const el = document.querySelector(selector);
+      if (el) {
+        callback();
+      } else if (Date.now() - start < timeout) {
+        requestAnimationFrame(check);
+      }
+    })();
+  }
+
+  waitForElement("#geo-country-name", initDeliveryBox);
+
+  /* =========================
+         MAIN FUNCTION
+  ========================== */
+
+  function initDeliveryBox() {
 
     const elFlag = document.getElementById("geo-flag");
     const elCode = document.getElementById("geo-country-code");
     const elName = document.getElementById("geo-country-name");
+    const countdownEl = document.getElementById("countdown");
+
     if (!elFlag || !elName) return;
+
+    /* =========================
+          GEO LOCATION
+    ========================== */
 
     const CACHE_KEY = "user_country_info";
     const CACHE_TTL = 24 * 60 * 60 * 1000;
 
     function applyCountry(code, name) {
-      elFlag.style.backgroundImage = `url(https://flagcdn.com/24x18/${code.toLowerCase()}.png)`;
-      elCode.textContent = code;
+      elFlag.style.backgroundImage =
+        "url(https://flagcdn.com/24x18/" + code.toLowerCase() + ".png)";
+      if (elCode) elCode.textContent = code;
       elName.textContent = name;
     }
 
@@ -109,86 +139,111 @@
         const raw = localStorage.getItem(CACHE_KEY);
         if (!raw) return null;
         const data = JSON.parse(raw);
-        if (data && data.expires > Date.now()) return data;
+        if (data.expires > Date.now()) return data;
       } catch (e) {}
       localStorage.removeItem(CACHE_KEY);
       return null;
     }
 
-    async function fetchGeo() {
-      try {
-        const res = await fetch("https://ipapi.co/json/");
-        const data = await res.json();
-        if (!data.country_name || !data.country_code) return;
-
-        const code = data.country_code.toUpperCase();
-        const name = data.country_name;
-
-        applyCountry(code, name);
-
-        localStorage.setItem(CACHE_KEY, JSON.stringify({
-          code,
-          name,
+    function saveCache(code, name) {
+      localStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({
+          code: code,
+          name: name,
           expires: Date.now() + CACHE_TTL
-        }));
-
-      } catch (e) {
-        console.log("Geo fetch failed", e);
-      }
+        })
+      );
     }
 
     const cached = readCache();
+
     if (cached) {
       applyCountry(cached.code, cached.name);
     } else {
-      fetchGeo();
+      fetch("https://ipapi.co/json/")
+        .then(res => res.json())
+        .then(data => {
+          if (!data || !data.country_name) return;
+
+          const code = data.country_code.toUpperCase();
+          const name = data.country_name;
+
+          applyCountry(code, name);
+          saveCache(code, name);
+        })
+        .catch(() => {
+          // fallback nếu API fail
+          elName.textContent = "your country";
+        });
     }
 
-    /* ================= DELIVERY LOGIC ================= */
+    /* =========================
+        DELIVERY + COUNTDOWN
+    ========================== */
 
-    const dispatchHour = {{ settings.dispatch_hour | default: 10 }};
-    const dispatchMinute = {{ settings.dispatch_minute | default: 0 }};
-    const dispatchDays = {{ settings.dispatch_days | default: 1 }};
-    const excludeWeekends = {{ settings.exclude_weekends | json }};
-    const deliveryRaw = "{{ settings.default_delivery_days }}";
+    const dispatchHour = 10;
+    const dispatchMinute = 0;
+    const dispatchDays = 1;
+    const excludeWeekends = true;
 
     const cutoff = new Date();
     cutoff.setHours(dispatchHour, dispatchMinute, 0, 0);
 
+    function isWeekend(date) {
+      return date.getDay() === 0 || date.getDay() === 6;
+    }
+
     function addBusinessDays(start, days) {
       let date = new Date(start);
-      let count = 0;
-      while (count < days) {
+      let added = 0;
+
+      while (added < days) {
         date.setDate(date.getDate() + 1);
-        if (!(excludeWeekends && (date.getDay() === 0 || date.getDay() === 6))) {
-          count++;
+        if (!(excludeWeekends && isWeekend(date))) {
+          added++;
         }
       }
+
       return date;
     }
 
+    function format(d) {
+      return d.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric"
+      });
+    }
+
     function renderDates(baseDate) {
-      const deliveryMin = addBusinessDays(baseDate, dispatchDays + 5);
-      const deliveryMax = addBusinessDays(baseDate, dispatchDays + 7);
 
-      const format = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      const readyDate = addBusinessDays(baseDate, dispatchDays);
+      const deliveryStart = addBusinessDays(baseDate, dispatchDays + 5);
+      const deliveryEnd = addBusinessDays(baseDate, dispatchDays + 7);
 
-      document.getElementById("date-ordered").textContent = format(new Date());
-      document.getElementById("date-ready").textContent = format(addBusinessDays(baseDate, dispatchDays));
-      document.getElementById("date-delivered").textContent = format(deliveryMin) + " – " + format(deliveryMax);
-      document.getElementById("delivery-start").textContent = format(deliveryMin);
-      document.getElementById("delivery-end").textContent = format(deliveryMax);
+      const orderedEl = document.getElementById("date-ordered");
+      const readyEl = document.getElementById("date-ready");
+      const deliveredEl = document.getElementById("date-delivered");
+      const startEl = document.getElementById("delivery-start");
+      const endEl = document.getElementById("delivery-end");
+
+      if (orderedEl) orderedEl.textContent = format(new Date());
+      if (readyEl) readyEl.textContent = format(readyDate);
+      if (deliveredEl) deliveredEl.textContent = format(deliveryStart) + " – " + format(deliveryEnd);
+      if (startEl) startEl.textContent = format(deliveryStart);
+      if (endEl) endEl.textContent = format(deliveryEnd);
     }
 
     function updateCountdown() {
-      const el = document.getElementById("countdown");
+
+      if (!countdownEl) return;
 
       function tick() {
         const now = new Date();
         let diff = cutoff - now;
 
         if (diff <= 0) {
-          el.textContent = "processing tomorrow";
+          countdownEl.textContent = "processing tomorrow";
           return;
         }
 
@@ -196,25 +251,20 @@
         const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
         const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
 
-        el.textContent = `${h}h ${m}m ${s}s`;
+        countdownEl.textContent = h + "h " + m + "m " + s + "s";
       }
 
       tick();
       setInterval(tick, 1000);
     }
 
-    const baseDate = new Date() > cutoff
-      ? addBusinessDays(new Date(), 1)
-      : new Date();
+    const baseDate =
+      new Date() > cutoff
+        ? addBusinessDays(new Date(), 1)
+        : new Date();
 
     renderDates(baseDate);
     updateCountdown();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
   }
 
 })();
