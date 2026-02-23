@@ -88,13 +88,12 @@
 <script>
 (function () {
 
-  /* =========================
-     SAFE INIT (Shopify AJAX)
-  ========================== */
+  /* =====================================
+     WAIT UNTIL SECTION RENDER (AJAX SAFE)
+  ====================================== */
 
   function waitForElement(selector, callback, timeout = 5000) {
     const start = Date.now();
-
     (function check() {
       const el = document.querySelector(selector);
       if (el) {
@@ -107,9 +106,9 @@
 
   waitForElement("#geo-country-name", initDeliveryBox);
 
-  /* =========================
-         MAIN FUNCTION
-  ========================== */
+  /* =====================================
+              MAIN INIT
+  ====================================== */
 
   function initDeliveryBox() {
 
@@ -120,67 +119,32 @@
 
     if (!elFlag || !elName) return;
 
-    /* =========================
-          GEO LOCATION
-    ========================== */
+    /* =====================================
+                GEO LOCATION
+       (SHOPIFY INTERNAL ENDPOINT)
+    ====================================== */
 
-    const CACHE_KEY = "user_country_info";
-    const CACHE_TTL = 24 * 60 * 60 * 1000;
+    fetch("/localization.json")
+      .then(res => res.json())
+      .then(data => {
+        if (!data || !data.country) return;
 
-    function applyCountry(code, name) {
-      elFlag.style.backgroundImage =
-        "url(https://flagcdn.com/24x18/" + code.toLowerCase() + ".png)";
-      if (elCode) elCode.textContent = code;
-      elName.textContent = name;
-    }
+        const code = data.country.iso_code;
+        const name = data.country.name;
 
-    function readCache() {
-      try {
-        const raw = localStorage.getItem(CACHE_KEY);
-        if (!raw) return null;
-        const data = JSON.parse(raw);
-        if (data.expires > Date.now()) return data;
-      } catch (e) {}
-      localStorage.removeItem(CACHE_KEY);
-      return null;
-    }
+        elFlag.style.backgroundImage =
+          "url(https://flagcdn.com/24x18/" + code.toLowerCase() + ".png)";
 
-    function saveCache(code, name) {
-      localStorage.setItem(
-        CACHE_KEY,
-        JSON.stringify({
-          code: code,
-          name: name,
-          expires: Date.now() + CACHE_TTL
-        })
-      );
-    }
+        if (elCode) elCode.textContent = code;
+        elName.textContent = name;
+      })
+      .catch(() => {
+        elName.textContent = "your country";
+      });
 
-    const cached = readCache();
-
-    if (cached) {
-      applyCountry(cached.code, cached.name);
-    } else {
-      fetch("https://ipapi.co/json/")
-        .then(res => res.json())
-        .then(data => {
-          if (!data || !data.country_name) return;
-
-          const code = data.country_code.toUpperCase();
-          const name = data.country_name;
-
-          applyCountry(code, name);
-          saveCache(code, name);
-        })
-        .catch(() => {
-          // fallback nếu API fail
-          elName.textContent = "your country";
-        });
-    }
-
-    /* =========================
-        DELIVERY + COUNTDOWN
-    ========================== */
+    /* =====================================
+           DELIVERY + COUNTDOWN
+    ====================================== */
 
     const dispatchHour = 10;
     const dispatchMinute = 0;
