@@ -30,29 +30,6 @@
         "button_link": ""
       }
     },
-    "rich_text_kyhmdK": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "title_size": 48,
-        "title_width": 12,
-        "heading_h1": false,
-        "text": "<p>The moment he meticulously cradles and perfects his crown in the atelier<br/>is the very future of the moment he becomes king of his own realm.</p>",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": false,
-        "full_width": false,
-        "no_padding_bottom": false,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
     "rich_text_KrzizP": {
       "type": "rich-text",
       "name": "Rich text",
@@ -62,15 +39,15 @@
         "title_size": 48,
         "title_width": 12,
         "heading_h1": false,
-        "text": "<p>The moment he meticulously cradles and perfects his crown in the atelier<br/>is the very future of the moment he becomes king of his own realm.</p>",
+        "text": "<p>A true king is not born into power. He is forged by scars, shaped by darkness,and defined by the strength to rule himself.</p><p>The moment he meticulously cradles and perfects his crown in the atelier<br/>is the very future of the moment he becomes king of his own realm.</p>",
         "image_width": 120,
         "button_label": "",
         "button_link": "",
         "button_style": "auto",
         "text_alignment": "center",
-        "enlarge_text": false,
+        "enlarge_text": true,
         "full_width": false,
-        "no_padding_bottom": false,
+        "no_padding_bottom": true,
         "color_scheme": "standard",
         "color_bg": "",
         "color_text": ""
@@ -116,13 +93,43 @@
         "color_bg": "",
         "color_text": ""
       }
+    },
+    "coverflow_slider_AQxANW": {
+      "type": "coverflow-slider",
+      "blocks": {
+        "slide_aypJhr": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/len-mau-mdc-reven-king.jpg"
+          }
+        },
+        "slide_NUycAF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/mdcravenking-3.jpg"
+          }
+        },
+        "slide_YXmcPY": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/len-mau-nhan-raven-king_2.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "slide_aypJhr",
+        "slide_NUycAF",
+        "slide_YXmcPY"
+      ],
+      "name": "Coverflow Slider",
+      "settings": {}
     }
   },
   "order": [
     "background_video_responsive_4Gnrx4",
-    "rich_text_kyhmdK",
     "rich_text_KrzizP",
     "main",
-    "before_after_image_YzbHEr"
+    "before_after_image_YzbHEr",
+    "coverflow_slider_AQxANW"
   ]
 }
