@@ -156,6 +156,26 @@
         "spacing_bottom": 40
       }
     },
+    "background_video_responsive_8YgWeW": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 700,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Vid cận sp & onhand banner DƯỚI 10MB.mp4",
+        "video_external_desktop": "",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
     "coverflow_slider_AQxANW": {
       "type": "coverflow-slider",
       "blocks": {
@@ -183,6 +203,7 @@
         "slide_NUycAF",
         "slide_YXmcPY"
       ],
+      "disabled": true,
       "name": "Coverflow Slider",
       "settings": {}
     },
@@ -192,9 +213,9 @@
       "settings": {
         "title": "",
         "subtitle": "",
-        "image_before": "shopify://shop_images/len-mau-nhan-raven-king_2.jpg",
+        "image_before": "shopify://shop_images/DSC9241_1.jpg",
         "label_before": "",
-        "image_after": "shopify://shop_images/len-mau-mdc-reven-king.jpg",
+        "image_after": "shopify://shop_images/vuong_mien_2.jpg",
         "label_after": "",
         "max_width": 1600,
         "aspect_ratio": "16/9",
@@ -209,6 +230,7 @@
     "featured_collection_4eE6xM",
     "rich_text_KrzizP",
     "custom_slider_eHmkNt",
+    "background_video_responsive_8YgWeW",
     "coverflow_slider_AQxANW",
     "before_after_image_YzbHEr"
   ]
