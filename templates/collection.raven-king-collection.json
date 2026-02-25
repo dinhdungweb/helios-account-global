@@ -61,7 +61,7 @@
         "title_size": 48,
         "title_width": 12,
         "heading_h1": false,
-        "text": "<p>A true king is not born into power. He is forged by scars, shaped by darkness,and defined by the strength to rule himself.</p><p>The moment he meticulously cradles and perfects his crown in the atelier<br/>is the very future of the moment he becomes king of his own realm.</p>",
+        "text": "<p>A true king is not born into power. He is forged by scars, shaped by darkness, and defined by the strength to rule himself.</p><p>The moment he meticulously cradles and perfects his crown in the atelier<br/>is the very future of the moment he becomes king of his own realm.</p>",
         "image_width": 60,
         "button_label": "",
         "button_link": "",
@@ -78,19 +78,10 @@
     "custom_slider_eHmkNt": {
       "type": "custom-slider",
       "blocks": {
-        "slide_wycwEi": {
+        "slide_RRPjVM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/DSC8952.jpg",
-            "title": "",
-            "text": "",
-            "link": ""
-          }
-        },
-        "slide_ig8xhV": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC9221.jpg",
+            "image": "shopify://shop_images/DSC8791.jpg",
             "title": "",
             "text": "",
             "link": ""
@@ -105,6 +96,15 @@
             "link": ""
           }
         },
+        "slide_ig8xhV": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9221.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
         "slide_kAXdYc": {
           "type": "slide",
           "settings": {
@@ -114,10 +114,10 @@
             "link": ""
           }
         },
-        "slide_RRPjVM": {
+        "slide_wycwEi": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/DSC8791.jpg",
+            "image": "shopify://shop_images/DSC8952.jpg",
             "title": "",
             "text": "",
             "link": ""
@@ -134,11 +134,11 @@
         }
       },
       "block_order": [
-        "slide_wycwEi",
-        "slide_ig8xhV",
-        "slide_jk9jka",
-        "slide_kAXdYc",
         "slide_RRPjVM",
+        "slide_jk9jka",
+        "slide_ig8xhV",
+        "slide_kAXdYc",
+        "slide_wycwEi",
         "slide_fjM39w"
       ],
       "name": "Custom Slider",
