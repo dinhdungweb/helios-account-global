@@ -124,7 +124,6 @@
 {% endstyle %}
 
 <div id="section-id-{{ section.id }}" class="before-after-section use-{{ section.settings.color_scheme }}-bg padded-block" data-section-id="{{ section.id }}" data-section-type="before-after">
-  <div class="container">
     {% if section.settings.title != blank %}
       <h2 class="h2 align-center feature-header" data-cc-animate="cc-fade-in-up">
         {{ section.settings.title }}
@@ -168,7 +167,6 @@
 
       <input type="range" min="0" max="100" value="50" class="before-after__input" aria-label="Percentage of before image shown">
     </div>
-  </div>
 </div>
 
 <script>
