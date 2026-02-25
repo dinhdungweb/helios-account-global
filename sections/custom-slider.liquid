@@ -135,7 +135,7 @@
       // Kiểm tra nếu Swiper đã có sẵn (Theme Showcase thường có Swiper)
       if (typeof Swiper !== 'undefined') {
         new Swiper(sliderEl, {
-          slidesPerView: {{ section.settings.slides_per_view_mobile }},
+          slidesPerView: {{ section.settings.slides_per_view_desktop }},
           spaceBetween: 20,
           loop: {{ section.settings.loop }},
           autoplay: {{ section.settings.autoplay | json }} ? { delay: 5000 } : false,
@@ -149,7 +149,7 @@
           },
           breakpoints: {
             768: {
-              slidesPerView: {{ section.settings.slides_per_view_desktop }},
+              slidesPerView: {{ section.settings.slides_per_view_mobile }},
             }
           }
         });
