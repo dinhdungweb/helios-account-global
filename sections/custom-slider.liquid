@@ -1,0 +1,334 @@
+{% style %}
+  .section-id-{{ section.id }} .custom-slider__container {
+    padding-top: {{ section.settings.spacing_top }}px;
+    padding-bottom: {{ section.settings.spacing_bottom }}px;
+    overflow: hidden;
+  }
+
+  .section-id-{{ section.id }} .swiper-container {
+    width: 100%;
+    position: relative;
+  }
+
+  .section-id-{{ section.id }} .swiper-slide {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-id-{{ section.id }} .custom-slider__media {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+
+  .section-id-{{ section.id }} .custom-slider__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .section-id-{{ section.id }} .custom-slider__media:hover img {
+    transform: scale(1.05);
+  }
+
+  .section-id-{{ section.id }} .custom-slider__content {
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  .section-id-{{ section.id }} .custom-slider__title {
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+
+  .section-id-{{ section.id }} .custom-slider__text {
+    font-size: 0.9em;
+    opacity: 0.8;
+  }
+
+  .section-id-{{ section.id }} .swiper-button-prev,
+  .section-id-{{ section.id }} .swiper-button-next {
+    color: var(--cust-text-color, #000);
+    background: rgba(255,255,255,0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .section-id-{{ section.id }} .swiper-button-prev:after,
+  .section-id-{{ section.id }} .swiper-button-next:after {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .section-id-{{ section.id }} .swiper-pagination-bullet-active {
+    background: var(--cust-text-color, #000);
+  }
+{% endstyle %}
+
+<div id="section-id-{{ section.id }}" 
+     class="custom-slider__container section-id-{{ section.id }} use-{{ section.settings.color_scheme }}-bg" 
+     data-section-type="custom-slider" 
+     data-section-id="{{ section.id }}">
+  
+  <div class="wide-container half-gutter">
+    {% if section.settings.title != blank %}
+      <div class="section-heading align-center" data-cc-animate="cc-fade-in-up">
+        <h2 class="h2">{{ section.settings.title | escape }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="swiper-container js-custom-slider-{{ section.id }}" data-cc-animate="cc-fade-in">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide custom-slider__item" {{ block.shopify_attributes }}>
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="custom-slider__link">
+            {% endif %}
+
+            <div class="custom-slider__media">
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 800 | image_tag: 
+                  loading: 'lazy', 
+                  widths: '200, 400, 600, 800',
+                  alt: block.settings.image.alt | default: block.settings.title
+                }}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+
+            <div class="custom-slider__content">
+              {% if block.settings.title != blank %}
+                <h3 class="custom-slider__title h4">{{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.text != blank %}
+                <div class="custom-slider__text rte">{{ block.settings.text }}</div>
+              {% endif %}
+            </div>
+
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_arrows %}
+        <div class="swiper-button-prev js-button-prev-{{ section.id }}"></div>
+        <div class="swiper-button-next js-button-next-{{ section.id }}"></div>
+      {% endif %}
+
+      {% if section.settings.show_dots %}
+        <div class="swiper-pagination js-pagination-{{ section.id }}"></div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const initSlider = () => {
+      const sliderEl = document.querySelector('.js-custom-slider-{{ section.id }}');
+      if (!sliderEl) return;
+
+      // Kiểm tra nếu Swiper đã có sẵn (Theme Showcase thường có Swiper)
+      if (typeof Swiper !== 'undefined') {
+        new Swiper(sliderEl, {
+          slidesPerView: {{ section.settings.slides_per_view_mobile }},
+          spaceBetween: 20,
+          loop: {{ section.settings.loop }},
+          autoplay: {{ section.settings.autoplay | json }} ? { delay: 5000 } : false,
+          pagination: {
+            el: '.js-pagination-{{ section.id }}',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.js-button-next-{{ section.id }}',
+            prevEl: '.js-button-prev-{{ section.id }}',
+          },
+          breakpoints: {
+            768: {
+              slidesPerView: {{ section.settings.slides_per_view_desktop | at_most: 3 }},
+            },
+            1200: {
+              slidesPerView: {{ section.settings.slides_per_view_desktop }},
+            }
+          }
+        });
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSlider);
+    } else {
+      initSlider();
+    }
+
+    document.addEventListener('shopify:section:load', (e) => {
+      if (e.detail.sectionId === '{{ section.id }}') {
+        initSlider();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Slider",
+  "class": "section-custom-slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Custom Slider"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Desktop Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Slides per row (Desktop)",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Slides per row (Mobile)",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Slider Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show Arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show Dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "standard",
+      "options": [
+        { "value": "standard", "label": "Standard" },
+        { "value": "alt", "label": "Alternate colors" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing Bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Slide Title",
+          "default": "Slide Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Slide Text",
+          "default": "<p>Add a brief description here.</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Slide Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Slider",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}
