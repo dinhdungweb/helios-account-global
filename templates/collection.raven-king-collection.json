@@ -30,6 +30,28 @@
         "button_link": ""
       }
     },
+    "featured_collection_4eE6xM": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "",
+        "layout": "carousel",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 2,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "rich_text_KrzizP": {
       "type": "rich-text",
       "name": "Rich text",
@@ -40,7 +62,7 @@
         "title_width": 12,
         "heading_h1": false,
         "text": "<p>A true king is not born into power. He is forged by scars, shaped by darkness,and defined by the strength to rule himself.</p><p>The moment he meticulously cradles and perfects his crown in the atelier<br/>is the very future of the moment he becomes king of his own realm.</p>",
-        "image_width": 120,
+        "image_width": 60,
         "button_label": "",
         "button_link": "",
         "button_style": "auto",
@@ -104,30 +126,6 @@
         "spacing_bottom": 40
       }
     },
-    "main": {
-      "type": "main-collection",
-      "settings": {
-        "show_collection_content": false,
-        "show_collection_image": false,
-        "description_position": "top",
-        "layout": "rows",
-        "grid": 4,
-        "grid_mobile": "2",
-        "products_per_page": 24,
-        "featured_addtocart_hide": false,
-        "enable_infinite_scroll": true,
-        "show_vendor": false,
-        "show_filter_counts": false,
-        "show_filter_deadends": true,
-        "ajax_products": true,
-        "filter_mode": "drawer",
-        "sticky_sidebar": true,
-        "collapse_filters_method": "over-6",
-        "collapse_sort_by": false,
-        "enable_sorting": true,
-        "show_featured_in_sort": true
-      }
-    },
     "coverflow_slider_AQxANW": {
       "type": "coverflow-slider",
       "blocks": {
@@ -178,9 +176,9 @@
   },
   "order": [
     "background_video_responsive_4Gnrx4",
+    "featured_collection_4eE6xM",
     "rich_text_KrzizP",
     "custom_slider_eHmkNt",
-    "main",
     "coverflow_slider_AQxANW",
     "before_after_image_YzbHEr"
   ]
