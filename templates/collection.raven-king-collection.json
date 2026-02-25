@@ -233,6 +233,9 @@
     },
     "before_after_image_YzbHEr": {
       "type": "before-after-image",
+      "custom_css": [
+        "#section-id-template--19858007720105__before_after_image_YzbHEr {padding: 50px;}"
+      ],
       "name": "Before/After Image",
       "settings": {
         "title": "",
