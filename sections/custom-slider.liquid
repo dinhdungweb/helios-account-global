@@ -121,8 +121,8 @@
       </div>
 
       {% if section.settings.show_arrows %}
-        <div class="swiper-button-prev js-button-prev-{{ section.id }}"></div>
-        <div class="swiper-button-next js-button-next-{{ section.id }}"></div>
+        <div class="swiper-button-prev js-button-prev-{{ section.id }}">{% render 'svg-chevron-left' %}</div>
+        <div class="swiper-button-next js-button-next-{{ section.id }}">{% render 'svg-chevron-right' %}</div>
       {% endif %}
 
       {% if section.settings.show_dots %}
