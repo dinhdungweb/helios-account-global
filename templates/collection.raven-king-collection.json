@@ -53,6 +53,57 @@
         "color_text": ""
       }
     },
+    "custom_slider_eHmkNt": {
+      "type": "custom-slider",
+      "blocks": {
+        "slide_wycwEi": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/mdcravenking-3.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_ig8xhV": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/mdcravenking-1.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_jk9jka": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/len-mau-nhan-raven-king_2.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_wycwEi",
+        "slide_ig8xhV",
+        "slide_jk9jka"
+      ],
+      "name": "Custom Slider",
+      "settings": {
+        "title": "",
+        "text_alignment": "center",
+        "slides_per_view_desktop": 2,
+        "slides_per_view_mobile": 2,
+        "autoplay": false,
+        "loop": true,
+        "show_arrows": true,
+        "show_dots": false,
+        "color_scheme": "standard",
+        "spacing_top": 40,
+        "spacing_bottom": 40
+      }
+    },
     "main": {
       "type": "main-collection",
       "settings": {
@@ -128,6 +179,7 @@
   "order": [
     "background_video_responsive_4Gnrx4",
     "rich_text_KrzizP",
+    "custom_slider_eHmkNt",
     "main",
     "coverflow_slider_AQxANW",
     "before_after_image_YzbHEr"
