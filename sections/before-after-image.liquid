@@ -9,10 +9,23 @@
 
   .before-after__wrapper {
     position: relative;
-    aspect-ratio: {{ section.settings.aspect_ratio | default: '16/9' }};
     width: 100%;
     margin: 0 auto;
     max-width: {{ section.settings.max_width }}px;
+    background-color: #f0f0f0; /* Fallback background to show area before image loads */
+    overflow: hidden;
+  }
+
+  /* Aspect ratio support with fallback */
+  @supports (aspect-ratio: 1) {
+    .before-after__wrapper {
+      aspect-ratio: {{ section.settings.aspect_ratio | default: '16/9' }};
+    }
+  }
+  @supports not (aspect-ratio: 1) {
+    .before-after__wrapper {
+      padding-top: {{ 100 | divided_by: section.settings.aspect_ratio_decimal | default: 56.25 }}%;
+    }
   }
 
   .before-after__image {
@@ -136,20 +149,35 @@
     {% endif %}
 
     <div class="before-after__wrapper before-after-container-{{ section.id }}" data-cc-animate="cc-fade-in" data-cc-animate-delay="0.2s">
+      {%- liquid
+        assign loading = 'lazy'
+        assign fetchpriority = 'auto'
+        if section.settings.priority_loading
+          assign loading = 'eager'
+          assign fetchpriority = 'high'
+        endif
+      -%}
+
       {%- if section.settings.image_after != blank -%}
-        <img class="before-after__image before-after__image--after" 
-             src="{{ section.settings.image_after | img_url: '1600x' }}" 
-             alt="{{ section.settings.image_after.alt | escape }}"
-             loading="lazy">
+        {{ section.settings.image_after | image_url: width: 1600 | image_tag: 
+          loading: loading, 
+          fetchpriority: fetchpriority,
+          widths: '400, 600, 800, 1000, 1200, 1400, 1600',
+          class: 'before-after__image before-after__image--after',
+          alt: section.settings.image_after.alt
+        }}
       {%- else -%}
         {{ 'image' | placeholder_svg_tag: 'before-after__image before-after__image--after placeholder-svg' }}
       {%- endif -%}
 
       {%- if section.settings.image_before != blank -%}
-        <img class="before-after__image before-after__image--before" 
-             src="{{ section.settings.image_before | img_url: '1600x' }}" 
-             alt="{{ section.settings.image_before.alt | escape }}"
-             loading="lazy">
+        {{ section.settings.image_before | image_url: width: 1600 | image_tag: 
+          loading: loading, 
+          fetchpriority: fetchpriority,
+          widths: '400, 600, 800, 1000, 1200, 1400, 1600',
+          class: 'before-after__image before-after__image--before',
+          alt: section.settings.image_before.alt
+        }}
       {%- else -%}
         {{ 'lifestyle-1' | placeholder_svg_tag: 'before-after__image before-after__image--before placeholder-svg' }}
       {%- endif -%}
@@ -264,6 +292,20 @@
       "id": "aspect_ratio",
       "label": "Aspect Ratio (e.g. 16/9, 4/3)",
       "default": "16/9"
+    },
+    {
+      "type": "number",
+      "id": "aspect_ratio_decimal",
+      "label": "Aspect Ratio Decimal (e.g. 1.77 for 16/9)",
+      "default": 1.77,
+      "info": "Used for browser fallback compatibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "priority_loading",
+      "label": "Enable Priority Loading (LCP)",
+      "default": false,
+      "info": "Enable if this section is at the top of the page to improve LCP score."
     },
     {
       "type": "select",
