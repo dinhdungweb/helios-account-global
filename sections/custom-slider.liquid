@@ -28,11 +28,6 @@
     width: 100%;
     height: auto;
     object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  .section-id-{{ section.id }} .custom-slider__media:hover img {
-    transform: scale(1.05);
   }
 
   .section-id-{{ section.id }} .custom-slider__content {
@@ -154,9 +149,6 @@
           },
           breakpoints: {
             768: {
-              slidesPerView: {{ section.settings.slides_per_view_desktop | at_most: 3 }},
-            },
-            1200: {
               slidesPerView: {{ section.settings.slides_per_view_desktop }},
             }
           }
