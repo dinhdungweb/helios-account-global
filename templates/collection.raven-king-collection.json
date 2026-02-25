@@ -77,23 +77,6 @@
         "show_featured_in_sort": true
       }
     },
-    "before_after_image_YzbHEr": {
-      "type": "before-after-image",
-      "name": "Before/After Image",
-      "settings": {
-        "title": "",
-        "subtitle": "",
-        "image_before": "shopify://shop_images/len-mau-nhan-raven-king_2.jpg",
-        "label_before": "",
-        "image_after": "shopify://shop_images/len-mau-mdc-reven-king.jpg",
-        "label_after": "",
-        "max_width": 1600,
-        "aspect_ratio": "16/9",
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
     "coverflow_slider_AQxANW": {
       "type": "coverflow-slider",
       "blocks": {
@@ -123,13 +106,30 @@
       ],
       "name": "Coverflow Slider",
       "settings": {}
+    },
+    "before_after_image_YzbHEr": {
+      "type": "before-after-image",
+      "name": "Before/After Image",
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "image_before": "shopify://shop_images/len-mau-nhan-raven-king_2.jpg",
+        "label_before": "",
+        "image_after": "shopify://shop_images/len-mau-mdc-reven-king.jpg",
+        "label_after": "",
+        "max_width": 1600,
+        "aspect_ratio": "16/9",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
     }
   },
   "order": [
     "background_video_responsive_4Gnrx4",
     "rich_text_KrzizP",
     "main",
-    "before_after_image_YzbHEr",
-    "coverflow_slider_AQxANW"
+    "coverflow_slider_AQxANW",
+    "before_after_image_YzbHEr"
   ]
 }
