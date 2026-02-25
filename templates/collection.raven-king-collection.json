@@ -208,6 +208,29 @@
       "name": "Coverflow Slider",
       "settings": {}
     },
+    "rich_text_GVQ8KP": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>RAVEN KING - A man driven by passion, unafraid of scars, determined to<br/>take control of his own life.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": true,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "before_after_image_YzbHEr": {
       "type": "before-after-image",
       "name": "Before/After Image",
@@ -233,6 +256,7 @@
     "custom_slider_eHmkNt",
     "background_video_responsive_8YgWeW",
     "coverflow_slider_AQxANW",
+    "rich_text_GVQ8KP",
     "before_after_image_YzbHEr"
   ]
 }
