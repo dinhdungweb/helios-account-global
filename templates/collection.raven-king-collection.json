@@ -81,7 +81,7 @@
         "slide_RRPjVM": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/DSC8791.jpg",
+            "image": "shopify://shop_images/DSC9128.jpg",
             "title": "",
             "text": "",
             "link": ""
@@ -90,7 +90,7 @@
         "slide_jk9jka": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/DSC9132_1.jpg",
+            "image": "shopify://shop_images/DSC9062.jpg",
             "title": "",
             "text": "",
             "link": ""
@@ -99,7 +99,7 @@
         "slide_ig8xhV": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/DSC9221.jpg",
+            "image": "shopify://shop_images/DSC9050.jpg",
             "title": "",
             "text": "",
             "link": ""
@@ -108,7 +108,7 @@
         "slide_kAXdYc": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/DSC9090.jpg",
+            "image": "shopify://shop_images/DSC9221_028d0394-8a35-4b0c-bb47-82db71b4c5ad.jpg",
             "title": "",
             "text": "",
             "link": ""
@@ -131,6 +131,24 @@
             "text": "",
             "link": ""
           }
+        },
+        "slide_GaCiQz": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9089_3.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_BDiJww": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC8791_423347ce-d0a3-4bf7-8dbe-7d7389caae23.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -139,7 +157,9 @@
         "slide_ig8xhV",
         "slide_kAXdYc",
         "slide_wycwEi",
-        "slide_fjM39w"
+        "slide_fjM39w",
+        "slide_GaCiQz",
+        "slide_BDiJww"
       ],
       "name": "Custom Slider",
       "settings": {
