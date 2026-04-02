@@ -72,6 +72,28 @@
         "autoplay_speed": 7
       }
     },
+    "featured_collection_hqHYGR": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "collab-bradley",
+        "layout": "columns",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 2,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
     "slideshow_UDJFgg": {
       "type": "slideshow",
       "blocks": {
@@ -228,6 +250,7 @@
   "order": [
     "main",
     "slideshow_mkRHhp",
+    "featured_collection_hqHYGR",
     "slideshow_UDJFgg",
     "slideshow_bEHHVU",
     "slideshow_Lb4N8j",
