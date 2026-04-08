@@ -72,6 +72,29 @@
         "autoplay_speed": 7
       }
     },
+    "rich_text_GhU7zb": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "title_size": 48,
+        "title_width": 12,
+        "heading_h1": false,
+        "text": "<p>Leave your mark with <a href=\"https://www.instagram.com/heliosglobal.official/\" title=\"https://www.instagram.com/heliosglobal.official/\"><strong>Helios Global</strong></a>.<br/>Check in, tag us, and enjoy 5% off your next pieces.</p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": true,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "featured_collection_hqHYGR": {
       "type": "featured-collection",
       "name": "Featured collection",
@@ -250,6 +273,7 @@
   "order": [
     "main",
     "slideshow_mkRHhp",
+    "rich_text_GhU7zb",
     "featured_collection_hqHYGR",
     "slideshow_UDJFgg",
     "slideshow_bEHHVU",
