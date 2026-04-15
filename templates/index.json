@@ -11,6 +11,7 @@
   "sections": {
     "background_video_responsive_38PECG": {
       "type": "background-video-responsive",
+      "disabled": true,
       "name": "Video responsive",
       "settings": {
         "video_full_vh": false,
@@ -36,9 +37,9 @@
         "image_HHzFgj": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/z7534634042281_3fb15c1428b7fb8f4e9fc4a31922a9e7.jpg",
-            "mobile_image": "shopify://shop_images/z7534633816366_c5e193423c686844a3e2b91b84975880.jpg",
-            "slide_link": "shopify://collections/raven-king",
+            "image": "shopify://shop_images/file_thiet_ke_nhan_Polaris_Voyage_v2_19x9_US.jpg",
+            "mobile_image": "shopify://shop_images/file_thiet_ke_nhan_Polaris_Voyage_v2_9x16_US.jpg",
+            "slide_link": "shopify://products/polaris-voyage-black-silver",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -95,7 +96,6 @@
         "image_RTaHQK",
         "image_pVjqmz"
       ],
-      "disabled": true,
       "settings": {
         "height": "adapt",
         "height_desktop": 600,
