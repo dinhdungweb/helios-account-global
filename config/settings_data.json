@@ -176,6 +176,24 @@
       "header": {
         "type": "header",
         "blocks": {
+          "image_PLPDhH": {
+            "type": "image",
+            "settings": {
+              "menu_item": "MENU",
+              "image1": "shopify://shop_images/DSC9050.jpg",
+              "subheading1": "",
+              "title1": "A journey of craftsmanship",
+              "text1": "",
+              "button_label1": "",
+              "cta_link1": "shopify://pages/a-journey-of-craftsmanship",
+              "image2": "shopify://shop_images/len-mau-nhan-raven-king_1.jpg",
+              "subheading2": "",
+              "title2": "All Products",
+              "text2": "",
+              "button_label2": "",
+              "cta_link2": "shopify://collections/all-products"
+            }
+          },
           "slide_QL8AxT": {
             "type": "slide",
             "disabled": true,
@@ -200,6 +218,7 @@
           }
         },
         "block_order": [
+          "image_PLPDhH",
           "slide_QL8AxT",
           "slide_LnQdra",
           "slide_fea8Dc"
