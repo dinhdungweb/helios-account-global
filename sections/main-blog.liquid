@@ -114,9 +114,6 @@
     {% endif %}
   {% endpaginate %}
 
-  <footer class="banner-stack__footer">
-    <p>{{ section.settings.footer_label | default: 'END OF JOURNAL' }}</p>
-  </footer>
 </div>
 
 {% render 'blog-styles-helper' %}
@@ -150,12 +147,6 @@
       "id": "blog_show_filter",
       "label": "Show tag filter",
       "default": false
-    },
-    {
-      "type": "text",
-      "id": "footer_label",
-      "label": "Footer label",
-      "default": "END OF JOURNAL"
     },
     {
       "type": "select",
