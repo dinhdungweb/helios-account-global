@@ -37,9 +37,27 @@
         "image_RTaHQK": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Banner_Trinity_Vault_19x9_93948f64-1598-48ff-96ff-291bb2a5b227.jpg",
-            "mobile_image": "shopify://shop_images/banner_tui_Trinity_Vault_9x16_8f1fdabd-a284-4233-9b48-90a4a01ea859.jpg",
-            "slide_link": "shopify://collections/lunar-new-year",
+            "image": "shopify://shop_images/banner_web_nhan_emnial_19x9_47ca6e4c-4121-46f2-aaee-ab86fca2a430.jpg",
+            "mobile_image": "shopify://shop_images/banner_web_nhan_Eternal_9x16_e47d6eca-8cea-47c3-a531-1e3f4433518d.jpg",
+            "slide_link": "shopify://products/kraken-heart-ring",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_pVjqmz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Banner_web_19x9_215ac14e-9cf5-42e6-84d2-5ba4abcd502c.jpg",
+            "mobile_image": "shopify://shop_images/banner_web_9x16_043131d0-defb-4f92-8a65-33d8665c00a7.jpg",
+            "slide_link": "shopify://collections/helios-x-lair-of-the-minotaur",
             "subheading": "",
             "title": "",
             "title_size": 60,
@@ -69,31 +87,12 @@
             "overlay_position": "position--hcenter position--bottom",
             "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
-        },
-        "image_pVjqmz": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/30.7_design_nh_global-03.jpg",
-            "mobile_image": "shopify://shop_images/30.7_design_nh_global-04.jpg",
-            "slide_link": "shopify://collections/silver-ring-s925",
-            "subheading": "",
-            "title": "",
-            "title_size": 60,
-            "title_width": 12,
-            "heading_h1": false,
-            "text": "",
-            "enlarge_text": true,
-            "button_label": "",
-            "overlay_position": "position--hcenter position--vcenter",
-            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
-          }
         }
       },
       "block_order": [
         "image_RTaHQK",
-        "image_HHzFgj",
-        "image_pVjqmz"
+        "image_pVjqmz",
+        "image_HHzFgj"
       ],
       "settings": {
         "height": "adapt",
@@ -131,6 +130,7 @@
     },
     "featured_collection_MemUg9": {
       "type": "featured-collection",
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "title": "BEST SELLERS",
@@ -237,29 +237,6 @@
         "item_per_row_mobile": "1"
       }
     },
-    "featured_blog_AVzfM6": {
-      "type": "featured-blog",
-      "custom_css": [],
-      "settings": {
-        "title": "PROVEN QUALITY, WITH COUNTLESS CELEBRITIES CHOOSING OUR PRODUCT",
-        "blog": "influencer",
-        "post_limit": 12,
-        "show_view_all": false,
-        "blog_show_author": false,
-        "blog_show_date": true,
-        "layout": "carousel",
-        "blog_first_post_big": false,
-        "alternate_bg_color": false,
-        "height": "full",
-        "height_desktop": 700,
-        "height_mobile": 500,
-        "full_width": true,
-        "overlay_style_tint": true,
-        "autoplay": true,
-        "autoplay_speed": 7,
-        "slide_transition": "slide"
-      }
-    },
     "background_video_Qq3yNT": {
       "type": "background-video",
       "name": "Background video",
@@ -358,6 +335,29 @@
         "button_text_color": "#000000"
       }
     },
+    "featured_blog_AVzfM6": {
+      "type": "featured-blog",
+      "custom_css": [],
+      "settings": {
+        "title": "PROVEN QUALITY, WITH COUNTLESS CELEBRITIES CHOOSING OUR PRODUCT",
+        "blog": "influencer",
+        "post_limit": 12,
+        "show_view_all": false,
+        "blog_show_author": false,
+        "blog_show_date": true,
+        "layout": "carousel",
+        "blog_first_post_big": false,
+        "alternate_bg_color": false,
+        "height": "full",
+        "height_desktop": 700,
+        "height_mobile": 500,
+        "full_width": true,
+        "overlay_style_tint": true,
+        "autoplay": true,
+        "autoplay_speed": 7,
+        "slide_transition": "slide"
+      }
+    },
     "popup_newsletter_6FmbAP": {
       "type": "popup-newsletter",
       "disabled": true,
@@ -380,10 +380,10 @@
     "slideshow_cXHCJy",
     "custom_liquid_CQw7Dm",
     "grid_image_YiMfwg",
-    "featured_blog_AVzfM6",
     "background_video_Qq3yNT",
     "custom_liquid_93Kzt8",
     "helios_email_signup_CUQQNf",
+    "featured_blog_AVzfM6",
     "popup_newsletter_6FmbAP"
   ]
 }
