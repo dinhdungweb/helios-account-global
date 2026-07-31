@@ -132,6 +132,11 @@
         e.preventDefault();
 
         const originalText = this.textContent;
+        const resetButton = () => {
+          this.disabled = false;
+          this.textContent = originalText;
+          this.style.opacity = '1';
+        };
         this.disabled = true;
         this.textContent = 'Processing...';
         this.style.opacity = '0.6';
@@ -142,66 +147,18 @@
           const variantId = parseInt(formData.get('id'));
           const quantity = parseInt(formData.get('quantity') || 1);
 
-          // Get discount from tier-pricing-wrapper on MAIN PRODUCT page
-          let tierWrapper = null;
-          const allWrappers = document.querySelectorAll('.tier-pricing-wrapper');
-          for (const wrapper of allWrappers) {
-            // Skip wrappers from cart drawer or recommendations
-            if (wrapper.closest('.cart-drawer, [data-recommend], .recommend-products, .cart-items')) {
-              continue;
-            }
-            // Check if wrapper is in main product area
-            const isInProductArea = wrapper.closest('.product-area, .product-single, main.main-content, .product-template');
-            if (isInProductArea) {
-              tierWrapper = wrapper;
-              break;
-            }
+          if (!Number.isInteger(variantId) || !Number.isInteger(quantity) || quantity <= 0) {
+            throw new Error('Could not determine the selected product variant');
           }
-          
-          const tierDiscount = tierWrapper ? parseFloat(tierWrapper.dataset.tierDiscount || 0) : 0;
-          
-          // Get variant price from page (ORIGINAL price, not discounted)
-          let variantPrice = 0;
-          
-          // Try to get price from window.product (most reliable)
-          if (typeof window.product !== 'undefined') {
-            const variant = window.product.variants.find(v => v.id == variantId);
-            if (variant) {
-              variantPrice = variant.price; // Original price in cents
-            }
-          }
-          
-          // Fallback: Get ORIGINAL price from tier-price-original (not tier-price-final!)
-          if (variantPrice === 0 && tierWrapper) {
-            // Get original price from wrapper data or DOM
-            const originalPriceEl = document.querySelector('.price-area .tier-price-original .theme-money');
-            if (originalPriceEl) {
-              const priceText = originalPriceEl.textContent.replace(/[^\d]/g, '');
-              variantPrice = parseInt(priceText) || 0;
-            } else {
-              // If no tier discount shown, get from tier-price-final (which is original price)
-              const finalPriceEl = document.querySelector('.price-area .tier-price-final .theme-money');
-              if (finalPriceEl && tierDiscount === 0) {
-                const priceText = finalPriceEl.textContent.replace(/[^\d]/g, '');
-                variantPrice = parseInt(priceText) || 0;
-              }
-            }
-          }
-          
-          // If still no price, throw error
-          if (variantPrice === 0) {
-            throw new Error('Could not determine product price');
-          }
-          
+
           // Trigger draft order immediately with single item (Buy Now = only this product)
           const event = new CustomEvent('tier:create-draft-order', {
             detail: {
               buyNowMode: true, // Flag to indicate "Buy Now" - single item only
+              onError: resetButton,
               singleItem: {
                 variant_id: variantId,
-                quantity: quantity,
-                price: variantPrice,
-                discount_percent: tierDiscount
+                quantity: quantity
               }
             }
           });
@@ -210,9 +167,7 @@
         } catch (error) {
           console.error('[TierCheckoutButton] Error:', error);
           alert('An error occurred. Please try again!');
-          this.disabled = false;
-          this.textContent = originalText;
-          this.style.opacity = '1';
+          resetButton();
         }
       });
 

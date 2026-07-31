@@ -1,0 +1,241 @@
+<style>
+  .helios-blog-wrapper {
+    background: #000;
+    color: #fff;
+  }
+
+  .helios-blog-wrapper .helios-banner-stack {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
+    gap: 20px;
+  }
+
+  .helios-blog-wrapper .helios-blog-banner {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 80vh;
+    min-height: 500px;
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  .helios-blog-wrapper .banner__image-link,
+  .helios-blog-wrapper .banner__media {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .helios-blog-wrapper .banner__image,
+  .helios-blog-wrapper .banner__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+    transition: filter 0.5s ease;
+  }
+
+  .helios-blog-wrapper .helios-blog-banner:hover .banner__image,
+  .helios-blog-wrapper .helios-blog-banner:hover .banner__video {
+    filter: brightness(0.6);
+  }
+
+  .helios-blog-wrapper .banner__content {
+    position: relative;
+    z-index: 2;
+    align-self: flex-start;
+    width: min(100%, 900px);
+    padding: 40px;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .helios-blog-wrapper .banner__title--small {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  .helios-blog-wrapper .banner__title--small a {
+    color: #fff;
+    text-decoration: none;
+    pointer-events: auto;
+  }
+
+  .helios-blog-wrapper .banner__highlight {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+    padding: 0 10px 10px;
+    overflow: hidden;
+    color: #fff;
+    font-size: clamp(1.8rem, 4vw, 3.5rem);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .helios-blog-wrapper .banner__link {
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+  }
+
+  .helios-blog-wrapper .banner__link:hover {
+    border-bottom-color: #fff;
+    letter-spacing: 0.25em;
+  }
+
+  .helios-blog-wrapper .blog-page-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .helios-blog-wrapper .blog-page-header__title {
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .helios-blog-wrapper .blog-page-header__nav {
+    display: flex;
+    gap: 30px;
+  }
+
+  .helios-blog-wrapper .blog-page-header__link {
+    position: relative;
+    flex-shrink: 0;
+    padding: 5px 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.4s ease;
+  }
+
+  .helios-blog-wrapper .blog-page-header__link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #fff;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .helios-blog-wrapper .blog-page-header__link:hover,
+  .helios-blog-wrapper .blog-page-header__link.is-active {
+    color: #fff;
+  }
+
+  .helios-blog-wrapper .blog-page-header__link:hover::after,
+  .helios-blog-wrapper .blog-page-header__link.is-active::after {
+    width: 100%;
+  }
+
+  .helios-blog-wrapper .blog-page-filter {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .helios-blog-wrapper .blog-page-filter label {
+    margin-right: 10px;
+  }
+
+  .helios-blog-wrapper .blog-page-empty {
+    padding: 100px 0;
+    opacity: 0.5;
+  }
+
+  .helios-blog-wrapper .blog-page-pagination {
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+  }
+
+  .helios-blog-wrapper .banner-stack__footer {
+    padding: 100px 0;
+    text-align: center;
+  }
+
+  .helios-blog-wrapper .banner-stack__footer p {
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 901px) {
+    .helios-blog-wrapper .blog-page-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .helios-blog-wrapper .blog-page-header__nav {
+      width: 100%;
+      gap: 20px;
+      padding-bottom: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .helios-blog-wrapper .helios-banner-stack {
+      padding: 0 15px;
+      gap: 15px;
+    }
+
+    .helios-blog-wrapper .helios-blog-banner {
+      height: 60vh;
+      min-height: 420px;
+    }
+
+    .helios-blog-wrapper .banner__content {
+      max-width: 100%;
+      padding: 30px 20px;
+    }
+
+    .helios-blog-wrapper .banner__title--small {
+      font-size: 11px;
+    }
+
+    .helios-blog-wrapper .banner__highlight {
+      margin-bottom: 0;
+      font-size: 1.4rem;
+    }
+  }
+</style>

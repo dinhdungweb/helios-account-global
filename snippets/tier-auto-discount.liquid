@@ -6,9 +6,11 @@
 {% endcomment %}
 
 {% if customer %}
-  {% comment %} Tính total_spent {% endcomment %}
-  {% comment %} Tính total_spent {% endcomment %}
-  {% assign total_spent = customer.total_spent | divided_by: 100 %}
+  {% if settings.tier_use_custom_metafield and customer.metafields.custom.total_spent != blank %}
+    {% assign total_spent = customer.metafields.custom.total_spent.value | default: customer.metafields.custom.total_spent | plus: 0 %}
+  {% else %}
+    {% assign total_spent = customer.total_spent | divided_by: 100 %}
+  {% endif %}
   
   {% comment %} Xác định discount code từ settings {% endcomment %}
   {% liquid

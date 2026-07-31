@@ -1,145 +1,89 @@
 /**
- * Tier Draft Order Handler
- * Create draft order with line item discounts via backend API
+ * Secure tier checkout through the Shopify App Proxy.
+ * The browser only sends variant IDs and quantities. Shopify prices,
+ * customer identity and tier discounts are resolved by the backend.
  */
 
 (function () {
   'use strict';
 
-  const API_ENDPOINT = 'https://helios-global-tier-pricing.vercel.app/api/create-draft-order';
+  const CHECKOUT_CONTEXT = window.HELIOS_TIER_CHECKOUT_CONTEXT || {};
+  const API_ENDPOINT = CHECKOUT_CONTEXT.endpoint ||
+    window.HELIOS_TIER_DRAFT_ORDER_ENDPOINT ||
+    '/apps/helios-tier-pricing';
 
-  // Listen for draft order creation event
   function setupEventListeners() {
-    document.addEventListener('tier:create-draft-order', async function (e) {
-
+    document.addEventListener('tier:create-draft-order', async function (event) {
       try {
-        // Pass event detail (may contain productDiscount from product page)
-        await createDraftOrderCheckout(e.detail);
+        await createDraftOrderCheckout(event.detail);
       } catch (error) {
         console.error('[TierDraftOrder] Error:', error);
+        if (event.detail && typeof event.detail.onError === 'function') {
+          event.detail.onError(error);
+        }
         alert('An error occurred while creating the order. Please try again!');
       }
     });
   }
 
-  // Also intercept cart drawer checkout button
   function interceptCartCheckout() {
-    document.addEventListener('click', async function (e) {
-      const checkoutBtn = e.target.closest('[name="checkout"], .cart__checkout-button, .cart-drawer__checkout');
+    document.addEventListener('click', async function (event) {
+      const checkoutButton = event.target.closest(
+        '[name="checkout"], .cart__checkout-button, .cart-drawer__checkout'
+      );
 
-      if (checkoutBtn) {
-        // Check if customer has tier (always use draft order for tier customers)
-        const shouldUseDraftOrder = await checkShouldUseDraftOrder();
+      if (!checkoutButton || !shouldUseDraftOrder()) {
+        return;
+      }
 
-        if (shouldUseDraftOrder) {
-          e.preventDefault();
-          e.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
 
-          const originalText = checkoutBtn.textContent || checkoutBtn.value;
-          checkoutBtn.disabled = true;
-          if (checkoutBtn.textContent) {
-            checkoutBtn.textContent = 'Processing...';
-          } else {
-            checkoutBtn.value = 'Processing...';
-          }
+      const originalText = checkoutButton.textContent || checkoutButton.value;
+      setButtonState(checkoutButton, true, 'Processing...');
 
-          try {
-            await createDraftOrderCheckout();
-          } catch (error) {
-            console.error('[TierDraftOrder] Error:', error);
-            alert('An error occurred while creating the order. Please try again!');
-            checkoutBtn.disabled = false;
-            if (checkoutBtn.textContent) {
-              checkoutBtn.textContent = originalText;
-            } else {
-              checkoutBtn.value = originalText;
-            }
-          }
-        }
+      try {
+        await createDraftOrderCheckout();
+      } catch (error) {
+        console.error('[TierDraftOrder] Error:', error);
+        alert('An error occurred while creating the order. Please try again!');
+        setButtonState(checkoutButton, false, originalText);
       }
     }, true);
   }
 
-  async function checkShouldUseDraftOrder() {
-    const customerTier = sessionStorage.getItem('helios_customer_tier');
-    // If customer has tier, ALWAYS use draft order to ensure correct pricing
-    return !!customerTier;
+  function shouldUseDraftOrder() {
+    return CHECKOUT_CONTEXT.customerLoggedIn === true &&
+      !!sessionStorage.getItem('helios_customer_tier');
   }
 
   async function createDraftOrderCheckout(eventDetail) {
-    // Get customer info
-    const customerId = getCustomerId();
-    const customerEmail = getCustomerEmail();
+    const cart = await loadCart();
+    const currency = getActiveCurrency(cart);
 
-    if (!customerId && !customerEmail) {
-      throw new Error('Customer information not found');
+    if (!currency) {
+      throw new Error('Checkout currency not found');
     }
 
-    let items = [];
-
-    // Check if this is "Buy Now" mode (single item from product page)
+    let items;
     if (eventDetail && eventDetail.buyNowMode && eventDetail.singleItem) {
-      // Buy Now: Only checkout this single item, ignore cart
-      items = [{
-        variant_id: eventDetail.singleItem.variant_id,
-        quantity: eventDetail.singleItem.quantity,
-        price: eventDetail.singleItem.price / 100, // Convert from cents to dollars
-        discount_percent: eventDetail.singleItem.discount_percent
-      }];
+      items = [normalizeRequestedItem(eventDetail.singleItem)];
     } else {
-      // Normal checkout: Get all items from cart
-      const cartResponse = await fetch('/cart.js');
-      const cart = await cartResponse.json();
-
-      if (!cart.items || cart.items.length === 0) {
+      if (!Array.isArray(cart.items) || cart.items.length === 0) {
         throw new Error('Cart is empty');
       }
-
-      // Build items with tier discounts
-      items = await Promise.all(cart.items.map(async (item) => {
-        let discountPercent = 0;
-        let foundWrapper = false;
-
-        // Try to get discount from cart drawer (if available)
-        // Match by variant_id, NOT by index
-        const cartItems = document.querySelectorAll('.cart-drawer-item');
-        for (const cartItem of cartItems) {
-          const variantIdAttr = cartItem.dataset.variantId || cartItem.getAttribute('data-variant-id');
-          if (variantIdAttr && parseInt(variantIdAttr) === item.variant_id) {
-            const wrapper = cartItem.querySelector('.tier-pricing-wrapper');
-            if (wrapper) {
-              foundWrapper = true;
-              discountPercent = parseFloat(wrapper.dataset.tierDiscount || 0);
-              break;
-            }
-          }
-        }
-
-        // Only calculate discount if wrapper NOT found
-        // If wrapper found with discount=0, trust Liquid's scope check
-        if (!foundWrapper) {
-          discountPercent = await getItemTierDiscount(item);
-        }
-
-        return {
-          variant_id: item.variant_id,
-          quantity: item.quantity,
-          price: item.price / 100, // Convert from cents to dollars
-          discount_percent: discountPercent
-        };
-      }));
+      items = cart.items.map(normalizeRequestedItem);
     }
 
-    // Call backend API
     const response = await fetch(API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        customer_id: customerId,
-        customer_email: customerEmail,
-        items: items
+        currency,
+        country: getActiveCountry(),
+        items
       })
     });
 
@@ -149,157 +93,77 @@
     }
 
     const data = await response.json();
-
-    // Clear cart before redirecting (only if not Buy Now mode)
-    // Buy Now doesn't add to cart, so no need to clear
-    if (!eventDetail || !eventDetail.buyNowMode) {
-      await fetch('/cart/clear.js', { method: 'POST' });
+    if (!data.invoice_url) {
+      throw new Error('Checkout URL was not returned');
     }
 
-    // Redirect to invoice
+    if (!eventDetail || !eventDetail.buyNowMode) {
+      await clearCart();
+    }
+
     window.location.href = data.invoice_url;
   }
 
-  async function getItemTierDiscount(item) {
-    // Get customer tier
-    const customerTier = sessionStorage.getItem('helios_customer_tier');
-    if (!customerTier) return 0;
-
-    // Fetch full product data to get tags
-    let productTags = [];
-    try {
-      const productResponse = await fetch(`/products/${item.handle}.js`);
-      const productData = await productResponse.json();
-      productTags = productData.tags || [];
-    } catch (error) {
-      console.warn('[TierDraftOrder] Could not fetch product tags:', error);
-      // Fallback to item.product_tags if available
-      productTags = item.product_tags || [];
+  async function loadCart() {
+    const response = await fetch(getCartUrl());
+    if (!response.ok) {
+      throw new Error('Could not load cart');
     }
-
-    // Check for product-specific discount from tags
-    const tierNameNormalized = customerTier.toLowerCase().replace(/\s+/g, '').replace(/_/g, '');
-    const tagPrefix = `tier-${tierNameNormalized}-`;
-
-    for (const tag of productTags) {
-      const tagLower = tag.toLowerCase().trim();
-      if (tagLower.startsWith(tagPrefix)) {
-        const parts = tagLower.split('-');
-        if (parts.length === 3) {
-          const percent = parseInt(parts[2], 10);
-          if (percent > 0 && percent <= 100) {
-            return percent;
-          }
-        }
-      }
-    }
-
-    // Check if tier pricing applies to this product based on scope
-    const tierScope = sessionStorage.getItem('helios_tier_scope') || 'all';
-    const allowedTags = sessionStorage.getItem('helios_tier_tags') || '';
-    const allowedCollections = sessionStorage.getItem('helios_tier_collections') || '';
-
-    const applies = checkTierApplies(tierScope, allowedTags, allowedCollections, productTags, item);
-
-    if (!applies) {
-      return 0;
-    }
-
-    // Use default tier discount
-    const defaultDiscount = getDefaultTierDiscount(customerTier);
-    return defaultDiscount;
+    return response.json();
   }
 
-  function checkTierApplies(scope, allowedTagsStr, allowedCollectionsStr, productTags, item) {
-    // All products
-    if (scope === 'all') return true;
-
-    // Tagged products
-    if (scope === 'tagged') {
-      if (!allowedTagsStr) return false;
-      const allowedTags = allowedTagsStr.split(',').map(t => t.trim().toLowerCase());
-      const pTags = productTags.map(t => t.toLowerCase());
-      return allowedTags.some(tag => pTags.includes(tag));
+  async function clearCart() {
+    const response = await fetch(getCartClearUrl(), { method: 'POST' });
+    if (!response.ok) {
+      throw new Error('Could not clear cart');
     }
-
-    // Collections
-    if (scope === 'collections') {
-      if (!allowedCollectionsStr) return false;
-      // Note: /products/handle.js does NOT return collections data
-      // We CANNOT verify collections in JS reliably
-      // IMPORTANT: This function should ONLY be called when wrapper is NOT found in cart drawer
-      // If wrapper exists, we trust Liquid's scope check (which CAN check collections)
-      // If we reach here (no wrapper), we must be conservative and return FALSE
-      // to avoid applying discount to products outside allowed collections
-      return false;
-    }
-
-    // Exclude tagged
-    if (scope === 'exclude_tagged') {
-      if (!allowedTagsStr) return true;
-      const excludedTags = allowedTagsStr.split(',').map(t => t.trim().toLowerCase());
-      const pTags = productTags.map(t => t.toLowerCase());
-      return !excludedTags.some(tag => pTags.includes(tag));
-    }
-
-    return false;
   }
 
-  function getDefaultTierDiscount(tierName) {
-    // Try to get config from sessionStorage
-    const configStr = sessionStorage.getItem('helios_tier_config');
-    if (configStr) {
-      try {
-        const config = JSON.parse(configStr);
-        const discount = config[tierName.toUpperCase()];
-        if (discount !== undefined) {
-          return discount;
-        }
-      } catch (e) {
-        console.warn('[TierDraftOrder] Invalid tier config in sessionStorage:', e);
-      }
-    }
-
-    // Fallback to hardcoded values if config is missing
-    // These MUST match your theme settings (settings_data.json)
-    const tierDiscounts = {
-      'BLACK DIAMOND': 10,
-      'BLACKDIAMOND': 10,
-      'DIAMOND': 8,
-      'PLATINUM': 6,
-      'GOLD': 4,
-      'SILVER': 2,
-      'MEMBER': 0
+  function normalizeRequestedItem(item) {
+    return {
+      variant_id: Number(item.variant_id || item.id),
+      quantity: Number(item.quantity || 1)
     };
-
-    return tierDiscounts[tierName.toUpperCase()] || 0;
   }
 
-  function getCustomerId() {
-    // Try to get from meta tag or global variable
-    const metaCustomerId = document.querySelector('meta[name="customer-id"]');
-    if (metaCustomerId) {
-      return metaCustomerId.content;
-    }
-
-    if (typeof window.ShopifyAnalytics !== 'undefined' && window.ShopifyAnalytics.meta) {
-      return window.ShopifyAnalytics.meta.page.customerId;
-    }
-
-    return null;
+  function getRouteRoot() {
+    return window.Shopify && window.Shopify.routes && window.Shopify.routes.root
+      ? window.Shopify.routes.root
+      : '/';
   }
 
-  function getCustomerEmail() {
-    // Try to get from meta tag or global variable
-    const metaEmail = document.querySelector('meta[name="customer-email"]');
-    if (metaEmail) {
-      return metaEmail.content;
-    }
-
-    return null;
+  function getCartUrl() {
+    return `${getRouteRoot()}cart.js`;
   }
 
-  // Initialize
+  function getCartClearUrl() {
+    return `${getRouteRoot()}cart/clear.js`;
+  }
+
+  function getActiveCurrency(cart) {
+    const value = cart && cart.currency ||
+      window.Shopify && window.Shopify.currency && window.Shopify.currency.active ||
+      CHECKOUT_CONTEXT.currency || '';
+    const currency = String(value).trim().toUpperCase();
+    return /^[A-Z]{3}$/.test(currency) ? currency : '';
+  }
+
+  function getActiveCountry() {
+    const value = CHECKOUT_CONTEXT.country ||
+      window.Shopify && window.Shopify.country || '';
+    const country = String(value).trim().toUpperCase();
+    return /^[A-Z]{2}$/.test(country) ? country : 'US';
+  }
+
+  function setButtonState(button, disabled, text) {
+    button.disabled = disabled;
+    if (button.textContent) {
+      button.textContent = text;
+    } else {
+      button.value = text;
+    }
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       setupEventListeners();
@@ -309,5 +173,4 @@
     setupEventListeners();
     interceptCartCheckout();
   }
-
 })();

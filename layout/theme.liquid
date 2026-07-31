@@ -330,6 +330,14 @@
   </script>
   
   {% comment %} Tier Pricing {% endcomment %}
+  <script>
+    window.HELIOS_TIER_CHECKOUT_CONTEXT = {
+      customerLoggedIn: {% if customer %}true{% else %}false{% endif %},
+      country: {{ localization.country.iso_code | json }},
+      currency: {{ cart.currency.iso_code | json }},
+      endpoint: '/apps/helios-tier-pricing'
+    };
+  </script>
   <script src="{{ 'tier-pricing-final.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'tier-checkout-button.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'tier-product-discount.js' | asset_url }}" defer="defer"></script>

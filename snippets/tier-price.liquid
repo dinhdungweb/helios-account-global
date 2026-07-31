@@ -202,7 +202,11 @@
     assign total_spent = 0
     
     if tier_enabled and customer
-      assign total_spent = customer.total_spent | divided_by: 100
+      if use_custom_metafield and customer.metafields.custom.total_spent != blank
+        assign total_spent = customer.metafields.custom.total_spent.value | default: customer.metafields.custom.total_spent | plus: 0
+      else
+        assign total_spent = customer.total_spent | divided_by: 100
+      endif
       
       comment 1. Check Tags First (Priority)
       endcomment
@@ -372,22 +376,56 @@
   
   comment Tính giá tier
   endcomment
-  assign discount_multiplier = 100 | minus: tier_discount | divided_by: 100.0
-  assign tier_price = price | times: discount_multiplier | round
-  
   assign has_sale = false
   if compare_at_price and compare_at_price > price
     assign has_sale = true
+  endif
+
+  comment
+    Add the store sale percent and membership percent. The membership amount
+    is calculated from compare_at_price when a store sale already exists.
+  endcomment
+  assign tier_discount_base = price
+  if has_sale
+    assign tier_discount_base = compare_at_price
+  endif
+  assign tier_discount_amount = tier_discount_base | times: tier_discount | divided_by: 100.0 | round
+  assign tier_price = price | minus: tier_discount_amount
+  if tier_price < 0
+    assign tier_price = 0
+  endif
+
+  assign combined_discount_percent = tier_discount
+  if has_sale and compare_at_price > 0
+    assign store_discount_percent = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price
+    assign combined_discount_percent = store_discount_percent | plus: tier_discount
+  endif
+  if combined_discount_percent > 100
+    assign combined_discount_percent = 100
+  endif
+  assign combined_discount_percent = combined_discount_percent | round
+
+  assign effective_tier_discount = 0
+  if price > 0 and tier_discount_amount > 0
+    assign effective_tier_discount = tier_discount_amount | times: 100.0 | divided_by: price
+    if effective_tier_discount > 100
+      assign effective_tier_discount = 100
+    endif
   endif
 %}
 
 
 
-<div class="tier-pricing-wrapper tier-pricing-injected" 
+<div class="tier-pricing-wrapper tier-pricing-injected{% if has_sale %} tier-pricing--has-store-sale{% endif %}"
      data-tier="{{ tier_name }}"
      data-customer-tier="{{ tier_name }}"
      data-customer-total-spent="{{ total_spent }}"
      data-tier-discount="{{ tier_discount }}"
+     data-combined-discount="{{ combined_discount_percent }}"
+     data-effective-tier-discount="{{ effective_tier_discount }}"
+     data-current-price="{{ price }}"
+     data-compare-at-price="{{ compare_at_price | default: 0 }}"
+     data-tier-price="{{ tier_price }}"
      data-has-customer="{% if customer %}true{% else %}false{% endif %}"
      data-tier-scope="{{ tier_scope }}"
      data-tier-allowed-tags="{{ settings.tier_pricing_product_tags }}"
@@ -424,9 +462,6 @@
       {% comment %} <svg class="tier-badge-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
       </svg> {% endcomment %}
-      <svg class="tier-badge-icon" width="12" height="12" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21.89 2.119a2.084 2.084 0 0 0-1.486-.619h-5.762c-.378 0-.74.15-1.009.417L2.113 13.434a2.101 2.101 0 0 0 0 2.968l5.485 5.484a2.101 2.101 0 0 0 2.97 0l11.514-11.512c.267-.268.417-.63.418-1.008V3.6a2.074 2.074 0 0 0-.61-1.481ZM18 7.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="currentColor"></path>
-      </svg>
-      - {{ tier_discount }}% {{ tier_name }}
+      - {{ combined_discount_percent }}% {{ tier_name }}
     </span>
   {% endif %}

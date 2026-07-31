@@ -34,6 +34,15 @@
   padding-right: 3px;
 }
 
+/* Store sale + membership are shown as one final price. Hide the
+   intermediate store-sale price and keep the original list price. */
+.product-block .tier-pricing--has-store-sale .tier-price-original,
+.product-area .tier-pricing--has-store-sale .tier-price-original,
+.cart-item .tier-pricing--has-store-sale .tier-price-original,
+.cart-drawer .tier-pricing--has-store-sale .tier-price-original {
+  display: none !important;
+}
+
 /* ============================================
    TIER BADGE
    ============================================ */
@@ -43,7 +52,7 @@
   align-items: center;
   gap: 4px;
   padding: 4px 10px;
-  border-radius: 6px;
+  border-radius: 0;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -88,8 +97,13 @@
 }
 
 .tier-price-final.tier-price-discounted {
-  /* color: #fab320; */
-  font-size: 1.3em;
+  color: #d2d2d2;
+  font-size: 1.5em;
+  font-weight: 400 !important;
+}
+
+.tier-price-final.tier-price-discounted .theme-money {
+  font-weight: 400 !important;
 }
 
 /* Compare at price (sale price) */
@@ -105,13 +119,44 @@
    PRODUCT BLOCK INTEGRATION
    ============================================ */
 
+/* The membership badge already contains the combined discount, so the
+   separate red store-sale badge is redundant. Pre-order remains visible. */
+.product-block:has(.tier-badge) .product-label.sale {
+  display: none !important;
+}
+
 .product-block .tier-pricing-wrapper {
   margin: 4px 0 8px 0;
 }
 
 .product-block .tier-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  margin: 0;
   font-size: 10px;
   padding: 3px 8px;
+  border-radius: 0;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.product-block.layout-right .tier-badge {
+  right: auto;
+  left: 10px;
+}
+
+@media (min-width: 1200px) {
+  .product-block .tier-badge {
+    top: 20px;
+    right: 20px;
+  }
+
+  .product-block.layout-right .tier-badge {
+    right: auto;
+    left: 20px;
+  }
 }
 
 .product-block .tier-price-final {
@@ -169,8 +214,10 @@
 
 @media (max-width: 661px) {
   .product-block .tier-badge {
-    margin-top: 5px;
-    display: flex;
+    margin: 0;
+    display: inline-flex;
+    font-size: 9px;
+    padding: 2px 6px;
   }
 }
 

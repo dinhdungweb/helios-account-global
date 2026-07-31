@@ -1,169 +1,217 @@
 {%- liquid
-  assign columns = 4
-
-  if columns == 2
-    assign article_class = 'column half'
-  elsif columns == 3
-    assign article_class = 'column third'
-  else
-    assign article_class = 'column quarter'
-  endif
-
   assign show_blog_filters = false
   if blog.all_tags.size > 0 and section.settings.blog_show_filter
     assign show_blog_filters = true
   endif
 -%}
 
-<div data-section-type="blog-template" class="{% if section.settings.blog_show_title == false %}sm:pt-medium pb-medium{% else %}py-medium{% endif %}">
-  {% if section.settings.blog_show_title %}
-    <div class="central align-center">
-      <h1 class="feature-header" data-cc-animate>
-        <span>
-          {{ blog.title }}
+<div class="helios-blog-wrapper" data-section-id="{{ section.id }}" data-section-type="blog-template">
+  <header class="blog-page-header">
+    {% if section.settings.blog_show_title %}
+      <h1 class="blog-page-header__title">{{ blog.title }}</h1>
+    {% endif %}
 
-          {% if show_blog_filters == false and section.settings.blog_show_rss_link %}
-            <a class="rsslink {% if section.settings.blog_show_filter == false or blog.all_tags.size == 0 %}no-filter{% endif %}"
-               href="{{ blog.url }}.atom" title="{{ blog.title | escape }} RSS" aria-label="{{ blog.title | escape }} RSS">
-              {% render 'svg-rss' %}
+    <nav class="blog-page-header__nav" aria-label="Blog navigation">
+      {% if section.settings.blog_navigation != blank %}
+        {% for link in section.settings.blog_navigation.links %}
+          <a
+            href="{{ link.url }}"
+            class="blog-page-header__link{% if link.current %} is-active{% endif %}"
+            {% if link.current %}aria-current="page"{% endif %}
+          >
+            {{ link.title }}
+          </a>
+        {% endfor %}
+      {% else %}
+        {%- liquid
+          assign nav_handles = 'world-of-helios,nhan,day-chuyen,vong-tay,bac,da,kinh' | split: ','
+        -%}
+        {% for handle in nav_handles %}
+          {% assign nav_blog = blogs[handle] %}
+          {% if nav_blog != blank %}
+            <a
+              href="{{ nav_blog.url }}"
+              class="blog-page-header__link{% if blog.handle == handle %} is-active{% endif %}"
+              {% if blog.handle == handle %}aria-current="page"{% endif %}
+            >
+              {{ nav_blog.title }}
             </a>
           {% endif %}
-          </span>
-      </h1>
-      {% if blog.metafields.custom.blog_description %}
-        <div class="blog-description">
-          {{ blog.metafields.custom.blog_description }}
-        </div>
+        {% endfor %}
       {% endif %}
+    </nav>
+  </header>
+
+  {% if show_blog_filters %}
+    <div class="blog-page-filter">
+      <label for="BlogFilter-{{ section.id }}">{{ 'blogs.filtering.filter' | t }}</label>
+      <select id="BlogFilter-{{ section.id }}" class="redirecter">
+        <option value="{{ blog.url }}">{{ 'blogs.filtering.all' | t }}</option>
+        {% for tag in blog.all_tags %}
+          <option value="{{ blog.url }}/tagged/{{ tag | handle }}"{% if current_tags contains tag %} selected{% endif %}>
+            {{ tag | capitalize }}
+          </option>
+        {% endfor %}
+      </select>
     </div>
   {% endif %}
 
   {% paginate blog.articles by section.settings.blog_posts_per_page %}
-    <div class="wide-container half-gutter">
-      {% if show_blog_filters %}
-        <div class="blog-toolbar" data-cc-animate data-cc-animate-delay="0.2s">
-          <div>
-            {% if section.settings.blog_show_rss_link %}
-              <a class="rsslink {% if section.settings.blog_show_filter == false or blog.all_tags.size == 0 %}no-filter{% endif %}"
-                 href="{{ blog.url }}.atom" title="{{ blog.title | escape }} RSS" aria-label="{{ blog.title | escape }} RSS">
-                {% render 'svg-rss' %}
-              </a>
-            {% endif %}
-          </div>
+    <div class="helios-banner-stack">
+      {% for article in blog.articles %}
+        {% assign article_index = forloop.index %}
+        {% render 'blog-card', article: article %}
 
-          {% if show_blog_filters %}
-            <div class="option option--gap-top">
-              <label for="filter-by">{{ 'blogs.filtering.filter' | t }}</label>
-              <select id="filter-by" class="redirecter">
-                <option value="{{ blog.url }}">{{ 'blogs.filtering.all' | t }}</option>
-                {% for tag in blog.all_tags %}
-                  <option value="{{ blog.url }}/tagged/{{ tag | handle }}" {% if current_tags contains tag %}selected{% endif %}>{{ tag | capitalize }}</option>
-                {% endfor %}
-              </select>
-            </div>
+        {% for block in section.blocks %}
+          {% if block.settings.insert_after == article_index %}
+            <section class="helios-blog-banner in-feed-banner" {{ block.shopify_attributes }}>
+              {% if block.type == 'banner_image' and block.settings.image != blank %}
+                <div class="banner__media">
+                  {{
+                    block.settings.image
+                    | image_url: width: 2000
+                    | image_tag:
+                      widths: '600, 900, 1200, 1600, 2000',
+                      sizes: '100vw',
+                      loading: 'lazy',
+                      class: 'banner__image',
+                      alt: block.settings.title
+                  }}
+                </div>
+              {% elsif block.type == 'banner_video' and block.settings.video != blank %}
+                <div class="banner__media">
+                  {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'banner__video' }}
+                </div>
+              {% endif %}
+
+              <div class="banner__content">
+                {% if block.settings.sub_title != blank %}
+                  <div class="banner__title--small">{{ block.settings.sub_title }}</div>
+                {% endif %}
+                {% if block.settings.title != blank %}
+                  <div class="banner__highlight">{{ block.settings.title }}</div>
+                {% endif %}
+                {% if block.settings.link_text != blank %}
+                  <a href="{{ block.settings.link_url | default: '#' }}" class="banner__link">{{ block.settings.link_text }}</a>
+                {% endif %}
+              </div>
+            </section>
           {% endif %}
-        </div>
-      {% endif %}
-
-      <div class="product-list-container">
-        <div class="cc-articles product-list grid--uniform{% if section.settings.blog_posts_per_row_mobile == '2' %} mob-two-col{% endif %} product-list--{{ section.settings.blog_layout }}">
-          {% for article in blog.articles %}
-            <div class="{{ article_class }} article-column">
-              {% render 'article-block',
-                  article: article,
-                  show_date: settings.blog_show_date,
-                  show_author: settings.blog_show_author,
-                  image_shape: settings.blog_image_shape,
-                  blog_excerpt: settings.blog_excerpt
-              %}
-            </div>
-          {% else %}
-            <p class="align-centre"><em>{{ 'blogs.general.no_matches' | t }}</em></p>
-          {% endfor %}
-        </div>
-
-        {% if paginate.pages > 1 %}
-          <div class="pagination central content" data-cc-animate>
-            {% comment %}
-            When paginating blog articles, a previous article is actually a newer article, not an older one,
-            because blog articles are shown and paginated in a reversed chronological order.
-            The word 'previous' can be confusing, hence we'll change it.
-            {% endcomment %}
-            {% assign older_articles = 'blogs.pagination.older_articles' | t %}
-            {% assign newer_articles = 'blogs.pagination.newer_articles' | t %}
-            {{ paginate | default_pagination | replace: 'Previous', newer_articles | replace: 'Next', older_articles }}
-          </div>
-        {% endif %}
-      </div>
+        {% endfor %}
+      {% else %}
+        <p class="align-centre blog-page-empty"><em>{{ 'blogs.general.no_matches' | t }}</em></p>
+      {% endfor %}
     </div>
+
+    {% if paginate.pages > 1 %}
+      <div class="pagination-container blog-page-pagination">
+        <div class="pagination central content">
+          {% assign older_articles = 'blogs.pagination.older_articles' | t %}
+          {% assign newer_articles = 'blogs.pagination.newer_articles' | t %}
+          {{ paginate | default_pagination | replace: 'Previous', newer_articles | replace: 'Next', older_articles }}
+        </div>
+      </div>
+    {% endif %}
   {% endpaginate %}
+
+  <footer class="banner-stack__footer">
+    <p>{{ section.settings.footer_label | default: 'END OF JOURNAL' }}</p>
+  </footer>
 </div>
 
+{% render 'blog-styles-helper' %}
 
 {% schema %}
-  {
-    "name": "Blog pages",
-    "settings": [
-      {
-        "type": "select",
-        "id": "blog_layout",
-        "label": "Layout",
-        "options": [
-          {
-            "value": "collage",
-            "label": "Collage"
-          },
-          {
-            "value": "rows",
-            "label": "Grid"
-          }
-        ],
-        "default": "collage",
-        "info": "Collage applies to larger screens only"
-      },
-      {
-        "type": "range",
-        "id": "blog_posts_per_page",
-        "label": "Posts per page",
-        "min": 6,
-        "max": 24,
-        "step": 1,
-        "default": 10
-      },
-      {
-        "type": "select",
-        "id": "blog_posts_per_row_mobile",
-        "label": "Posts per row on mobile",
-        "options": [
-          {
-            "value": "1",
-            "label": "1"
-          },
-          {
-            "value": "2",
-            "label": "2"
-          }
-        ],
-        "default": "2"
-      },
-      {
-        "type": "checkbox",
-        "id": "blog_show_title",
-        "label": "Show page title",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "blog_show_filter",
-        "label": "Show tag filter",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "blog_show_rss_link",
-        "label": "Show RSS link",
-        "default": false
-      }
-    ]
-  }
+{
+  "name": "Blog pages",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "blog_navigation",
+      "label": "Blog navigation"
+    },
+    {
+      "type": "range",
+      "id": "blog_posts_per_page",
+      "label": "Posts per page",
+      "min": 6,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_title",
+      "label": "Show page title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_filter",
+      "label": "Show tag filter",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "footer_label",
+      "label": "Footer label",
+      "default": "END OF JOURNAL"
+    },
+    {
+      "type": "select",
+      "id": "blog_layout",
+      "label": "Legacy layout setting",
+      "options": [
+        { "value": "collage", "label": "Collage" },
+        { "value": "rows", "label": "Grid" }
+      ],
+      "default": "collage",
+      "info": "Kept for compatibility with existing Global templates."
+    },
+    {
+      "type": "select",
+      "id": "blog_posts_per_row_mobile",
+      "label": "Legacy mobile columns",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2",
+      "info": "Kept for compatibility with existing Global templates."
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_rss_link",
+      "label": "Legacy RSS setting",
+      "default": false,
+      "info": "Kept for compatibility with existing Global templates."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner_image",
+      "name": "In-feed banner image",
+      "settings": [
+        { "type": "number", "id": "insert_after", "label": "Insert after post number", "default": 3 },
+        { "type": "image_picker", "id": "image", "label": "Banner image" },
+        { "type": "text", "id": "sub_title", "label": "Sub title", "default": "PROMOTION" },
+        { "type": "text", "id": "title", "label": "Main title", "default": "Special Offer for Helios Members" },
+        { "type": "text", "id": "link_text", "label": "Link text", "default": "DISCOVER NOW" },
+        { "type": "url", "id": "link_url", "label": "Link URL" }
+      ]
+    },
+    {
+      "type": "banner_video",
+      "name": "In-feed banner video",
+      "settings": [
+        { "type": "number", "id": "insert_after", "label": "Insert after post number", "default": 3 },
+        { "type": "video", "id": "video", "label": "Video" },
+        { "type": "text", "id": "sub_title", "label": "Sub title", "default": "STORY" },
+        { "type": "text", "id": "title", "label": "Main title", "default": "The Art of Jewelry Making" },
+        { "type": "text", "id": "link_text", "label": "Link text", "default": "WATCH STORY" },
+        { "type": "url", "id": "link_url", "label": "Link URL" }
+      ]
+    }
+  ]
+}
 {% endschema %}
