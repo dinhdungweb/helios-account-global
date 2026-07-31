@@ -406,25 +406,23 @@
         "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
         "disabled": false,
         "settings": {
+          "greeting_message": "",
           "button_color": "#000000",
           "secondary_color": "#FFFFFF",
           "ternary_color": "#6A6A6A",
           "button_icon": "chat_bubble",
           "button_text": "chat_with_us",
           "button_horizontal_position": "bottom_right",
-          "button_vertical_position": "lowest",
-          "greeting_message": ""
-        }
-      },
-      "14273995685951697397": {
-        "type": "shopify://apps/geo-redirect-country-block/blocks/geolocation-popup/019b96c0-7d7c-7338-be9f-1147dd22a014",
-        "disabled": true,
-        "settings": {
-          "enabled": true
+          "button_vertical_position": "lowest"
         }
       },
       "10746902591489815047": {
         "type": "shopify://apps/rt-google-fonts-custom-fonts/blocks/app-embed/2caf2c68-0038-455e-b0b9-066a7c2ad923",
+        "disabled": false,
+        "settings": {}
+      },
+      "14273995685951697397": {
+        "type": "shopify://apps/geo-redirect/blocks/geolocation-popup/019b96c0-7d7c-7338-be9f-1147dd22a014",
         "disabled": false,
         "settings": {}
       }
