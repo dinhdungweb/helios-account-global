@@ -11,6 +11,7 @@
   const API_ENDPOINT = CHECKOUT_CONTEXT.endpoint ||
     window.HELIOS_TIER_DRAFT_ORDER_ENDPOINT ||
     '/apps/helios-tier-pricing';
+  const PROCESSING_SELECTOR = '[data-tier-checkout-processing="true"]';
 
   function setupEventListeners() {
     document.addEventListener('tier:create-draft-order', async function (event) {
@@ -39,15 +40,14 @@
       event.preventDefault();
       event.stopPropagation();
 
-      const originalText = checkoutButton.textContent || checkoutButton.value;
-      setButtonState(checkoutButton, true, 'Processing...');
+      setButtonProcessing(checkoutButton);
 
       try {
         await createDraftOrderCheckout();
       } catch (error) {
         console.error('[TierDraftOrder] Error:', error);
         alert('An error occurred while creating the order. Please try again!');
-        setButtonState(checkoutButton, false, originalText);
+        resetButtonState(checkoutButton);
       }
     }, true);
   }
@@ -75,7 +75,7 @@
       items = cart.items.map(normalizeRequestedItem);
     }
 
-    const response = await fetch(API_ENDPOINT, {
+    const response = await fetchWithTimeout(API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -85,7 +85,7 @@
         country: getActiveCountry(),
         items
       })
-    });
+    }, 30000);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
@@ -98,14 +98,20 @@
     }
 
     if (!eventDetail || !eventDetail.buyNowMode) {
-      await clearCart();
+      try {
+        await clearCart();
+      } catch (error) {
+        // The checkout URL is already valid. A slow cart clear must not leave
+        // the customer stuck on a disabled checkout button.
+        console.warn('[TierDraftOrder] Cart could not be cleared:', error);
+      }
     }
 
-    window.location.href = data.invoice_url;
+    window.location.assign(data.invoice_url);
   }
 
   async function loadCart() {
-    const response = await fetch(getCartUrl());
+    const response = await fetchWithTimeout(getCartUrl(), {}, 10000);
     if (!response.ok) {
       throw new Error('Could not load cart');
     }
@@ -113,9 +119,25 @@
   }
 
   async function clearCart() {
-    const response = await fetch(getCartClearUrl(), { method: 'POST' });
+    const response = await fetchWithTimeout(getCartClearUrl(), {
+      method: 'POST',
+      keepalive: true
+    }, 5000);
     if (!response.ok) {
       throw new Error('Could not clear cart');
+    }
+  }
+
+  async function fetchWithTimeout(url, options, timeout) {
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), timeout);
+
+    try {
+      return await fetch(url, Object.assign({}, options, {
+        signal: controller.signal
+      }));
+    } finally {
+      window.clearTimeout(timer);
     }
   }
 
@@ -163,6 +185,38 @@
       button.value = text;
     }
   }
+
+  function getButtonText(button) {
+    return button.textContent || button.value || 'Checkout';
+  }
+
+  function setButtonProcessing(button) {
+    button.dataset.tierCheckoutOriginalText = getButtonText(button);
+    button.dataset.tierCheckoutProcessing = 'true';
+    setButtonState(button, true, 'Processing...');
+  }
+
+  function resetButtonState(button) {
+    const originalText = button.dataset.tierCheckoutOriginalText || 'Checkout';
+    setButtonState(button, false, originalText);
+    button.style.opacity = '';
+    delete button.dataset.tierCheckoutOriginalText;
+    delete button.dataset.tierCheckoutProcessing;
+  }
+
+  function resetProcessingButtons() {
+    document.querySelectorAll(PROCESSING_SELECTOR).forEach(resetButtonState);
+  }
+
+  // Browsers can restore the page from back-forward cache with the exact DOM
+  // state that existed during navigation, including disabled buttons.
+  window.addEventListener('pagehide', resetProcessingButtons);
+  window.addEventListener('pageshow', function (event) {
+    resetProcessingButtons();
+    if (event.persisted) {
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+    }
+  });
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {

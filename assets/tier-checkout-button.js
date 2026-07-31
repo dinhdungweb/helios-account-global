@@ -136,7 +136,11 @@
           this.disabled = false;
           this.textContent = originalText;
           this.style.opacity = '1';
+          delete this.dataset.tierCheckoutOriginalText;
+          delete this.dataset.tierCheckoutProcessing;
         };
+        this.dataset.tierCheckoutOriginalText = originalText;
+        this.dataset.tierCheckoutProcessing = 'true';
         this.disabled = true;
         this.textContent = 'Processing...';
         this.style.opacity = '0.6';
@@ -198,6 +202,18 @@
 
   // Re-initialize on section load (for AJAX)
   document.addEventListener('shopify:section:load', initTierCheckout);
+
+  window.addEventListener('pageshow', function () {
+    document.querySelectorAll(
+      '.tier-checkout-button[data-tier-checkout-processing="true"]'
+    ).forEach(button => {
+      button.disabled = false;
+      button.textContent = button.dataset.tierCheckoutOriginalText || 'Buy Now';
+      button.style.opacity = '1';
+      delete button.dataset.tierCheckoutOriginalText;
+      delete button.dataset.tierCheckoutProcessing;
+    });
+  });
 
   // Watch for new forms being added
   const observer = new MutationObserver(function (mutations) {
