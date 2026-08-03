@@ -37,6 +37,25 @@
         "image_RTaHQK": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/HELIOS_10Y_EN_19x9_3c2301f6-8a30-46f9-9cd2-1cc3959be33f.jpg",
+            "mobile_image": "shopify://shop_images/HELIOS_10Y_EN_4x5_d9dfc4f0-3fd7-4f36-9ec7-1bb50ce1f99e.jpg",
+            "slide_link": "shopify://collections/all-products",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        },
+        "image_T7TL4f": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
             "image": "shopify://shop_images/banner_web_nhan_emnial_19x9_47ca6e4c-4121-46f2-aaee-ab86fca2a430.jpg",
             "mobile_image": "shopify://shop_images/banner_web_nhan_Eternal_9x16_e47d6eca-8cea-47c3-a531-1e3f4433518d.jpg",
             "slide_link": "shopify://products/kraken-heart-ring",
@@ -54,6 +73,7 @@
         },
         "image_pVjqmz": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Banner_web_19x9_215ac14e-9cf5-42e6-84d2-5ba4abcd502c.jpg",
             "mobile_image": "shopify://shop_images/banner_web_9x16_043131d0-defb-4f92-8a65-33d8665c00a7.jpg",
@@ -72,6 +92,7 @@
         },
         "image_HHzFgj": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/file_thiet_ke_nhan_Polaris_Voyage_v2_19x9_US.jpg",
             "mobile_image": "shopify://shop_images/file_thiet_ke_nhan_Polaris_Voyage_v2_9x16_US.jpg",
@@ -91,6 +112,7 @@
       },
       "block_order": [
         "image_RTaHQK",
+        "image_T7TL4f",
         "image_pVjqmz",
         "image_HHzFgj"
       ],
