@@ -14,7 +14,10 @@
       "disabled": true,
       "name": "Video responsive",
       "settings": {
+        "full_width": true,
+        "section_width": 1400,
         "video_full_vh": false,
+        "video_size": "cover",
         "video_height_desktop": 920,
         "video_height_mobile": 640,
         "video_link": "shopify://collections/raven-king",
@@ -55,8 +58,8 @@
         "image_T7TL4f": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/2aOboQpbMdBK3UhryTrM11Hnnkij2iQXLr6YpgaO.jpg",
-            "mobile_image": "shopify://shop_images/banner_global_d_c.jpg",
+            "image": "shopify://shop_images/2aOboQpbYWfyiWy5VN8bzv60uKeOZLPGS6tjBjwe.jpg",
+            "mobile_image": "shopify://shop_images/vb.jpg",
             "slide_link": "shopify://products/kraken-heart-ring",
             "subheading": "",
             "title": "",
@@ -162,7 +165,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "4_3",
             "aspect_ratio_desktop": "4_3",
-            "link": "shopify://collections/new-arrivals",
             "title": "VIEW 10-YEAR JOURNEY",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -171,7 +173,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 20,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/new-arrivals"
           }
         },
         "banner_BKTxKC": {
@@ -182,7 +185,6 @@
             "video_loop": false,
             "aspect_ratio_mobile": "4_3",
             "aspect_ratio_desktop": "4_3",
-            "link": "shopify://collections/all-products",
             "title": "EXPLORE THE IMPRINT",
             "title_color": "#ffffff",
             "title_bg": "rgba(0,0,0,0)",
@@ -191,7 +193,8 @@
             "text_align": "center",
             "x_offset": 0,
             "y_offset": 20,
-            "padding": 12
+            "padding": 12,
+            "link": "shopify://collections/all-products"
           }
         }
       },
@@ -203,6 +206,8 @@
       "settings": {
         "overlap_header": false,
         "gap": 0,
+        "columns_mobile": "1",
+        "columns_desktop": 2,
         "sticky_desktop": true,
         "sticky_mobile_item": true,
         "sticky_offset_desktop": 0,
@@ -334,6 +339,8 @@
         ".section-id-template--18773812936873__grid_image_YiMfwg.custom-image-grid {padding-top: 0px; padding-bottom: 0px;}"
       ],
       "settings": {
+        "show_on_desktop": true,
+        "show_on_mobile": true,
         "grid_image_full_width": true,
         "grid_image_with": 1400,
         "item_for_row": 2,
