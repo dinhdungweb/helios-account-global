@@ -171,7 +171,7 @@
         "show_on_desktop": true,
         "show_on_mobile": false,
         "grid_image_full_width": false,
-        "grid_image_with": 1400,
+        "grid_image_with": 1808,
         "item_for_row": 2,
         "item_ratio": "natural",
         "item_per_row_mobile": "1"
@@ -299,6 +299,14 @@
       ],
       "name": "Large image",
       "settings": {}
+    },
+    "custom_spacing_EKUTqW": {
+      "type": "custom-spacing",
+      "name": "Custom spacing",
+      "settings": {
+        "desktop_spacing": 40,
+        "mobile_spacing": 40
+      }
     }
   },
   "order": [
@@ -312,6 +320,7 @@
     "rich_text_G44aVt",
     "background_video_responsive_j7Rtaz",
     "rich_text_8PEEMk",
-    "blocks_kBmKMn"
+    "blocks_kBmKMn",
+    "custom_spacing_EKUTqW"
   ]
 }
