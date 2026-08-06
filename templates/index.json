@@ -129,8 +129,66 @@
         "autoplay_speed": 7
       }
     },
+    "two_banner_MeQVXd": {
+      "type": "two-banner",
+      "blocks": {
+        "banner_AVYDWj": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/0626aecc55d691438f5e690ffb32b77c3437846d.jpg",
+            "video_loop": false,
+            "aspect_ratio_mobile": "4_3",
+            "aspect_ratio_desktop": "4_3",
+            "link": "shopify://collections/new-arrivals",
+            "title": "VIEW 10-YEAR JOURNEY",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "top",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 20,
+            "padding": 12
+          }
+        },
+        "banner_BKTxKC": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/banner_web_1.jpg",
+            "video_loop": false,
+            "aspect_ratio_mobile": "4_3",
+            "aspect_ratio_desktop": "4_3",
+            "link": "shopify://collections/all-products",
+            "title": "EXPLORE THE IMPRINT",
+            "title_color": "#ffffff",
+            "title_bg": "rgba(0,0,0,0)",
+            "h_align": "center",
+            "v_align": "top",
+            "text_align": "center",
+            "x_offset": 0,
+            "y_offset": 20,
+            "padding": 12
+          }
+        }
+      },
+      "block_order": [
+        "banner_AVYDWj",
+        "banner_BKTxKC"
+      ],
+      "name": "Two Banners",
+      "settings": {
+        "overlap_header": false,
+        "gap": 0,
+        "sticky_desktop": true,
+        "sticky_mobile_item": true,
+        "sticky_offset_desktop": 0,
+        "sticky_offset_mobile": 0,
+        "sticky_z_index": 1000
+      }
+    },
     "featured_collection_TfeVNp": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "title": "NEW ARRIVALS",
         "featured_collection_align": "center",
@@ -261,6 +319,7 @@
     },
     "background_video_Qq3yNT": {
       "type": "background-video",
+      "disabled": true,
       "name": "Background video",
       "settings": {
         "video_shopify": "shopify://files/videos/Video chế tác website GLOBAL 19x9 (1).mp4",
@@ -332,6 +391,7 @@
         "benefit_Pb88QC",
         "benefit_deWdUf"
       ],
+      "disabled": true,
       "name": "Helios Email Signup",
       "settings": {
         "section_height": 60,
@@ -359,6 +419,7 @@
     },
     "featured_blog_AVzfM6": {
       "type": "featured-blog",
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "title": "PROVEN QUALITY, WITH COUNTLESS CELEBRITIES CHOOSING OUR PRODUCT",
@@ -397,6 +458,7 @@
   "order": [
     "background_video_responsive_38PECG",
     "slideshow_3KJMhV",
+    "two_banner_MeQVXd",
     "featured_collection_TfeVNp",
     "featured_collection_MemUg9",
     "slideshow_cXHCJy",
