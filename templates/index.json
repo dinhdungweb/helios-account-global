@@ -129,6 +129,29 @@
         "autoplay_speed": 7
       }
     },
+    "rich_text_ih8DJ7": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "LOG IN AS A MEMBER TO ENJOY FULL BENEFITS!",
+        "title_size": 24,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "<p><a href=\"https://heliosglobalbrand.com/account\" title=\"https://heliosglobalbrand.com/account\">Login</a></p>",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": false,
+        "full_width": false,
+        "no_padding_bottom": false,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
     "two_banner_MeQVXd": {
       "type": "two-banner",
       "blocks": {
@@ -458,6 +481,7 @@
   "order": [
     "background_video_responsive_38PECG",
     "slideshow_3KJMhV",
+    "rich_text_ih8DJ7",
     "two_banner_MeQVXd",
     "featured_collection_TfeVNp",
     "featured_collection_MemUg9",
