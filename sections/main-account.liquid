@@ -27,6 +27,114 @@
           </div>
         </div>
       </div>
+
+      {% if section.settings.show_card_flip_rewards %}
+        {%- assign card_flip_history = customer.metafields.card_flip.history.value -%}
+        <div
+          class="dashboard-card account-card-flip-rewards"
+          style="--account-flip-card-width: {{ section.settings.card_flip_rewards_card_width }}px;"
+        >
+          <div class="account-card-flip-header">
+            <h3 class="card-title">{{ section.settings.card_flip_rewards_title }}</h3>
+            {% if section.settings.show_card_flip_rewards_button
+              and section.settings.card_flip_rewards_button_text != blank
+              and section.settings.card_flip_rewards_button_link != blank
+            %}
+              <a class="dashboard-btn outline account-card-flip-cta" href="{{ section.settings.card_flip_rewards_button_link }}">
+                {{ section.settings.card_flip_rewards_button_text }}
+                {% render 'svg-chevron-right' %}
+              </a>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            {% if card_flip_history != blank %}
+              <div class="account-card-flip-grid">
+                {% for reward in card_flip_history limit: section.settings.card_flip_rewards_limit %}
+                  <article class="account-card-flip-item">
+                    <div class="account-card-flip-media">
+                      {% if reward.result_image != blank or reward.card_image != blank %}
+                        {%- assign reward_image = reward.result_image | default: reward.card_image -%}
+                        <img
+                          src="{{ reward_image | escape }}"
+                          alt="{{ reward.result_title | default: reward.card_title | escape }}"
+                          loading="lazy"
+                          width="360"
+                          height="480"
+                        >
+                      {% else %}
+                        <span class="account-card-flip-placeholder" aria-hidden="true">H</span>
+                      {% endif %}
+                    </div>
+                    <div class="account-card-flip-info">
+                      <h4>{{ reward.result_title | default: reward.card_title | default: 'Lucky card' }}</h4>
+                      {% if reward.played_at != blank %}
+                        <time datetime="{{ reward.played_at | escape }}">{{ reward.played_at | date: '%d/%m/%Y' }}</time>
+                      {% endif %}
+                    </div>
+                  </article>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p class="account-card-flip-empty">{{ section.settings.card_flip_rewards_empty }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if section.settings.welcome_collection != blank %}
+        {%- assign welcome_collection = collections[section.settings.welcome_collection] -%}
+        {% if welcome_collection != blank and welcome_collection.products.size > 0 %}
+          <div class="dashboard-card account-featured-products">
+            <div class="account-featured-header">
+              <h3 class="card-title">{{ section.settings.welcome_collection_title }}</h3>
+              <a class="account-featured-link" href="{{ welcome_collection.url }}">
+                View all
+                {% render 'svg-chevron-right' %}
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="account-featured-products-grid">
+                {% for featured_product in welcome_collection.products limit: section.settings.welcome_products_limit %}
+                  <div class="account-featured-product">
+                    {% render 'product-block', product: featured_product, show_vendor: false, animate: true, i: forloop.index %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if section.settings.blacksun_blog != blank %}
+        {%- assign blacksun_blog = blogs[section.settings.blacksun_blog] -%}
+        {% if blacksun_blog.articles.size > 0 %}
+          <div class="dashboard-card account-featured-blog">
+            <div class="account-featured-header">
+              <h3 class="card-title">{{ section.settings.blacksun_blog_title }}</h3>
+              <a class="account-featured-link" href="{{ blacksun_blog.url }}">
+                View all
+                {% render 'svg-chevron-right' %}
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="account-featured-blog-grid">
+                {% for article in blacksun_blog.articles limit: section.settings.blacksun_blog_limit %}
+                  <article class="account-featured-article">
+                    <a href="{{ article.url }}">
+                      <div class="account-featured-article-image">
+                        {% if article.image != blank %}
+                          {{ article.image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '240,360,540,720', sizes: '(max-width: 600px) 100vw, 25vw', alt: article.title }}
+                        {% endif %}
+                      </div>
+                      <h4>{{ article.title }}</h4>
+                    </a>
+                  </article>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
     </div>
 
     {% comment %}--- TAB: ACCOUNT INFO ---{% endcomment %}
@@ -151,6 +259,7 @@
     {% comment %}--- CUSTOM TABS ---{% endcomment %}
     {% for block in section.blocks %}
       {% if block.type == 'custom_tab' %}
+        {% unless block.settings.enable_link and block.settings.tab_url != blank %}
         <div id="custom-tab-{{ block.id }}" class="dashboard-tab-content">
            <div class="dashboard-card">
              <h3 class="card-title">{{ block.settings.title }}</h3>
@@ -165,6 +274,7 @@
              </div>
            </div>
         </div>
+        {% endunless %}
       {% endif %}
     {% endfor %}
 
@@ -173,7 +283,7 @@
 <script>
 document.querySelectorAll('.nav-tab').forEach(tab => {
   tab.addEventListener('click', function () {
-    if(this.classList.contains('logout-tab')) return; // Allow normal link for logout
+    if(this.classList.contains('logout-tab') || this.classList.contains('nav-tab--link')) return;
     
     const tabId = this.dataset.tab;
     
@@ -194,9 +304,115 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
   "name": "Main Account",
   "settings": [
     {
+      "type": "header",
+      "content": "Collected cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_flip_rewards",
+      "label": "Show collected cards",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_flip_rewards_title",
+      "label": "Heading",
+      "default": "Cards you have collected"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_flip_rewards_button",
+      "label": "Show card flip game button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_flip_rewards_button_text",
+      "label": "Button label",
+      "default": "Flip a card"
+    },
+    {
+      "type": "url",
+      "id": "card_flip_rewards_button_link",
+      "label": "Card flip game link"
+    },
+    {
+      "type": "text",
+      "id": "card_flip_rewards_empty",
+      "label": "Empty state text",
+      "default": "You have not collected any cards yet."
+    },
+    {
+      "type": "range",
+      "id": "card_flip_rewards_limit",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "label": "Maximum cards",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_flip_rewards_card_width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Card width",
+      "default": 210
+    },
+    {
       "type": "image_picker",
       "id": "tier_image",
       "label": "Tier Home Image (Default)"
+    },
+    {
+      "type": "header",
+      "content": "Featured products"
+    },
+    {
+      "type": "collection",
+      "id": "welcome_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "welcome_collection_title",
+      "label": "Heading",
+      "default": "Products for you"
+    },
+    {
+      "type": "range",
+      "id": "welcome_products_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Maximum products",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Featured blog"
+    },
+    {
+      "type": "blog",
+      "id": "blacksun_blog",
+      "label": "Blog"
+    },
+    {
+      "type": "text",
+      "id": "blacksun_blog_title",
+      "label": "Heading",
+      "default": "Blacksun Club"
+    },
+    {
+      "type": "range",
+      "id": "blacksun_blog_limit",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "label": "Maximum articles",
+      "default": 4
     }
   ],
   "blocks": [
@@ -242,6 +458,23 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
           "type": "richtext",
           "id": "richtext_content",
           "label": "Text Content"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_link",
+          "label": "Use as a direct link",
+          "default": false
+        },
+        {
+          "type": "url",
+          "id": "tab_url",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_in_new_tab",
+          "label": "Open in a new tab",
+          "default": false
         }
       ]
     },

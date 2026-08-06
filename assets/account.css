@@ -229,6 +229,11 @@ body {
   border-bottom-color: var(--helios-orange);
 }
 
+.nav-tab--link a {
+  display: block;
+  color: inherit;
+}
+
 .logout-tab {
   margin-left: auto;
   /* Push to right */
@@ -358,6 +363,227 @@ body {
 .dashboard-btn.outline:hover {
   background: var(--helios-orange);
   color: #000;
+}
+
+/* Collected card flip rewards */
+.account-card-flip-rewards {
+  margin-top: 30px;
+}
+
+.account-card-flip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-right: 30px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--helios-border);
+}
+
+.account-card-flip-header .card-title {
+  flex: 1 1 auto;
+  border-bottom: 0;
+}
+
+.account-card-flip-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+.account-card-flip-cta svg {
+  width: 14px;
+  height: 14px;
+}
+
+.account-card-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--account-flip-card-width, 210px));
+  justify-content: start;
+  gap: 16px;
+}
+
+.account-card-flip-item {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--helios-card-bg);
+  border: 1px solid var(--helios-border);
+}
+
+.account-card-flip-media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--helios-black);
+}
+
+.account-card-flip-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.account-card-flip-placeholder {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--helios-border);
+  border-radius: 50%;
+  color: var(--helios-orange);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.account-card-flip-info {
+  padding: 14px;
+}
+
+.account-card-flip-info h4 {
+  margin: 0 0 8px;
+  color: var(--helios-text-main);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.account-card-flip-info time,
+.account-card-flip-empty {
+  color: var(--helios-text-muted);
+  font-size: 12px;
+}
+
+.account-card-flip-empty {
+  margin: 0;
+}
+
+.account-featured-products,
+.account-featured-blog {
+  margin-top: 30px;
+}
+
+.account-featured-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-right: 30px;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--helios-border);
+}
+
+.account-featured-header .card-title {
+  flex: 1 1 auto;
+  border-bottom: 0;
+}
+
+.account-featured-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+  color: var(--helios-orange);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.account-featured-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+.account-featured-products-grid,
+.account-featured-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.account-featured-product,
+.account-featured-product .product-block {
+  min-width: 0;
+  height: 100%;
+}
+
+.account-featured-article a {
+  display: block;
+  color: inherit;
+}
+
+.account-featured-article-image {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--helios-black);
+}
+
+.account-featured-article-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.account-featured-article a:hover .account-featured-article-image img {
+  transform: scale(1.04);
+}
+
+.account-featured-article h4 {
+  margin: 10px 0 0;
+  color: var(--helios-text-main);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+@media (max-width: 600px) {
+  .account-card-flip-header {
+    align-items: flex-start;
+    padding-right: 16px;
+  }
+
+  .account-card-flip-header .card-title {
+    padding: 16px;
+    font-size: 15px;
+  }
+
+  .account-card-flip-cta {
+    margin-top: 12px;
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
+  .account-card-flip-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .account-card-flip-info {
+    padding: 10px 8px;
+  }
+
+  .account-featured-header {
+    padding-right: 16px;
+  }
+
+  .account-featured-header .card-title {
+    padding: 16px;
+    font-size: 15px;
+  }
+
+  .account-featured-link {
+    font-size: 10px;
+  }
+
+  .account-featured-products-grid,
+  .account-featured-blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
 }
 
 /* Table */

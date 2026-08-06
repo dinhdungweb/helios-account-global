@@ -1242,7 +1242,7 @@
         "id": "delivery_step_bg_color",
         "label": "Step Box Background",
         "default": "#f5f5f5"
-      },
+      }
     ]
   },
   {
@@ -1718,7 +1718,7 @@
         "step": 1,
         "unit": "px",
         "label": "Font size badge (collection)",
-        "default": 9
+        "default": 11
       },
       {
         "type": "range",

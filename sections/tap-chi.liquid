@@ -1,0 +1,135 @@
+{%- liquid
+  assign blog_handles = 'nhan,day-chuyen,khuyen,vong-tay,bac,trang-suc,da,kinh,qua,phu-kien,collab' | split: ','
+  assign featured_tag = 'featured'
+  
+  # Tìm bài viết nổi bật nhất (mới nhất có tag featured hoặc đơn giản là mới nhất)
+  assign featured_article = nil
+  for handle in blog_handles
+    assign b = blogs[handle]
+    for a in b.articles
+      if a.tags contains featured_tag
+        assign featured_article = a
+        break
+      endif
+    endfor
+    if featured_article
+      break
+    endif
+  endfor
+  
+  if featured_article == nil
+    assign featured_article = blogs['nhan'].articles | first
+  endif
+-%}
+
+<div class="helios-blog-wrapper" data-section-id="{{ section.id }}">
+  
+  <header class="blog-page-header">
+    <h1 class="blog-page-header__title">{{ blog.title | default: 'JOURNAL' }}</h1>
+    <nav class="blog-page-header__nav">
+      {%- liquid
+        assign nav_handles = 'tin-tuc,nhan,day-chuyen,vong-tay,bac,da,kinh' | split: ','
+      -%}
+      {% for handle in nav_handles %}
+        <a href="{{ blogs[handle].url }}" class="blog-page-header__link {% if blog.handle == handle %}is-active{% endif %}">
+          {{ blogs[handle].title }}
+        </a>
+      {% endfor %}
+    </nav>
+  </header>
+
+  <div class="helios-banner-stack">
+    {%- liquid
+      assign all_articles = blogs['nhan'].articles | concat: blogs['tin-tuc'].articles | concat: blogs['day-chuyen'].articles
+      # Sắp xếp theo ngày xuất bản giảm dần
+      assign all_articles = all_articles | sort: 'published_at' | reverse
+    -%}
+    
+    {% for article in all_articles limit: 10 %}
+      {% render 'blog-card', article: article %}
+    {% endfor %}
+  </div>
+
+  <div class="banner-stack__footer" style="padding: 100px 0; text-align: center;">
+    <p style="font-size: 11px; letter-spacing: 0.3em; opacity: 0.5;">END OF JOURNAL</p>
+  </div>
+</div>
+
+{% render 'blog-styles-helper' %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.blog-nav__list li a');
+    const sections = document.querySelectorAll('.helios-blog-section');
+    
+    // Smooth scroll for nav links (if needed, but currently they point to other pages)
+    // If they were anchors, we would use this.
+    
+    // Highlight active link logic could be expanded if the page was a single page with multiple sections.
+    // Currently, links point to /blogs/handle.
+  });
+</script>
+
+
+<style>
+  /* Chỉ giữ lại các style đặc thù cho tap-chi.liquid nếu có */
+  .helios-blog-nav {
+    background: var(--blog-black);
+    border-bottom: 1px solid var(--blog-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 20px 0;
+  }
+
+  .blog-nav__list {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .blog-nav__list::-webkit-scrollbar { display: none; }
+
+  .blog-nav__list li a {
+    color: var(--blog-text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+
+  .blog-nav__list li.active a,
+  .blog-nav__list li a:hover {
+    color: var(--blog-text);
+  }
+
+  .section__more {
+    color: var(--blog-accent);
+    text-decoration: underline;
+    font-size: 13px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Tap chi (Blog)",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Section Title",
+        "default": "Tạp chí"
+      }
+    ]
+  }
+{% endschema %}

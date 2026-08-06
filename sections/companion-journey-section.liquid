@@ -1,0 +1,181 @@
+{% schema %}
+{
+  "name": "Helios Jewelry Section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Dành tặng người đồng hành cùng bạn"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Cuối năm là lúc nhìn lại hành trình đã đi cùng nhau.\n\nMột chế tác từ HELIOS có thể là cách bạn gửi gắm sự tin tưởng, nhắc người bạn yêu thương rằng: hành trình phía trước vẫn có bạn ở đó."
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Top Image (Man)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image2",
+      "label": "Middle Image (Woman)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image3",
+      "label": "Bottom Image (Couple)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Helios Jewelry Section"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="helios-jewelry-section" style="background-color: {{ section.settings.background_color }};">
+  <div class="page-width">
+    <div class="grid">
+      <div class="grid__item medium-up--one-half text-content">
+        {% if section.settings.heading != blank %}
+          <h2 class="h1 heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <div class="rte text">{{ section.settings.text | newline_to_br }}</div>
+        {% endif %}
+      </div>
+      <div class="grid__item medium-up--one-half image-collage">
+        {% if section.settings.image1 != blank %}
+          <div class="image-block image-top">
+            {{ section.settings.image1 | image_url: width: 600 | image_tag: loading: 'lazy', class: 'collage-image' }}
+          </div>
+        {% endif %}
+        {% if section.settings.image2 != blank %}
+          <div class="image-block image-middle">
+            {{ section.settings.image2 | image_url: width: 600 | image_tag: loading: 'lazy', class: 'collage-image' }}
+          </div>
+        {% endif %}
+        {% if section.settings.image3 != blank %}
+          <div class="image-block image-bottom">
+            {{ section.settings.image3 | image_url: width: 600 | image_tag: loading: 'lazy', class: 'collage-image' }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .helios-jewelry-section {
+    color: #ffffff;
+    padding: 60px 0 100px;
+  }
+
+  .helios-jewelry-section .page-width {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+
+  .helios-jewelry-section .grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 -20px;
+  }
+
+  .helios-jewelry-section .grid__item {
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .helios-jewelry-section .text-content {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 750px) {
+    .helios-jewelry-section .text-content {
+      width: 40%;
+      margin-bottom: 0;
+    }
+  }
+
+  .helios-jewelry-section .heading {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .helios-jewelry-section .text {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+    max-width: 450px;
+  }
+
+  .helios-jewelry-section .image-collage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  @media (min-width: 750px) {
+    .helios-jewelry-section .image-collage {
+      width: 60%;
+      position: relative;
+      height: 870px; /* Adjust height for collage */
+    }
+  }
+
+  .helios-jewelry-section .image-block {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .helios-jewelry-section .collage-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (min-width: 750px) {
+    .helios-jewelry-section .image-top {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 45%;
+      z-index: 2;
+    }
+
+    .helios-jewelry-section .image-middle {
+      position: absolute;
+      top: 27%;
+      left: 7%;
+      width: 45%;
+      z-index: 1;
+    }
+
+    .helios-jewelry-section .image-bottom {
+      position: absolute;
+      top: 58%;
+      right: 0%;
+      width: 45%;
+      z-index: 3;
+    }
+  }
+</style>

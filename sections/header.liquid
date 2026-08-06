@@ -270,6 +270,7 @@
       data-opacity="{% if section.settings.nav_positioning == 'inline' and section.settings.nav_opacity contains 'opaque_on_scroll' %}opaque{% else %}{{ section.settings.nav_opacity }}{% endif %}"
       data-positioning="{{ section.settings.nav_positioning }}"
     >
+      {% render 'announcement-countdown', settings_obj: section.settings %}
       {{ announcement }}
       <div class="links site-control__inner">
         <a class="menu" href="#page-menu" aria-controls="page-menu" data-modal-nav-toggle aria-label="{{ 'layout.header.menu' | t | escape }}">
@@ -642,6 +643,229 @@
         "type": "url",
         "id": "announcement_custom_link",
         "label": "Custom link"
+      },
+      {
+        "type": "header",
+        "content": "Announcement countdown"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_countdown_bar",
+        "label": "Show countdown bar",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown_home_only",
+        "label": "Show on homepage only",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "countdown_bar_link",
+        "label": "Countdown bar link"
+      },
+      {
+        "type": "select",
+        "id": "countdown_text_align",
+        "label": "Desktop alignment",
+        "options": [
+          { "value": "flex-start", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "flex-end", "label": "Right" },
+          { "value": "space-between", "label": "Space between" }
+        ],
+        "default": "flex-end"
+      },
+      {
+        "type": "range",
+        "id": "countdown_max_width",
+        "label": "Maximum width",
+        "min": 1000,
+        "max": 1800,
+        "step": 50,
+        "unit": "px",
+        "default": 1800
+      },
+      {
+        "type": "range",
+        "id": "countdown_padding_top",
+        "label": "Top padding",
+        "min": 4,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "countdown_padding_bottom",
+        "label": "Bottom padding",
+        "min": 4,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "default": 10
+      },
+      {
+        "type": "text",
+        "id": "countdown_prefix_text",
+        "label": "Prefix text",
+        "default": "D-DAY"
+      },
+      {
+        "type": "text",
+        "id": "countdown_separator",
+        "label": "Separator",
+        "default": "·"
+      },
+      {
+        "type": "text",
+        "id": "countdown_target_date",
+        "label": "Event time (YYYY-MM-DDTHH:MM:SS)",
+        "default": "2026-08-08T20:00:00"
+      },
+      {
+        "type": "text",
+        "id": "countdown_expired_text",
+        "label": "Expired message",
+        "default": "EVENT IS LIVE - VISIT NOW"
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown_show_seconds",
+        "label": "Show seconds",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "countdown_label_days",
+        "label": "Days label",
+        "default": "DAYS"
+      },
+      {
+        "type": "text",
+        "id": "countdown_label_hours",
+        "label": "Hours label",
+        "default": "HOURS"
+      },
+      {
+        "type": "text",
+        "id": "countdown_label_minutes",
+        "label": "Minutes label",
+        "default": "MIN"
+      },
+      {
+        "type": "text",
+        "id": "countdown_label_seconds",
+        "label": "Seconds label",
+        "default": "SEC"
+      },
+      {
+        "type": "color",
+        "id": "countdown_bg_color",
+        "label": "Background color",
+        "default": "#be6834"
+      },
+      {
+        "type": "color",
+        "id": "countdown_text_color",
+        "label": "Prefix color",
+        "default": "#18110b"
+      },
+      {
+        "type": "color",
+        "id": "countdown_number_color",
+        "label": "Number color",
+        "default": "#18110b"
+      },
+      {
+        "type": "color",
+        "id": "countdown_label_color",
+        "label": "Label color",
+        "default": "#18110b"
+      },
+      {
+        "type": "range",
+        "id": "countdown_border_bottom_width",
+        "label": "Bottom border width",
+        "min": 0,
+        "max": 5,
+        "step": 1,
+        "unit": "px",
+        "default": 1
+      },
+      {
+        "type": "color",
+        "id": "countdown_border_bottom_color",
+        "label": "Bottom border color",
+        "default": "#141414"
+      },
+      {
+        "type": "checkbox",
+        "id": "countdown_use_gothic_number",
+        "label": "Use Gothic number font",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "countdown_prefix_size",
+        "label": "Prefix size (desktop)",
+        "min": 10,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 13
+      },
+      {
+        "type": "range",
+        "id": "countdown_prefix_size_mobile",
+        "label": "Prefix size (mobile)",
+        "min": 9,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 11
+      },
+      {
+        "type": "range",
+        "id": "countdown_number_size",
+        "label": "Number size (desktop)",
+        "min": 14,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "default": 18
+      },
+      {
+        "type": "range",
+        "id": "countdown_number_size_mobile",
+        "label": "Number size (mobile)",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "countdown_label_size",
+        "label": "Label size (desktop)",
+        "min": 9,
+        "max": 16,
+        "step": 1,
+        "unit": "px",
+        "default": 11
+      },
+      {
+        "type": "range",
+        "id": "countdown_label_size_mobile",
+        "label": "Label size (mobile)",
+        "min": 8,
+        "max": 14,
+        "step": 1,
+        "unit": "px",
+        "default": 9
       },
       {
         "type": "header",

@@ -1,1 +1,229 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{}},"custom_liquid_McAwtC":{"type":"custom-liquid","settings":{"no_margins":false,"custom_liquid":"{% render 'game-lat-hinh' %}"}}},"order":["main","custom_liquid_McAwtC"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "card_flip_game_Uk6wTx": {
+      "type": "card-flip-game",
+      "blocks": {
+        "decoration_RNnpEh": {
+          "type": "decoration",
+          "settings": {
+            "image": "shopify://shop_images/Layer_1.svg",
+            "position": "top",
+            "alignment": "center",
+            "width": 600,
+            "width_mobile": 300
+          }
+        },
+        "card_qp7fFU": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_i",
+            "front_image": "shopify://shop_images/the-1.jpg",
+            "title": "CHAPTER I – ORIGIN",
+            "code": "Mọi hành trình đều bắt đầu từ một lời hứa nhỏ: làm ra thứ xứng đáng được giữ lại và đi cùng."
+          }
+        },
+        "card_tBn3yG": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_ii",
+            "front_image": "shopify://shop_images/the-2.jpg",
+            "title": "CHAPTER II – THE FORGE",
+            "code": "Từ lửa, bạc thành hình. Từ tiêu chuẩn, tạo nên HELIOS"
+          }
+        },
+        "card_mecbFH": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_iii",
+            "front_image": "shopify://shop_images/the-3.jpg",
+            "title": "CHAPTER III – DNA",
+            "code": "Không phô trương để gây chú ý, đủ chiều sâu để ở lại"
+          }
+        },
+        "card_KAF4cF": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_iv",
+            "front_image": "shopify://shop_images/the-4.jpg",
+            "title": "CHAPTER IV – THE ICONS",
+            "code": "Mỗi biểu tượng mở ra một cánh cửa khác, nhưng cùng dẫn về một lõi"
+          }
+        },
+        "card_mrgbfG": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_v",
+            "front_image": "shopify://shop_images/the-5.jpg",
+            "title": "CHAPTER V – BEYOND JEWELRY",
+            "code": "Từ trang sức, HELIOS bước ra ngoài"
+          }
+        },
+        "card_AinNdb": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_vi",
+            "front_image": "shopify://shop_images/the-6.jpg",
+            "title": "CHAPTER VI – CROSSROADS",
+            "code": "Không hoà tan, không mượn hào quang. Cùng tạo một dấu ấn riêng biệt."
+          }
+        },
+        "card_UjXe3H": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_vii",
+            "front_image": "shopify://shop_images/the-7.jpg",
+            "title": "CHAPTER VII – PEOPLE",
+            "code": "HELIOS được rèn bằng những người giữ chuẩn"
+          }
+        },
+        "card_gy4wgV": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_viii",
+            "front_image": "shopify://shop_images/the-8.jpg",
+            "title": "CHAPTER VIII – THE WEARERS",
+            "code": "HELIOS làm phần đầu, người đeo viết phần còn lại"
+          }
+        },
+        "card_hMxtCz": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_ix",
+            "front_image": "shopify://shop_images/the-9.jpg",
+            "title": "CHAPTER IX – HEIRLOOM",
+            "code": "Có những món bạc không cũ đi, chúng chỉ có hồn hơn"
+          }
+        },
+        "card_HTr7EJ": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_x",
+            "front_image": "shopify://shop_images/the-10.jpg",
+            "title": "CHAPTER X – FUTURE",
+            "code": "Sau 10 năm, HELIOS trở nên rõ hơn"
+          }
+        },
+        "card_9JMFcM": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "chapter_xi",
+            "front_image": "shopify://shop_images/the-11.jpg",
+            "title": "CHAPTER XI – THE OPENING",
+            "code": "10 năm không phải vạch kết. Đó là lúc cánh cửa đầu tiên thật sự mở ra"
+          }
+        },
+        "card_UmBYxT": {
+          "type": "card",
+          "settings": {
+            "inventory_key": "limited_card",
+            "front_image": "shopify://shop_images/the-12.jpg",
+            "title": "LIMITED CARD",
+            "code": "10 NĂM RÈN BẠC - MỘI ĐỜI TẠC BẢN LĨNH"
+          }
+        },
+        "decoration_3NmCBw": {
+          "type": "decoration",
+          "settings": {
+            "image": "shopify://shop_images/Layer_1_1.svg",
+            "position": "bottom",
+            "alignment": "center",
+            "width": 600,
+            "width_mobile": 300
+          }
+        },
+        "decoration_rdJ9zV": {
+          "type": "decoration",
+          "settings": {
+            "image": "shopify://shop_images/bando-01.jpg",
+            "position": "bottom",
+            "alignment": "center",
+            "width": 600,
+            "width_mobile": 400
+          }
+        },
+        "rich_text_dau_an": {
+          "type": "rich_text",
+          "settings": {
+            "heading": "MỞ TRỌN DẤU ẤN",
+            "text": "<p>Hành trình chỉ hoàn thành khi 12 mảnh ghép xuất hiện</p><p>Mỗi lá thẻ được thu thập là một phần trên hành trình truy tìm kho báu.</p><p><strong>Hành trình bắt đầu từ 06.08 đến hết 09.09</strong></p><p>Hãy sưu tầm đủ 12 dấu ấn và mang đến Helios để mở khóa</p><p><strong>Rương báu</strong> chỉ dành cho 10 người đầu tiên hoàn thành hành trình</p>",
+            "position": "bottom",
+            "alignment": "center",
+            "max_width": 600
+          }
+        }
+      },
+      "block_order": [
+        "decoration_RNnpEh",
+        "card_qp7fFU",
+        "card_tBn3yG",
+        "card_mecbFH",
+        "card_KAF4cF",
+        "card_mrgbfG",
+        "card_AinNdb",
+        "card_UjXe3H",
+        "card_gy4wgV",
+        "card_hMxtCz",
+        "card_HTr7EJ",
+        "card_9JMFcM",
+        "card_UmBYxT",
+        "decoration_3NmCBw",
+        "decoration_rdJ9zV",
+        "rich_text_dau_an"
+      ],
+      "name": "Game lật thẻ bài",
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "campaign_id": "card-flip-2026",
+        "api_base_url": "https://helios-tier-pricing-api-h543.vercel.app/api",
+        "back_image": "shopify://shop_images/Property_1_Default.svg",
+        "back_label": "",
+        "show_card_titles": true,
+        "card_width": 130,
+        "columns_desktop": 4,
+        "columns_mobile": 4,
+        "turns_label": "Lượt còn lại",
+        "login_message": "Vui lòng đăng nhập để tham gia.",
+        "login_button_text": "Đăng nhập",
+        "no_cards_message": "Chưa có thẻ nào được cấu hình.",
+        "saving_message": "Đang lưu kết quả...",
+        "saved_message": "Kết quả đã được lưu.",
+        "error_message": "Không thể lưu kết quả, vui lòng thử lại.",
+        "out_of_turns_message": "Bạn đã hết lượt chơi.",
+        "out_of_stock_message": "Tất cả thẻ trong chương trình đã hết số lượng.",
+        "expired_message": "Chương trình lật thẻ chưa bắt đầu hoặc đã kết thúc.",
+        "result_heading": "Kết quả của bạn",
+        "code_prefix": "Mã:",
+        "remaining_modal_text": "Còn [remaining]/[total] lượt",
+        "modal_footer_text": "10 NĂM HUN ĐÚC 1 DẤU ẤN",
+        "close_label": "Đóng",
+        "background_color": "#0f0f0f",
+        "background_image": "shopify://shop_images/zzz.jpg",
+        "background_size": "cover",
+        "surface_color": "#191919",
+        "text_color": "#ffffff",
+        "muted_text_color": "#c8c8c8",
+        "accent_color": "#f1b84b",
+        "card_back_color": "#242424"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "card_flip_game_Uk6wTx"
+  ]
+}

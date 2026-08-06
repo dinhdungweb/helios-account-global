@@ -46,7 +46,9 @@
                   {%- capture double_image_width -%}{{ block.settings.image_width | times: 2 }}x{%- endcapture -%}
                   <div class="rimage-outer-wrapper" style="width: {{ block.settings.image_width }}px">
                     <div class="rimage-wrapper lazyload--placeholder" style="padding-top:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%">
+                      {% if block.settings.bct-url != blank %}<a href="{{ block.settings.bct-url }}">{% endif %}
                       <img class="rimage__image lazyload fade-in" data-src="{{ block.settings.image | img_url: double_image_width }}" alt="{{ shop.name | escape }}" />
+                      {% if block.settings.bct-url != blank %}</a>{% endif %}
                     </div>
                   </div>
                 </div>
@@ -292,6 +294,11 @@
             "unit": "px",
             "label": "Footer image width",
             "default": 100
+          },
+          {
+            "type": "url",
+            "id": "bct-url",
+            "label": "Image link"
           },
           {
             "type": "text",

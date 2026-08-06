@@ -1,0 +1,346 @@
+{% comment %}
+  Timeline Section - Shopify Liquid
+  Layout: text label sits ABOVE each dot, alternating left/right
+  Center vertical dashed line connects all dots — pure CSS, no JS, no SVG
+{% endcomment %}
+
+<section class="tl-section" id="tl-{{ section.id }}">
+  <div class="tl-overlay"></div>
+
+  <div class="tl-container">
+    {% if section.settings.heading != blank %}
+      <h2 class="tl-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="tl-track">
+      {% for block in section.blocks %}
+        {% assign is_right = forloop.index | modulo: 2 %}
+        <div class="tl-item {% if is_right == 0 %}tl-item--right{% else %}tl-item--left{% endif %}"
+             {{ block.shopify_attributes }}>
+
+          <!-- Label: floats above the dot on the correct side -->
+          <div class="tl-label">
+            {% if block.settings.date != blank %}
+              <span class="tl-date">{{ block.settings.date }}</span>
+            {% endif %}
+            {% if block.settings.title != blank %}
+              <strong class="tl-title">{{ block.settings.title }}</strong>
+            {% endif %}
+            {% if block.settings.description != blank %}
+              <p class="tl-desc">{{ block.settings.description }}</p>
+            {% endif %}
+          </div>
+
+          <!-- Dot sits on the center axis -->
+          <div class="tl-dot"></div>
+
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #tl-{{ section.id }} {
+    --tl-bg:      {{ section.settings.bg_color }};
+    --tl-dot:     {{ section.settings.dot_color }};
+    --tl-line:    {{ section.settings.line_color }};
+    --tl-text:    {{ section.settings.text_color }};
+    --tl-date-cl: {{ section.settings.date_color }};
+    --tl-dot-sz:  48px;
+    --tl-axis:    50%;    /* center axis */
+  }
+
+  /* ── Section ── */
+  .tl-section {
+    position: relative;
+    padding: 72px 24px 88px;
+    overflow: hidden;
+    background-color: var(--tl-bg);
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    {% endif %}
+  }
+
+  .tl-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .tl-container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .tl-heading {
+    text-align: center;
+    color: var(--tl-text);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 64px;
+  }
+
+  /* ── Track: vertical center line ── */
+  .tl-track {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* The vertical dashed center line */
+  .tl-track::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--tl-axis);
+    transform: translateX(-50%);
+    border-left: 2px dashed var(--tl-line);
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  /* ── Item: 2-col grid. Dot always on center axis ── */
+  .tl-item {
+    display: grid;
+    grid-template-columns: 1fr var(--tl-dot-sz) 1fr;
+    align-items: center;
+    min-height: 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* dot is always column 2 */
+  .tl-dot {
+    grid-column: 2;
+    justify-self: center;
+    width: var(--tl-dot-sz);
+    height: var(--tl-dot-sz);
+    border-radius: 50%;
+    border: 3px solid var(--tl-dot);
+    background: var(--tl-bg);
+    box-sizing: border-box;
+    transition: background 0.3s;
+    z-index: 2;
+    position: relative;
+  }
+
+  .tl-item:hover .tl-dot {
+    background: rgba(255,255,255,0.12);
+  }
+
+  /* ── Label ── */
+  .tl-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 24px;
+  }
+
+  /* LEFT item: label on column 1 (left), dot on col 2 */
+  .tl-item--left .tl-label {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: right;
+    align-items: flex-end;
+  }
+  .tl-item--left .tl-dot {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* RIGHT item: dot on col 2, label on column 3 (right) */
+  .tl-item--right .tl-label {
+    grid-column: 3;
+    grid-row: 1;
+    text-align: left;
+    align-items: flex-start;
+  }
+  .tl-item--right .tl-dot {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* ── Text styles ── */
+  .tl-date {
+    color: var(--tl-date-cl);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  .tl-title {
+    color: var(--tl-text);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    font-weight: 700;
+    line-height: 1.3;
+    display: block;
+  }
+
+  .tl-desc {
+    color: var(--tl-text);
+    font-size: 0.85rem;
+    opacity: 0.65;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── Mobile: single column, dot on left ── */
+  @media (max-width: 600px) {
+    .tl-track::before { left: calc(var(--tl-dot-sz) / 2); }
+
+    .tl-item,
+    .tl-item--left,
+    .tl-item--right {
+      grid-template-columns: var(--tl-dot-sz) 1fr;
+      min-height: 80px;
+    }
+
+    .tl-item--left .tl-dot,
+    .tl-item--right .tl-dot {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .tl-item--left .tl-label,
+    .tl-item--right .tl-label {
+      grid-column: 2;
+      grid-row: 1;
+      text-align: left;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Timeline",
+  "tag": "section",
+  "class": "section-timeline",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tiêu đề section",
+      "default": "Lộ trình phát triển"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Ảnh nền (Background Image)"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền (nếu không có ảnh)",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Độ tối overlay trên ảnh nền",
+      "default": 55
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Màu dot",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Màu đường nối",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Màu ngày tháng",
+      "default": "#aaaaaa"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Mốc thời gian",
+      "settings": [
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Ngày / Tháng",
+          "default": "23/03/2026"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tiêu đề",
+          "default": "Ra mắt BST đầu tiên"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Mô tả (tuỳ chọn)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Timeline",
+      "blocks": [
+        {
+          "type": "milestone",
+          "settings": {
+            "date": "23/03/2026",
+            "title": "Ra mắt BST đầu tiên"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "date": "Tháng 5/2026",
+            "title": "BST thứ hai"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "date": "Tháng 9/2026",
+            "title": "Ra mắt sản phẩm ..."
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "date": "Tháng 10/2026",
+            "title": "Ra mắt sản phẩm"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
