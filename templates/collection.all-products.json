@@ -55,10 +55,11 @@
         "text_alignment": "left",
         "desktop_video_url": "",
         "mobile_video_url": "",
-        "desktop_image_url": "shopify://shop_images/10.7_design_nh_banner_web_global-03.jpg",
+        "desktop_image_url": "shopify://shop_images/2aOboQpbYWfyiWy5VN8bzv60uKeOZLPGS6tjBjwe.jpg",
         "mobile_image_url": "shopify://shop_images/10.7_design_nh_banner_web_global-03.jpg",
         "heading": "ALL PRODUCTS",
-        "paragraph": "Crafted with purpose. Designed to speak your soul. Perfectly made to fit. If you’re looking for something truly different, start here:"
+        "paragraph": "Crafted with purpose. Designed to speak your soul. Perfectly made to fit. If you’re looking for something truly different, start here:",
+        "padding-bottom": 16
       }
     },
     "text_width_icon_Nr4rbc": {
@@ -159,6 +160,7 @@
         "featured_addtocart_hide": false,
         "enable_infinite_scroll": true,
         "show_vendor": false,
+        "quick_links": "",
         "show_filter_counts": false,
         "show_filter_deadends": true,
         "ajax_products": true,
