@@ -69,7 +69,23 @@
         "tier_silver",
         "tier_member"
       ],
-      "settings": {}
+      "settings": {
+        "show_card_flip_rewards": true,
+        "card_flip_rewards_title": "Cards you have collected",
+        "show_card_flip_rewards_button": true,
+        "card_flip_rewards_button_text": "Flip a card",
+        "card_flip_rewards_button_link": "",
+        "card_flip_rewards_empty": "You have not collected any cards yet.",
+        "card_flip_rewards_limit": 10,
+        "card_flip_rewards_card_width": 210,
+        "tier_image": "shopify://shop_images/2aOboQpbYWfyiWy5VN8bzv60uKeOZLPGS6tjBjwe.jpg",
+        "welcome_collection": "",
+        "welcome_collection_title": "Products for you",
+        "welcome_products_limit": 4,
+        "blacksun_blog": "",
+        "blacksun_blog_title": "Blacksun Club",
+        "blacksun_blog_limit": 4
+      }
     },
     "rich_text_cnY8ed": {
       "type": "rich-text",
