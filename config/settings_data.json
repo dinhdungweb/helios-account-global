@@ -225,7 +225,7 @@
         ],
         "custom_css": [],
         "settings": {
-          "menu_linklist": "main-menu-8-8",
+          "menu_linklist": "main-menu-2",
           "nav_featured_link": "COLLAB BRADLEY",
           "desktop_navigation": "inline",
           "nav_opacity": "transparent",
@@ -563,6 +563,11 @@
             "announcement_home_only": true,
             "announcement_text": "Announce something here",
             "announcement_text_size": 14,
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
             "nav_cart_icon": "basket1",
             "show_country_selector": false,
             "show_language_selector": true
@@ -605,8 +610,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
@@ -693,15 +698,20 @@
             "nav_opacity": "transparent",
             "nav_positioning": "peek",
             "logo": "{{ shop.brand.logo }}",
-            "use_alt_logo_when_active": true,
             "desktop_logo_width": 130,
             "mobile_logo_width": 90,
+            "use_alt_logo_when_active": true,
             "show_announcement": true,
             "announcement_home_only": true,
             "announcement_text": "Announce something here",
             "announcement_text_size": 16,
-            "show_language_selector": true,
-            "show_country_selector": false
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
+            "show_country_selector": false,
+            "show_language_selector": true
           }
         },
         "popup": {
@@ -741,8 +751,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
@@ -831,15 +841,20 @@
             "nav_opacity": "transparent",
             "nav_positioning": "peek",
             "logo": "{{ shop.brand.logo }}",
-            "use_alt_logo_when_active": true,
             "desktop_logo_width": 200,
             "mobile_logo_width": 140,
+            "use_alt_logo_when_active": true,
             "show_announcement": true,
             "announcement_home_only": true,
             "announcement_text": "Announce something here",
             "announcement_text_size": 16,
-            "show_language_selector": true,
-            "show_country_selector": false
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
+            "show_country_selector": false,
+            "show_language_selector": true
           }
         },
         "popup": {
@@ -879,8 +894,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
@@ -952,16 +967,21 @@
             "nav_opacity": "opaque",
             "nav_positioning": "sticky",
             "logo": "{{ shop.brand.logo }}",
-            "use_alt_logo_when_active": true,
             "desktop_logo_width": 125,
             "mobile_logo_width": 120,
+            "use_alt_logo_when_active": true,
             "show_announcement": true,
-            "announcement_text": "Announce something here",
             "announcement_home_only": false,
+            "announcement_text": "Announce something here",
             "announcement_text_size": 15,
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
             "nav_cart_icon": "basket2",
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         },
         "popup": {
@@ -1001,8 +1021,8 @@
           ],
           "settings": {
             "show_payment_icons": true,
-            "show_language_selector": true,
-            "show_country_selector": true
+            "show_country_selector": true,
+            "show_language_selector": true
           }
         }
       }
@@ -1151,6 +1171,11 @@
             "announcement_email": "SUPPORT@HELIOSGLOBALBRAND.COM",
             "announcement_custom": "CONTACT US",
             "announcement_custom_link": "shopify://pages/contact-us-1",
+            "countdown_bg_color": "#be6834",
+            "countdown_text_color": "#18110b",
+            "countdown_number_color": "#18110b",
+            "countdown_label_color": "#18110b",
+            "countdown_border_bottom_color": "#141414",
             "nav_cart_icon": "basket2",
             "show_country_selector": true,
             "show_language_selector": true
