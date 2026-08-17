@@ -364,7 +364,9 @@
     },
     "featured_blog_AVzfM6": {
       "type": "featured-blog",
-      "custom_css": [],
+      "custom_css": [
+        ".section-heading {justify-content: center;}"
+      ],
       "settings": {
         "title": "WORN BY PEOPLE WHO MAKE THEIR OWN MARK",
         "blog": "influencer",
