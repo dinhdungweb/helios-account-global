@@ -20,7 +20,7 @@
   <div class="product-delivery-info__summary">
     <div class="product-delivery-info__summary-row">
       <span class="product-delivery-info__flag" data-country-flag aria-hidden="true"></span>
-      <span>Delivery to <strong>{{ localization.country.name }}</strong></span>
+      <span>Shipping to <strong>{{ localization.country.name }}</strong></span>
     </div>
 
     <div class="product-delivery-info__summary-row">
@@ -32,7 +32,7 @@
       </svg>
 
       <span class="product-delivery-info__summary-copy">
-        Order today and get it by:
+        Order within the next <strong data-countdown></strong> for dispatch today, and you'll receive your package between
         <span class="product-delivery-info__popover-anchor" data-popover-anchor>
           <button
             class="product-delivery-info__trigger"
@@ -41,7 +41,7 @@
             aria-controls="{{ delivery_popover_id }}"
             data-popover-trigger
           >
-            <span data-delivery-window>Calculating…</span>
+            <span data-delivery-start>Calculating…</span> and <span data-delivery-end>Calculating…</span>
           </button>
 
           <span
@@ -51,6 +51,19 @@
             aria-label="Full delivery information"
             data-delivery-popover
           >
+            <span class="product-delivery-info__full-copy">
+              Shipping to
+              <span class="product-delivery-info__flag" data-country-flag aria-hidden="true"></span>
+              <strong>{{ localization.country.name }}</strong><br>
+
+              Order within the next <strong data-countdown></strong> for dispatch today, and you'll receive your package between
+              <strong><span data-delivery-start></span></strong> and <strong><span data-delivery-end></span></strong>.
+
+              <span class="product-delivery-info__fast-shipping">
+                Expect your order at your door in just <strong>5–7 business days</strong> with our <strong>Fast Shipping</strong> option. Not included production time
+              </span>
+            </span>
+
             <span class="product-delivery-info__timeline">
               <span class="product-delivery-info__progress" aria-hidden="true"></span>
 
@@ -61,7 +74,7 @@
                   </svg>
                 </span>
                 <strong class="product-delivery-info__date" data-date-ordered></strong>
-                <span class="product-delivery-info__status">{{ settings.label_ordered | default: 'Order placed' }}</span>
+                <span class="product-delivery-info__status">{{ settings.label_ordered | default: 'Ordered' }}</span>
               </span>
 
               <span class="product-delivery-info__step">
@@ -71,7 +84,7 @@
                   </svg>
                 </span>
                 <strong class="product-delivery-info__date" data-date-ready></strong>
-                <span class="product-delivery-info__status">{{ settings.label_ready | default: 'Order shipped' }}</span>
+                <span class="product-delivery-info__status">{{ settings.label_ready | default: 'Order Ready' }}</span>
               </span>
 
               <span class="product-delivery-info__step">
@@ -81,20 +94,8 @@
                   </svg>
                 </span>
                 <strong class="product-delivery-info__date" data-date-delivered></strong>
-                <span class="product-delivery-info__status">{{ settings.label_delivered | default: 'Order delivered' }}</span>
+                <span class="product-delivery-info__status">{{ settings.label_delivered | default: 'Delivered' }}</span>
               </span>
-            </span>
-
-            <span class="product-delivery-info__notes" role="list">
-              {%- if block.settings.delivery_note_1 != blank -%}
-                <span class="product-delivery-info__note" role="listitem">{{ block.settings.delivery_note_1 }}</span>
-              {%- endif -%}
-              {%- if block.settings.delivery_note_2 != blank -%}
-                <span class="product-delivery-info__note" role="listitem">{{ block.settings.delivery_note_2 }}</span>
-              {%- endif -%}
-              {%- if block.settings.delivery_note_3 != blank -%}
-                <span class="product-delivery-info__note" role="listitem">{{ block.settings.delivery_note_3 }}</span>
-              {%- endif -%}
             </span>
           </span>
         </span>
@@ -208,6 +209,22 @@
     transform: translateY(0);
   }
 
+  #{{ delivery_block_id }} .product-delivery-info__full-copy {
+    display: block;
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__full-copy .product-delivery-info__flag {
+    margin: 0 3px;
+    vertical-align: middle;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__fast-shipping {
+    display: block;
+    margin-top: 14px;
+  }
+
   #{{ delivery_block_id }} .product-delivery-info__timeline {
     position: relative;
     display: grid;
@@ -258,30 +275,6 @@
     line-height: 1.35;
   }
 
-  #{{ delivery_block_id }} .product-delivery-info__notes {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-top: 16px;
-    padding: 12px 15px 12px 34px;
-    border: 1px solid rgba(128, 128, 128, 0.28);
-    border-radius: 10px;
-    background: var(--delivery-step-bg);
-  }
-
-  #{{ delivery_block_id }} .product-delivery-info__note {
-    position: relative;
-    display: block;
-    line-height: 1.45;
-  }
-
-  #{{ delivery_block_id }} .product-delivery-info__note::before {
-    position: absolute;
-    top: 0;
-    right: calc(100% + 10px);
-    content: '•';
-  }
-
   @media (max-width: 540px) {
     #{{ delivery_block_id }} .product-delivery-info__popover {
       right: auto;
@@ -313,6 +306,10 @@
 
     if (!root) return;
 
+    if (root.deliveryCountdownTimer) {
+      window.clearInterval(root.deliveryCountdownTimer);
+    }
+
     if (root.deliveryPopoverController) {
       root.deliveryPopoverController.abort();
     }
@@ -322,13 +319,15 @@
     root.deliveryPopoverController = controller;
 
     const find = (selector) => root.querySelector(selector);
+    const findAll = (selector) => root.querySelectorAll(selector);
     const countryCode = {{ localization.country.iso_code | json }};
-    const flagElement = find('[data-country-flag]');
     const anchor = find('[data-popover-anchor]');
     const trigger = find('[data-popover-trigger]');
 
-    if (countryCode && flagElement) {
-      flagElement.style.backgroundImage = `url(https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png)`;
+    if (countryCode) {
+      findAll('[data-country-flag]').forEach((flagElement) => {
+        flagElement.style.backgroundImage = `url(https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png)`;
+      });
     }
 
     const dispatchHour = {{ settings.dispatch_hour | default: 10 | json }};
@@ -391,12 +390,45 @@
       const deliveryStart = addBusinessDays(baseDate, dispatchDays + deliveryRange.min + buffer);
       const deliveryEnd = addBusinessDays(baseDate, dispatchDays + deliveryRange.max + buffer);
       const format = (date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      const deliveryWindow = `${format(deliveryStart)} – ${format(deliveryEnd)}`;
-
-      find('[data-delivery-window]').textContent = deliveryWindow;
+      findAll('[data-delivery-start]').forEach((element) => {
+        element.textContent = format(deliveryStart);
+      });
+      findAll('[data-delivery-end]').forEach((element) => {
+        element.textContent = format(deliveryEnd);
+      });
       find('[data-date-ordered]').textContent = format(now);
       find('[data-date-ready]').textContent = `${format(orderReadyMin)} – ${format(orderReadyMax)}`;
-      find('[data-date-delivered]').textContent = deliveryWindow;
+      find('[data-date-delivered]').textContent = `${format(deliveryStart)} – ${format(deliveryEnd)}`;
+    }
+
+    function updateCountdown() {
+      const countdownElements = findAll('[data-countdown]');
+
+      function tick() {
+        const difference = cutoff - new Date();
+
+        if (difference <= 0) {
+          countdownElements.forEach((element) => {
+            element.textContent = 'Orders placed now will be processed tomorrow';
+          });
+          window.clearInterval(root.deliveryCountdownTimer);
+          return;
+        }
+
+        const hours = String(Math.floor(difference / 3600000)).padStart(2, '0');
+        const minutes = String(Math.floor((difference % 3600000) / 60000)).padStart(2, '0');
+        const seconds = String(Math.floor((difference % 60000) / 1000)).padStart(2, '0');
+        const countdown = `${hours}h ${minutes}m ${seconds}s`;
+
+        countdownElements.forEach((element) => {
+          element.textContent = countdown;
+        });
+      }
+
+      tick();
+      if (cutoff > new Date()) {
+        root.deliveryCountdownTimer = window.setInterval(tick, 1000);
+      }
     }
 
     function setPopoverOpen(isOpen) {
@@ -446,10 +478,12 @@
 
     document.addEventListener('shopify:section:unload', (event) => {
       if (event.detail.sectionId === {{ section.id | json }}) {
+        window.clearInterval(root.deliveryCountdownTimer);
         controller.abort();
       }
     }, { signal });
 
     renderDates();
+    updateCountdown();
   })();
 </script>
