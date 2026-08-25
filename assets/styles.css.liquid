@@ -16086,6 +16086,20 @@ textarea,
   border-radius: var(--flat-radius) !important;
 }
 
+/* Shopify renders Buy Now inside a closed shadow root. These custom
+ * properties are the supported way to flatten accelerated checkout. */
+body .shopify-payment-button .shopify-payment-button__button,
+body .shopify-payment-button .shopify-payment-button__button--unbranded {
+  border-radius: 0 !important;
+}
+
+body .shopify-payment-button shopify-accelerated-checkout,
+body shopify-accelerated-checkout,
+body shopify-accelerated-checkout-cart {
+  --shopify-accelerated-checkout-button-border-radius: 0px !important;
+  --shopify-accelerated-checkout-button-box-shadow: none !important;
+}
+
 button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
