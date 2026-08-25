@@ -19,7 +19,14 @@
 >
   <div class="product-delivery-info__summary">
     <div class="product-delivery-info__summary-row">
-      <span class="product-delivery-info__flag" data-country-flag aria-hidden="true"></span>
+      <img
+        class="product-delivery-info__flag"
+        data-country-flag
+        width="24"
+        height="18"
+        alt=""
+        aria-hidden="true"
+      >
       <span>Shipping to <strong>{{ localization.country.name }}</strong></span>
     </div>
 
@@ -32,7 +39,7 @@
       </svg>
 
       <span class="product-delivery-info__summary-copy">
-        Order within the next <strong data-countdown></strong> for dispatch today, and you'll receive your package between
+        Order today and get it by:
         <span class="product-delivery-info__popover-anchor" data-popover-anchor>
           <button
             class="product-delivery-info__trigger"
@@ -53,7 +60,14 @@
           >
             <span class="product-delivery-info__full-copy">
               Shipping to
-              <span class="product-delivery-info__flag" data-country-flag aria-hidden="true"></span>
+              <img
+                class="product-delivery-info__flag"
+                data-country-flag
+                width="24"
+                height="18"
+                alt=""
+                aria-hidden="true"
+              >
               <strong>{{ localization.country.name }}</strong><br>
 
               Order within the next <strong data-countdown></strong> for dispatch today, and you'll receive your package between
@@ -136,19 +150,29 @@
   }
 
   #{{ delivery_block_id }} .product-delivery-info__flag {
-    display: inline-block;
+    display: inline-block !important;
     flex: 0 0 auto;
-    width: 22px;
-    height: 16px;
-    border-radius: 0;
-    background-position: center;
-    background-size: cover;
-    box-shadow: none;
-    filter: none;
+    width: 24px !important;
+    height: 18px !important;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 0 !important;
+    object-fit: fill;
+    box-shadow: none !important;
+    clip-path: none !important;
+    filter: none !important;
+    transform: none !important;
   }
 
   #{{ delivery_block_id }} .product-delivery-info__summary-icon {
     flex: 0 0 auto;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__summary-icon,
+  #{{ delivery_block_id }} .product-delivery-info__node svg,
+  #{{ delivery_block_id }} .product-delivery-info__summary-icon *,
+  #{{ delivery_block_id }} .product-delivery-info__node svg * {
+    fill: none !important;
+    stroke: currentColor !important;
   }
 
   #{{ delivery_block_id }} .product-delivery-info__summary-copy {
@@ -333,7 +357,7 @@
 
     if (countryCode) {
       findAll('[data-country-flag]').forEach((flagElement) => {
-        flagElement.style.backgroundImage = `url(https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png)`;
+        flagElement.src = `https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png`;
       });
     }
 
