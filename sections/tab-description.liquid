@@ -32,6 +32,47 @@
   </div>
 </div>
 
+<style>
+  #shopify-section-{{ section.id }} .product-tabs {
+    max-width: 1300px;
+    padding-top: 16px !important;
+  }
+
+  #shopify-section-{{ section.id }} .tab-list {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .tab-item {
+    min-height: 0;
+    padding: 12px 0 10px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 1.125rem;
+    font-weight: 500;
+    opacity: 0.65;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .tab-item.active {
+    border-bottom-color: #fff;
+    background: transparent;
+    color: inherit;
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .tab-content {
+    padding: 24px 0 40px;
+  }
+</style>
+
 {% schema %}
   {
     "name": "Tabs Product Description",
