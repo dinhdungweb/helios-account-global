@@ -1,0 +1,232 @@
+{%- liquid
+  assign delivery_block_id = 'delivery-info-' | append: section.id | append: '-' | append: block.id
+  assign delivery_days = product.metafields.custom.delivery_days.value | default: settings.default_delivery_days
+  assign delivery_warehouse = product.metafields.custom.delivery_warehouse.value | default: 'default'
+-%}
+
+<div
+  id="{{ delivery_block_id }}"
+  class="product-delivery-info product-detail__gap-sm"
+  data-delivery-info
+  {{ block.shopify_attributes }}
+>
+  <div class="product-delivery-info__location" style="background: {{ settings.delivery_box_bg_color }};">
+    Shipping to
+    <span class="product-delivery-info__flag" data-country-flag aria-hidden="true"></span>
+    <strong class="product-delivery-info__bold">{{ localization.country.name }}</strong><br>
+
+    Order within the next <span class="product-delivery-info__bold" data-countdown></span> for dispatch today, and you'll receive your package between
+    <strong><span data-delivery-start></span></strong> and <strong><span data-delivery-end></span></strong>.
+
+    <p>Expect your order at your door in just <strong>5–7 business days</strong> with our <strong>Fast Shipping</strong> option. Not included production time</p>
+  </div>
+
+  <div class="product-delivery-info__timeline">
+    <div class="product-delivery-info__step" style="background: {{ settings.delivery_step_bg_color }};">
+      <div class="product-delivery-info__icon" aria-hidden="true">
+        <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21.312 7.94a1.49 1.49 0 0 0-1.062-.44h-3v-.75a5.25 5.25 0 1 0-10.5 0v.75h-3A1.5 1.5 0 0 0 2.25 9v10.125c0 1.828 1.547 3.375 3.375 3.375h12.75c.884 0 1.734-.346 2.366-.963a3.256 3.256 0 0 0 1.009-2.353V9a1.489 1.489 0 0 0-.438-1.06Zm-5.727 4.904-4.2 5.25a.75.75 0 0 1-.573.281H10.8a.75.75 0 0 1-.57-.262l-1.8-2.104a.749.749 0 1 1 1.14-.975l1.211 1.415 3.633-4.543a.75.75 0 0 1 1.172.938ZM15.75 7.5h-7.5v-.75a3.75 3.75 0 0 1 7.5 0v.75Z"></path>
+        </svg>
+      </div>
+      <div class="product-delivery-info__label">
+        <span class="product-delivery-info__status">{{ settings.label_ordered }}</span>
+        <span data-date-ordered></span>
+      </div>
+    </div>
+
+    <div class="product-delivery-info__step" style="background: {{ settings.delivery_step_bg_color }};">
+      <div class="product-delivery-info__icon" aria-hidden="true">
+        <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M17 8h3l3 4v5h-2c0 1.66-1.34 3-3 3s-3-1.34-3-3H9c0 1.66-1.34 3-3 3s-3-1.34-3-3H1V6c0-1.1.9-2 2-2h14v4ZM5 17c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1Zm14.5-7.5 1.96 2.5H17V9.5h2.5ZM17 17c0 .55.45 1 1 1s1-.45 1-1-.45-1-1-1-1 .45-1 1Z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <div class="product-delivery-info__label">
+        <span class="product-delivery-info__status">{{ settings.label_ready }}</span>
+        <span data-date-ready></span>
+      </div>
+    </div>
+
+    <div class="product-delivery-info__step" style="background: {{ settings.delivery_step_bg_color }};">
+      <div class="product-delivery-info__icon" aria-hidden="true">
+        <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 1.5c-4.14 0-7.5 3.024-7.5 6.75 0 6 7.5 14.25 7.5 14.25s7.5-8.25 7.5-14.25c0-3.726-3.36-6.75-7.5-6.75ZM12 12a3 3 0 1 1 0-5.999A3 3 0 0 1 12 12Z"></path>
+        </svg>
+      </div>
+      <div class="product-delivery-info__label">
+        <span class="product-delivery-info__status">{{ settings.label_delivered }}</span>
+        <span data-date-delivered></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  #{{ delivery_block_id }} {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__location {
+    margin-bottom: 10px;
+    padding: 15px;
+    line-height: 1.6;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__timeline {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: center;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__step {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 10px;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__icon {
+    margin-bottom: 5px;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__icon svg {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__label {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__status,
+  #{{ delivery_block_id }} .product-delivery-info__bold {
+    color: inherit;
+    font-weight: 600;
+  }
+
+  #{{ delivery_block_id }} .product-delivery-info__flag {
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    background-position: center;
+    background-size: cover;
+    vertical-align: middle;
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    const root = document.getElementById({{ delivery_block_id | json }});
+
+    if (!root) return;
+
+    if (root.deliveryCountdownTimer) {
+      window.clearInterval(root.deliveryCountdownTimer);
+    }
+
+    const find = (selector) => root.querySelector(selector);
+    const countryCode = {{ localization.country.iso_code | json }};
+    const flagElement = find('[data-country-flag]');
+
+    if (countryCode && flagElement) {
+      flagElement.style.backgroundImage = `url(https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png)`;
+    }
+
+    const dispatchHour = {{ settings.dispatch_hour | default: 10 | json }};
+    const dispatchMinute = {{ settings.dispatch_minute | default: 0 | json }};
+    const dispatchDays = {{ settings.dispatch_days | default: 1 | json }};
+    const excludeWeekends = {{ settings.exclude_weekends | json }};
+    const deliveryRaw = {{ delivery_days | json }};
+    const warehouse = {{ delivery_warehouse | json }};
+    const holidayRaw = {{ settings.holiday_exceptions | json }};
+    const holidays = (holidayRaw || '')
+      .split(/\r?\n/)
+      .map((date) => date.trim())
+      .filter(Boolean)
+      .map((date) => new Date(`${date}T00:00:00`));
+
+    const bufferMap = { HN: 0, HCM: 1, USA: 5, default: 0 };
+    const buffer = bufferMap[warehouse] || 0;
+    const cutoff = new Date();
+    cutoff.setHours(dispatchHour, dispatchMinute, 0, 0);
+
+    function parseRange(value) {
+      const normalizedValue = String(value || '0');
+
+      if (normalizedValue.includes('|')) {
+        const [min, max] = normalizedValue.split('|').map(Number);
+        return { min, max };
+      }
+
+      const days = parseInt(normalizedValue, 10);
+      return { min: days, max: days };
+    }
+
+    function isHoliday(date) {
+      return (excludeWeekends && (date.getDay() === 0 || date.getDay() === 6)) ||
+        holidays.some((holiday) =>
+          holiday.getFullYear() === date.getFullYear() &&
+          holiday.getMonth() === date.getMonth() &&
+          holiday.getDate() === date.getDate()
+        );
+    }
+
+    function addBusinessDays(start, days) {
+      let count = 0;
+      const date = new Date(start);
+
+      while (count < days) {
+        date.setDate(date.getDate() + 1);
+        if (!isHoliday(date)) count += 1;
+      }
+
+      return date;
+    }
+
+    function renderDates(baseDate) {
+      const deliveryRange = parseRange(deliveryRaw);
+      const orderedDate = new Date();
+      const orderReadyMin = addBusinessDays(baseDate, dispatchDays);
+      const orderReadyMax = addBusinessDays(baseDate, dispatchDays + 2);
+      const deliveryStart = addBusinessDays(baseDate, dispatchDays + deliveryRange.min + buffer);
+      const deliveryEnd = addBusinessDays(baseDate, dispatchDays + deliveryRange.max + buffer);
+      const format = (date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+      find('[data-date-ordered]').textContent = format(orderedDate);
+      find('[data-date-ready]').textContent = `${format(orderReadyMin)} – ${format(orderReadyMax)}`;
+      find('[data-date-delivered]').textContent = `${format(deliveryStart)} – ${format(deliveryEnd)}`;
+      find('[data-delivery-start]').textContent = format(deliveryStart);
+      find('[data-delivery-end]').textContent = format(deliveryEnd);
+    }
+
+    function updateCountdown() {
+      const countdownElement = find('[data-countdown]');
+
+      function tick() {
+        const difference = cutoff - new Date();
+
+        if (difference <= 0) {
+          countdownElement.innerHTML = '<strong>Orders placed now will be processed tomorrow</strong>';
+          window.clearInterval(root.deliveryCountdownTimer);
+          return;
+        }
+
+        const hours = String(Math.floor(difference / 3600000)).padStart(2, '0');
+        const minutes = String(Math.floor((difference % 3600000) / 60000)).padStart(2, '0');
+        const seconds = String(Math.floor((difference % 60000) / 1000)).padStart(2, '0');
+        countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      tick();
+      root.deliveryCountdownTimer = window.setInterval(tick, 1000);
+    }
+
+    const baseDate = new Date() > cutoff ? addBusinessDays(new Date(), 1) : new Date();
+    renderDates(baseDate);
+    updateCountdown();
+  })();
+</script>

@@ -1289,6 +1289,9 @@
                     <div class="product-detail__gap-sm" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
                   {% endif %}
 
+                {% when 'delivery_info' %}
+                  {% render 'product-delivery-info', product: product, section: section, block: block %}
+
                 {%- when 'trust_icons' -%}
                   <div class="product-detail__gap-lg product-detail__trust-icons" {{ block.shopify_attributes }}>
                     {% if block.settings.show_icon1 %}
@@ -3362,6 +3365,17 @@
             "type": "liquid",
             "id": "custom_liquid",
             "label": "Custom Liquid"
+          }
+        ]
+      },
+      {
+        "type": "delivery_info",
+        "name": "Delivery information",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Configure delivery timing, labels and colors in Theme settings > Delivery Settings."
           }
         ]
       },
