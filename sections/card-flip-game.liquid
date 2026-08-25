@@ -350,9 +350,7 @@
   }
 
   .card-flip-game__face--back {
-    background:
-      linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0)),
-      var(--cfg-card-back);
+    background: var(--cfg-card-back);
     background-position: center;
     background-size: cover;
   }
@@ -397,7 +395,7 @@
   }
 
   .card-flip-game__front-caption {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.78));
+    background: rgba(0, 0, 0, 0.78);
     bottom: 0;
     color: #fff;
     display: grid;
@@ -760,7 +758,7 @@
         const back = document.createElement('span');
         back.className = 'card-flip-game__face card-flip-game__face--back';
         if (config.backImage) {
-          back.style.backgroundImage = 'linear-gradient(145deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.28)), url("' + config.backImage.replace(/"/g, '\\"') + '")';
+          back.style.backgroundImage = 'url("' + config.backImage.replace(/"/g, '\\"') + '")';
         }
 
         if (config.backLabel) {

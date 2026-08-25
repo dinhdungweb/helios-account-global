@@ -191,9 +191,9 @@
         "bg_color": "#0e0e0e",
         "text_color": "#f2f2f2",
         "card_bg": "#ffffff0f",
-        "radius": 16,
-        "shadow_strength": 20,
-        "glass_effect": true
+        "radius": 0,
+        "shadow_strength": 0,
+        "glass_effect": false
       }
     }
   },

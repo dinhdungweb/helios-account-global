@@ -37,7 +37,7 @@
   .helios-right-section {
     flex: 1;
     padding: 80px 60px;
-    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    background: #1a1a1a;
   }
 
   .helios-form-container {
@@ -109,13 +109,13 @@
     color: #fff;
     font-size: 15px;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: none;
   }
 
   .helios-input:focus {
     outline: none;
     border-color: {{ section.settings.accent_color | default: '#DAA520' }};
-    box-shadow: 0 0 20px rgba(218, 165, 32, 0.2);
+    box-shadow: none;
     background: rgba(255, 255, 255, 0.08);
   }
 
@@ -145,7 +145,7 @@
 
   .helios-submit-btn {
     padding: 15px 30px;
-    background: linear-gradient(135deg, {{ section.settings.button_color | default: '#DAA520' }}, {{ section.settings.button_hover_color | default: '#B8860B' }});
+    background: {{ section.settings.button_color | default: '#DAA520' }};
     color: {{ section.settings.button_text_color | default: '#000' }};
     border: none;
     font-size: 16px;
@@ -154,13 +154,13 @@
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(218, 165, 32, 0.3);
+    box-shadow: none;
   }
 
   .helios-submit-btn:hover {
-    background: linear-gradient(135deg, #FFD700, {{ section.settings.accent_color | default: '#DAA520' }});
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(218, 165, 32, 0.4);
+    background: {{ section.settings.button_hover_color | default: '#B8860B' }};
+    transform: none;
+    box-shadow: none;
   }
 
   .helios-success-message {

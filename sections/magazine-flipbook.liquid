@@ -26,9 +26,9 @@
   #{{ flipbook_section_id }} .magazine-book-positioner.is-single-left { transform: translate3d(25%, 0, 0); }
   #{{ flipbook_section_id }} .magazine-flipbook-container { position: relative; z-index: 1; overflow: visible; margin: 0; background: transparent; box-shadow: none; cursor: default; touch-action: none; user-select: none; }
   #{{ flipbook_section_id }} .magazine-flipbook-container::after { position: absolute; top: 0; bottom: 0; content: ''; pointer-events: none; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container::after { left: 50%; z-index: var(--magazine-static-overlay-z, 1); width: clamp(58px, 15%, 128px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.07) 19%, rgba(0, 0, 0, 0.05) 32%, rgba(0, 0, 0, 0.16) 42%, rgba(0, 0, 0, 0.42) 49%, rgba(0, 0, 0, 0.46) 50%, rgba(255, 255, 255, 0.13) 52%, rgba(0, 0, 0, 0.16) 60%, rgba(0, 0, 0, 0.05) 70%, rgba(255, 255, 255, 0.06) 82%, rgba(0, 0, 0, 0) 100%); transform: translateX(-50%); }
-  #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-right::after { width: clamp(8px, 1.5%, 14px); background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.12) 24%, rgba(0, 0, 0, 0.06) 55%, rgba(0, 0, 0, 0)); transform: none; }
-  #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-left::after { width: clamp(8px, 1.5%, 14px); background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.06) 45%, rgba(255, 255, 255, 0.12) 76%, rgba(0, 0, 0, 0.3)); transform: translateX(-100%); }
+  #{{ flipbook_section_id }} .magazine-flipbook-container::after { content: none; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-right::after { content: none; }
+  #{{ flipbook_section_id }} .magazine-flipbook-container.is-single-left::after { content: none; }
   #{{ flipbook_section_id }} .turn-page-wrapper,
   #{{ flipbook_section_id }} .turn-page,
   #{{ flipbook_section_id }} .p-temporal,
@@ -37,8 +37,8 @@
   #{{ flipbook_section_id }} .magazine-page { position: relative; box-sizing: border-box; overflow: hidden; width: 100%; height: 100%; cursor: grab; }
   #{{ flipbook_section_id }} .magazine-page:active { cursor: grabbing; }
   #{{ flipbook_section_id }} .magazine-page::after { position: absolute; inset: 0; z-index: 2; content: ''; pointer-events: none; }
-  #{{ flipbook_section_id }} .magazine-page--left::after { background: linear-gradient(90deg, rgba(0, 0, 0, 0.26) 0, rgba(255, 255, 255, 0.1) 0.7%, rgba(0, 0, 0, 0.06) 1.5%, rgba(0, 0, 0, 0) 3.5%); }
-  #{{ flipbook_section_id }} .magazine-page--right::after { background: linear-gradient(90deg, rgba(0, 0, 0, 0) 96.5%, rgba(0, 0, 0, 0.06) 98.5%, rgba(255, 255, 255, 0.1) 99.3%, rgba(0, 0, 0, 0.26) 100%); }
+  #{{ flipbook_section_id }} .magazine-page--left::after { content: none; }
+  #{{ flipbook_section_id }} .magazine-page--right::after { content: none; }
   #{{ flipbook_section_id }} .magazine-page img { display: block; width: 100%; height: 100%; object-fit: contain; background: transparent; opacity: 1; pointer-events: none; }
   #{{ flipbook_section_id }} .magazine-side-button { position: absolute; top: 50%; z-index: 8; display: grid; width: 44px; height: 64px; padding: 0; place-items: center; color: #fff; background: transparent; border: 0; border-radius: 0; cursor: pointer; transform: translateY(-70%); transition: color 0.2s ease, opacity 0.2s ease; }
   #{{ flipbook_section_id }} .magazine-side-button:hover:not(:disabled) { color: #fab320; background: transparent; }

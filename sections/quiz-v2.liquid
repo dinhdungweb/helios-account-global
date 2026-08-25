@@ -17,11 +17,11 @@
       --quiz-bg: {{ section.settings.bg_color | default: '#0e0e0e' }};
       --quiz-text: {{ section.settings.text_color | default: '#f2f2f2' }};
       --quiz-card-bg: {{ section.settings.card_bg | default: 'rgba(255,255,255,0.06)' }};
-      --quiz-radius: {{ section.settings.radius | default: 12 }}px;
-      --quiz-shadow: {{ section.settings.shadow_strength | default: 16 }};
+      --quiz-radius: {{ section.settings.radius | default: 0 }}px;
+      --quiz-shadow: {{ section.settings.shadow_strength | default: 0 }};
     }
     #quiz-{{ section.id }}.quiz--glass .quiz-card,
-    #quiz-{{ section.id }}.quiz--glass .quiz-result{ backdrop-filter: blur(8px); }
+    #quiz-{{ section.id }}.quiz--glass .quiz-result{ backdrop-filter: none; }
   </style>
 
   <div class="quiz-inner">
@@ -199,7 +199,7 @@
       "min": 0,
       "max": 24,
       "step": 1,
-      "default": 12,
+      "default": 0,
       "unit": "px"
     },
     {
@@ -209,13 +209,13 @@
       "min": 0,
       "max": 24,
       "step": 1,
-      "default": 16
+      "default": 0
     },
     {
       "type": "checkbox",
       "id": "glass_effect",
       "label": "Hiệu ứng mờ (glass)",
-      "default": true
+      "default": false
     }
   ],
   "blocks": [

@@ -21,7 +21,7 @@
       --quiz-shadow: {{ section.settings.shadow_strength }};
     }
     #quiz-{{ section.id }}.quiz--glass .quiz-card,
-    #quiz-{{ section.id }}.quiz--glass .quiz-result{ backdrop-filter: blur(8px); }
+    #quiz-{{ section.id }}.quiz--glass .quiz-result{ backdrop-filter: none; }
   </style>
 
   <div class="quiz-inner">
@@ -126,9 +126,9 @@
     ,{"type":"color","id":"bg_color","label":"Màu nền","default":"#0e0e0e"}
     ,{"type":"color","id":"text_color","label":"Màu chữ","default":"#f2f2f2"}
     ,{"type":"color","id":"card_bg","label":"Màu khối nội dung","default":"rgba(255,255,255,0.06)"}
-    ,{"type":"range","id":"radius","label":"Bo góc (px)","min":0,"max":24,"step":1,"default":12,"unit":"px"}
-    ,{"type":"range","id":"shadow_strength","label":"Độ đổ bóng","min":0,"max":24,"step":1,"default":16}
-    ,{"type":"checkbox","id":"glass_effect","label":"Hiệu ứng mờ (glass)","default":true}
+    ,{"type":"range","id":"radius","label":"Bo góc (px)","min":0,"max":24,"step":1,"default":0,"unit":"px"}
+    ,{"type":"range","id":"shadow_strength","label":"Độ đổ bóng","min":0,"max":24,"step":1,"default":0}
+    ,{"type":"checkbox","id":"glass_effect","label":"Hiệu ứng mờ (glass)","default":false}
   ],
   "blocks": [
     {
