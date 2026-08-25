@@ -45,6 +45,13 @@
           "type": "rating",
           "settings": {}
         },
+        "delivery_info": {
+          "type": "delivery_info",
+          "settings": {
+            "accent_color": "#ff4d45",
+            "progress_color": "#18c766"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -96,10 +103,6 @@
           "settings": {
             "text": "<p>Different isn’t abnormal — it’s powerful. Helios stands with you. <strong>Own it.</strong></p>"
           }
-        },
-        "delivery_info": {
-          "type": "delivery_info",
-          "settings": {}
         },
         "richtext_fQjCLU": {
           "type": "richtext",
@@ -153,12 +156,12 @@
         "title",
         "price",
         "rating",
+        "delivery_info",
         "variant_picker",
         "inventory_level",
         "buy_buttons",
         "complementary_pwBz8L",
         "richtext_qhyGLp",
-        "delivery_info",
         "richtext_fQjCLU",
         "image_nhxU6d",
         "accordion_9czNHQ",
