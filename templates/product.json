@@ -49,7 +49,7 @@
           "type": "delivery_info",
           "settings": {
             "accent_color": "#ff4d45",
-            "progress_color": "#18c766"
+            "progress_color": "#F2F2F2"
           }
         },
         "variant_picker": {
