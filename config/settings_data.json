@@ -273,7 +273,7 @@
           "countdown_number_size_mobile": 14,
           "countdown_label_size": 11,
           "countdown_label_size_mobile": 9,
-          "nav_cart_icon": "basket2",
+          "nav_cart_icon": "basket1",
           "show_country_selector": true,
           "show_language_selector": true
         }
