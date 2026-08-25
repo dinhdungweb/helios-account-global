@@ -9174,6 +9174,47 @@ html.touch .product-block.product-block--quickbuy .cc-quick-buy-btn, html.touch 
   display: block;
   margin-top: 0.2em;
 }
+.product-block .product-block__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  padding-top: 12px;
+}
+.product-block .product-block__title-row .card-title-ellipsis {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding-top: 0;
+}
+.product-block .product-block__rating-summary {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+  margin-top: 0;
+  white-space: nowrap;
+}
+.product-block .product-block__rating-value {
+  display: inline-block !important;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 13px;
+}
+.product-block .product-block__rating-star {
+  display: flex;
+  width: 13px;
+  height: 13px;
+  align-items: center;
+}
+.product-block .product-block__rating-star svg {
+  width: 13px;
+  height: 13px;
+}
+.product-block .product-block__rating-summary--empty {
+  opacity: 0.5;
+}
 .product-block .themed-product-reviews [data-rating="0.0"], .collection-block .themed-product-reviews [data-rating="0.0"] {
   display: none;
 }

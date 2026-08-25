@@ -286,9 +286,23 @@
     {%- endif -%}
 
     <a data-cc-animate-click href="{{ product_url }}" class="caption upper">
-      {% if show_title %}
-      <span class="card-title-ellipsis">{{ product.title }}</span>
-      {% endif %}
+      <div class="product-block__title-row">
+        {% if show_title %}
+          <span class="card-title-ellipsis">{{ product.title }}</span>
+        {% endif %}
+
+        {% if show_review and settings.show_product_block_reviews and product.metafields.reviews != blank %}
+          <div class="product-block__rating-summary" aria-label="{{ product.metafields.reviews.rating.value }} out of 5 stars">
+            <span class="product-block__rating-value">{{ product.metafields.reviews.rating.value | default: 0 }}</span>
+            <span class="product-block__rating-star" aria-hidden="true">{% render 'svg-star' %}</span>
+          </div>
+        {% elsif show_review %}
+          <div class="product-block__rating-summary product-block__rating-summary--empty" aria-label="0 out of 5 stars">
+            <span class="product-block__rating-value">0</span>
+            <span class="product-block__rating-star" aria-hidden="true">{% render 'svg-star' %}</span>
+          </div>
+        {% endif %}
+      </div>
 
       {% if show_vendor %}
         <span class="vendor">{{ product.vendor }}</span>
@@ -389,40 +403,6 @@
       {% endif %}
     </a>
 
-    {% if show_review and settings.show_product_block_reviews and product.metafields.reviews != blank %}
-      <a data-cc-animate-click href="{{ product_url }}" class="themed-product-reviews" tabindex="-1">
-        {% render 'rating', rating_value: product.metafields.reviews.rating.value %}
-        {%- assign rating_count = product.metafields.reviews.rating_count | plus: 0 -%}
-        {% if rating_count != blank and rating_count > 0 %}
-          <span class="cc-rating-custom-caption">
-            {{ rating_count }} {{ 'products.product.reviews_link' | t: count: rating_count }}
-          </span>
-        {% endif %}
-      </a>
-      {% elsif show_review %}
-      <a data-cc-animate-click href="{{ product_url }}" class="themed-product-reviews" tabindex="-1">
-        <div class="cc-rating" role="img" data-rating-decimal="{{ rating_decimal }}" aria-label="{{ 'general.accessibility_labels.star_reviews_info' | t: rating_value: rating_value, rating_max: rating_value.scale_max }}">
-          <span aria-hidden="true" class="cc-rating-stars">
-            <span class="cc-rating-stars--inactive">
-              {%- liquid
-                for i in (1..5)
-                  render 'rating-star-icon'
-                endfor
-              -%}
-            </span>
-            <span class="cc-rating-stars--active">
-              {%- liquid
-                for i in (1..rating_ceiling)
-                  render 'rating-star-icon'
-                endfor
-              -%}
-            </span>
-          </span>
-        </div><span class="cc-rating-custom-caption">
-            0 Review
-          </span>
-      </a>
-    {% endif %}
   </div>
   {% if section.settings.featured_addtocart_hide or show_add_to_cart == false %}
   {% else %}
