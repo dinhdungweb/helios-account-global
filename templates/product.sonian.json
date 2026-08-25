@@ -203,12 +203,6 @@
             "text": "<p><strong>Please be aware that due to our factory’s biggest holiday of the year, all orders placed after the 10th February will be delayed about 10 days, which is slightly longer than usual. Rest assured, your order is still being processed and will be shipped as soon as possible.</strong></p><p>Different isn’t abnormal — it’s powerful. Helios stands with you. <strong>Own it.</strong></p>"
           }
         },
-        "custom_liquid_4RfjgR": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{% render \"delivery-info\" %}"
-          }
-        },
         "richtext_YGHyaA": {
           "type": "richtext",
           "settings": {
@@ -267,7 +261,6 @@
         "text_HiAnXA",
         "richtext_X7kXzL",
         "richtext_Tiwagd",
-        "custom_liquid_4RfjgR",
         "richtext_YGHyaA",
         "image_7W7fCd",
         "accordion_9czNHQ",
@@ -289,6 +282,14 @@
         "highlight_selected_media": false,
         "variant_media_grouping": false,
         "variant_media_grouping_option": "Color,Colour,Couleur,Farbe,Màu,Stone"
+      }
+    },
+    "delivery_info": {
+      "type": "delivery-info",
+      "settings": {
+        "content_width": 900,
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     },
     "tab_description_Mct6Bb": {
@@ -338,6 +339,7 @@
     "custom_liquid_JUEdQm",
     "custom_liquid_C3UJwm",
     "main",
+    "delivery_info",
     "tab_description_Mct6Bb",
     "image_with_text_kUyLYN",
     "product-recommendations"
