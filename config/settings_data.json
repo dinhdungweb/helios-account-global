@@ -148,7 +148,7 @@
     "tier_5_color_end": "rgba(0,0,0,0)",
     "tier_5_text_color": "#F2F2F2",
     "tier_6_name": "MEMBER",
-    "tier_6_discount": 14,
+    "tier_6_discount": 0,
     "tier_6_color_start": "rgba(0,0,0,0)",
     "tier_6_color_end": "rgba(0,0,0,0)",
     "tier_6_text_color": "#F2F2F2",
