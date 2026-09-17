@@ -198,6 +198,10 @@
             <button type="button" class="cc-filter-close" data-close-filter aria-label="Close filter">×</button>
             <form id="FacetsForm">
               {%- for filter in results.filters -%}
+                {%- comment -%}Temporarily hide the price filter for all markets/currencies.{%- endcomment -%}
+                {%- if filter.type == "price_range" -%}
+                  {%- continue -%}
+                {%- endif -%}
                 {%- liquid
                   if settings.swatch_enabled and settings.swatch_option_name == filter.label and filter.type == "list"
                     assign filter_group_is_swatch = true
@@ -397,6 +401,10 @@
           <button type="button" class="cc-filter-close" data-close-filter aria-label="Close filter">×</button>
           <form id="FacetsForm">
             {%- for filter in results.filters -%}
+              {%- comment -%}Temporarily hide the price filter for all markets/currencies.{%- endcomment -%}
+              {%- if filter.type == "price_range" -%}
+                {%- continue -%}
+              {%- endif -%}
               {%- liquid
                 if settings.swatch_enabled and settings.swatch_option_name == filter.label and filter.type == "list"
                   assign filter_group_is_swatch = true
