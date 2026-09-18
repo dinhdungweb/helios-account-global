@@ -302,29 +302,31 @@
         "benefit_KQDknz": {
           "type": "benefit",
           "settings": {
-            "benefit_text": "Get early access to exclusive, limited-edition releases"
+            "benefit_text": "Early access to selected releases."
           }
         },
         "benefit_A6dCEA": {
           "type": "benefit",
           "settings": {
-            "benefit_text": "Enjoy special benefits designed for our members"
+            "benefit_text": "The stories and craftsmanship behind our creations."
           }
         },
         "benefit_89fGBp": {
           "type": "benefit",
           "settings": {
-            "benefit_text": "Be the first to know about personalized offers"
+            "benefit_text": "Exclusive updates and member offers."
           }
         },
         "benefit_Pb88QC": {
           "type": "benefit",
+          "disabled": true,
           "settings": {
             "benefit_text": "Discover the stories behind our creations"
           }
         },
         "benefit_deWdUf": {
           "type": "benefit",
+          "disabled": true,
           "settings": {
             "benefit_text": "Experience our Half Size rings crafted for a perfect emotional fit"
           }
@@ -340,19 +342,19 @@
       "name": "Helios Email Signup",
       "settings": {
         "section_height": 60,
-        "banner_image": "shopify://shop_images/917b7080-e1cb-4897-afb6-24a0f0c919da.jpg",
-        "title": "HELIOS CLUB",
+        "banner_image": "shopify://shop_images/DSC09862_2_optimized.webp",
+        "title": "JOIN HELIOS CLUB",
         "title_size": 48,
-        "subtitle": "Embrace the path of distinction and true freedom within",
+        "subtitle": "WE DON'T JUST MAKE JEWELRY. WE FORGE MARKS OF GRIT.\n<br>Handcrafted silver pieces that carry your character and become part of your story over time. <br>Stay connected with HELIOS and discover what we're forging next.",
         "subtitle_size": 16,
         "klaviyo_list_id": "Rhf4TX",
         "form_source": "Helios Club Signup",
         "email_placeholder": "Enter your email address",
         "first_name_placeholder": "First Name",
         "last_name_placeholder": "Last Name",
-        "button_text": "SUBSCRIBE",
+        "button_text": "STAY CONNECTED",
         "show_consent_checkbox": true,
-        "consent_text": "I agree that HELIOS GLOBAL may contact me via digital media, including email with personalized marketing content about their products and events at HELIOS GLOBAL stores. I understand that I can unsubscribe at any time.",
+        "consent_text": "I agree to receive marketing emails from HELIOS. I can unsubscribe at any time.",
         "success_message": "Thank you for joining Helios Club! Welcome to the path of distinction.",
         "error_message": "There was an error submitting your information. Please try again.",
         "consent_error": "Please accept the consent to continue.",
