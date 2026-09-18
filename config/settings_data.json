@@ -52,7 +52,7 @@
     "addtocart_enabled": false,
     "prod_show_videos": true,
     "prod_hover": "second_image",
-    "show_product_block_reviews": true,
+    "show_product_block_reviews": false,
     "show_sale_label": true,
     "show_sold_out_label": true,
     "show_new_label": false,
