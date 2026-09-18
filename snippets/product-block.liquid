@@ -296,7 +296,7 @@
             <span class="product-block__rating-value">{{ product.metafields.reviews.rating.value | default: 0 }}</span>
             <span class="product-block__rating-star" aria-hidden="true">{% render 'svg-star' %}</span>
           </div>
-        {% elsif show_review %}
+        {% elsif show_review and settings.show_product_block_reviews %}
           <div class="product-block__rating-summary product-block__rating-summary--empty" aria-label="0 out of 5 stars">
             <span class="product-block__rating-value">0</span>
             <span class="product-block__rating-star" aria-hidden="true">{% render 'svg-star' %}</span>
