@@ -205,10 +205,10 @@
         "text_alignment": "left",
         "text_width": 50,
         "button_style": "auto",
-        "image": "shopify://shop_images/Untitled_design_4_1024x1024_c278b6c9-a350-4f0d-82dc-e0413b48132b.webp",
+        "image": "shopify://shop_images/DSC06553.jpg",
         "image_width": 100,
         "image_position": "left",
-        "media_size": "cover",
+        "media_size": "contain",
         "color_scheme": "custom",
         "color_bg": "#0c0c0c",
         "color_text": ""
