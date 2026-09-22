@@ -47,7 +47,7 @@
       assign t5_threshold = settings.tier_5_threshold | plus: 0
       
       assign t6_name = settings.tier_6_name
-      assign t6_threshold = settings.tier_6_threshold | plus: 0 # Usually 0 for member
+      assign t6_threshold = settings.tier_6_threshold | plus: 0
       
       comment Check Tier 1
       endcomment
@@ -248,3 +248,14 @@
     }
   </style>
 {% endif %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "      assign t6_threshold = settings.tier_6_threshold | plus: 0 # Usually
+    0 for member"
+  to: "      assign t6_threshold = settings.tier_6_threshold | plus: 0"
+  position: 1842..1905
+{% endcomment %}
