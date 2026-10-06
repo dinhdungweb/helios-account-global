@@ -9,25 +9,80 @@
  */
 {
   "sections": {
-    "background_video_responsive_4Gnrx4": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
+    "slideshow_A6iydQ": {
+      "type": "slideshow",
+      "blocks": {
+        "image_bYL8We": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/landingpage-01-01_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": true,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_bYL8We"
+      ],
+      "name": "Slideshow",
       "settings": {
-        "video_full_vh": false,
-        "video_height_desktop": 920,
-        "video_height_mobile": 640,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/VID Cầm vương miện đứng trong xưởng 19x9 DƯỚI 10MB.mp4",
-        "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/VID Cầm vương miện đứng trong xưởng 9x16  DƯỚI 10MB.mp4",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": true,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_rMxN4y": {
+      "type": "slideshow",
+      "blocks": {
+        "image_7Ern4C": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/landingpage-02_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_7Ern4C"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
       }
     },
     "featured_collection_4eE6xM": {
@@ -36,7 +91,7 @@
       "settings": {
         "title": "",
         "featured_collection_align": "left",
-        "collection": "raven-king",
+        "collection": "helios-x-lair-of-the-minotaur",
         "layout": "rows",
         "featured_addtocart_hide": false,
         "show_add_to_cart": true,
@@ -52,234 +107,166 @@
         "show_view_all": false
       }
     },
-    "rich_text_KrzizP": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "",
-        "title": "<font style=\"color: #fab320\"><p>A true king is not born into power. He is forged by scars, shaped by darkness, and defined by the strength to rule himself.</p>The moment he meticulously cradles and perfects his crown in the atelieris the very future of the moment he becomes king of his own realm.</font>",
-        "title_size": 22,
-        "title_width": 40,
-        "heading_h1": false,
-        "text": "",
-        "image_width": 60,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": true,
-        "full_width": false,
-        "no_padding_bottom": true,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
-      }
-    },
-    "custom_slider_eHmkNt": {
-      "type": "custom-slider",
+    "slideshow_qRYfjG": {
+      "type": "slideshow",
       "blocks": {
-        "slide_RRPjVM": {
-          "type": "slide",
+        "image_VP6aqA": {
+          "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC9128.jpg",
+            "image": "shopify://shop_images/landingpage-03_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
             "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
             "text": "",
-            "link": ""
-          }
-        },
-        "slide_jk9jka": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC9062.jpg",
-            "title": "",
-            "text": "",
-            "link": ""
-          }
-        },
-        "slide_ig8xhV": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC9191_1.jpg",
-            "title": "",
-            "text": "",
-            "link": ""
-          }
-        },
-        "slide_kAXdYc": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC9221_028d0394-8a35-4b0c-bb47-82db71b4c5ad.jpg",
-            "title": "",
-            "text": "",
-            "link": ""
-          }
-        },
-        "slide_wycwEi": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC9050.jpg",
-            "title": "",
-            "text": "",
-            "link": ""
-          }
-        },
-        "slide_fjM39w": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC9132_1_888b134a-81ca-45da-850a-1ecb7cd44197.jpg",
-            "title": "",
-            "text": "",
-            "link": ""
-          }
-        },
-        "slide_GaCiQz": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC9089_3.jpg",
-            "title": "",
-            "text": "",
-            "link": ""
-          }
-        },
-        "slide_BDiJww": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/DSC8791_423347ce-d0a3-4bf7-8dbe-7d7389caae23.jpg",
-            "title": "",
-            "text": "",
-            "link": ""
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         }
       },
       "block_order": [
-        "slide_RRPjVM",
-        "slide_jk9jka",
-        "slide_ig8xhV",
-        "slide_kAXdYc",
-        "slide_wycwEi",
-        "slide_fjM39w",
-        "slide_GaCiQz",
-        "slide_BDiJww"
+        "image_VP6aqA"
       ],
-      "name": "Custom Slider",
+      "name": "Slideshow",
       "settings": {
-        "title": "",
-        "text_alignment": "center",
-        "slides_per_view_desktop": 2,
-        "slides_per_view_mobile": 2,
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
         "autoplay": false,
-        "loop": true,
-        "show_arrows": true,
-        "show_dots": false,
-        "color_scheme": "standard",
-        "spacing_top": 40,
-        "spacing_bottom": 40
+        "autoplay_speed": 7
       }
     },
-    "background_video_responsive_8YgWeW": {
-      "type": "background-video-responsive",
-      "name": "Video responsive",
-      "settings": {
-        "video_full_vh": false,
-        "video_height_desktop": 840,
-        "video_height_mobile": 450,
-        "video_link": "",
-        "video_link_new_tab": false,
-        "video_shopify_desktop": "shopify://files/videos/Vid cận sp & onhand banner DƯỚI 10MB (1).mp4",
-        "video_external_desktop": "",
-        "video_shopify_mobile": "shopify://files/videos/Vid cận sp & onhand 1x1  DƯỚI 10MB FIX.mp4",
-        "video_external_mobile": "",
-        "subtitle": "",
-        "title": "",
-        "title_image_width_desktop": 800,
-        "description": "",
-        "button_label": "",
-        "button_link": ""
-      }
-    },
-    "coverflow_slider_AQxANW": {
-      "type": "coverflow-slider",
+    "slideshow_pPKMJy": {
+      "type": "slideshow",
       "blocks": {
-        "slide_aypJhr": {
-          "type": "slide",
+        "image_racBMM": {
+          "type": "image",
           "settings": {
-            "image": "shopify://shop_images/len-mau-mdc-reven-king.jpg"
-          }
-        },
-        "slide_NUycAF": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/mdcravenking-3.jpg"
-          }
-        },
-        "slide_YXmcPY": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/len-mau-nhan-raven-king_2.jpg"
+            "image": "shopify://shop_images/landingpage-04_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
           }
         }
       },
       "block_order": [
-        "slide_aypJhr",
-        "slide_NUycAF",
-        "slide_YXmcPY"
+        "image_racBMM"
       ],
-      "disabled": true,
-      "name": "Coverflow Slider",
-      "settings": {}
-    },
-    "rich_text_GVQ8KP": {
-      "type": "rich-text",
-      "name": "Rich text",
+      "name": "Slideshow",
       "settings": {
-        "subheading": "",
-        "title": "<font style=\"color: #fab320\">RAVEN KING - A man driven by passion, unafraid of scars, determined totake control of his own life.</font>",
-        "title_size": 22,
-        "title_width": 40,
-        "heading_h1": false,
-        "text": "",
-        "image_width": 120,
-        "button_label": "",
-        "button_link": "",
-        "button_style": "auto",
-        "text_alignment": "center",
-        "enlarge_text": true,
-        "full_width": false,
-        "no_padding_bottom": true,
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
       }
     },
-    "before_after_image_YzbHEr": {
-      "type": "before-after-image",
-      "custom_css": [
-        "#section-id-template--19858007720105__before_after_image_YzbHEr {padding: 50px;}"
+    "slideshow_cPCmyA": {
+      "type": "slideshow",
+      "blocks": {
+        "image_xyHAzb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/landingpage-05_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_xyHAzb"
       ],
-      "name": "Before/After Image",
+      "name": "Slideshow",
       "settings": {
-        "title": "",
-        "subtitle": "",
-        "image_before": "shopify://shop_images/DSC9241_3.jpg",
-        "label_before": "",
-        "image_after": "shopify://shop_images/vuong_mien_2_df7ed305-1ba7-4559-b2bd-6f2b21493331.jpg",
-        "label_after": "",
-        "max_width": 1600,
-        "aspect_ratio": "16/9",
-        "color_scheme": "standard",
-        "color_bg": "",
-        "color_text": ""
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
+      }
+    },
+    "slideshow_U7Dyym": {
+      "type": "slideshow",
+      "blocks": {
+        "image_LbF8Bg": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/landingpage-06_optimized.webp",
+            "slide_link": "",
+            "subheading": "",
+            "title": "",
+            "title_size": 60,
+            "title_width": 12,
+            "heading_h1": false,
+            "text": "",
+            "enlarge_text": false,
+            "button_label": "",
+            "overlay_position": "position--hcenter position--vcenter",
+            "overlay_position_mobile": "position--hcenter-xs position--vcenter-xs"
+          }
+        }
+      },
+      "block_order": [
+        "image_LbF8Bg"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "height": "adapt",
+        "height_desktop": 600,
+        "height_mobile": 500,
+        "full_width": true,
+        "mobile_overlay_under": false,
+        "overlay_style_tint": false,
+        "slide_transition": "slide",
+        "slide_navigation": "dots",
+        "autoplay": false,
+        "autoplay_speed": 7
       }
     }
   },
   "order": [
-    "background_video_responsive_4Gnrx4",
+    "slideshow_A6iydQ",
+    "slideshow_rMxN4y",
     "featured_collection_4eE6xM",
-    "rich_text_KrzizP",
-    "custom_slider_eHmkNt",
-    "background_video_responsive_8YgWeW",
-    "coverflow_slider_AQxANW",
-    "rich_text_GVQ8KP",
-    "before_after_image_YzbHEr"
+    "slideshow_qRYfjG",
+    "slideshow_pPKMJy",
+    "slideshow_cPCmyA",
+    "slideshow_U7Dyym"
   ]
 }
