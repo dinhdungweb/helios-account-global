@@ -1,0 +1,285 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "background_video_responsive_4Gnrx4": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 920,
+        "video_height_mobile": 640,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/VID Cầm vương miện đứng trong xưởng 19x9 DƯỚI 10MB.mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/VID Cầm vương miện đứng trong xưởng 9x16  DƯỚI 10MB.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "featured_collection_4eE6xM": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "",
+        "featured_collection_align": "left",
+        "collection": "raven-king",
+        "layout": "rows",
+        "featured_addtocart_hide": false,
+        "show_add_to_cart": true,
+        "show_title": true,
+        "show_price": true,
+        "show_review": true,
+        "show_vendor": false,
+        "grid": 2,
+        "rows": 2,
+        "grid_mobile": "2",
+        "hide_swatches": false,
+        "alternate_bg_color": false,
+        "show_view_all": false
+      }
+    },
+    "rich_text_KrzizP": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color: #fab320\"><p>A true king is not born into power. He is forged by scars, shaped by darkness, and defined by the strength to rule himself.</p>The moment he meticulously cradles and perfects his crown in the atelieris the very future of the moment he becomes king of his own realm.</font>",
+        "title_size": 22,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 60,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": true,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "custom_slider_eHmkNt": {
+      "type": "custom-slider",
+      "blocks": {
+        "slide_RRPjVM": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9128.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_jk9jka": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9062.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_ig8xhV": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9191_1.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_kAXdYc": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9221_028d0394-8a35-4b0c-bb47-82db71b4c5ad.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_wycwEi": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9050.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_fjM39w": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9132_1_888b134a-81ca-45da-850a-1ecb7cd44197.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_GaCiQz": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC9089_3.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        },
+        "slide_BDiJww": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/DSC8791_423347ce-d0a3-4bf7-8dbe-7d7389caae23.jpg",
+            "title": "",
+            "text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_RRPjVM",
+        "slide_jk9jka",
+        "slide_ig8xhV",
+        "slide_kAXdYc",
+        "slide_wycwEi",
+        "slide_fjM39w",
+        "slide_GaCiQz",
+        "slide_BDiJww"
+      ],
+      "name": "Custom Slider",
+      "settings": {
+        "title": "",
+        "text_alignment": "center",
+        "slides_per_view_desktop": 2,
+        "slides_per_view_mobile": 2,
+        "autoplay": false,
+        "loop": true,
+        "show_arrows": true,
+        "show_dots": false,
+        "color_scheme": "standard",
+        "spacing_top": 40,
+        "spacing_bottom": 40
+      }
+    },
+    "background_video_responsive_8YgWeW": {
+      "type": "background-video-responsive",
+      "name": "Video responsive",
+      "settings": {
+        "video_full_vh": false,
+        "video_height_desktop": 840,
+        "video_height_mobile": 450,
+        "video_link": "",
+        "video_link_new_tab": false,
+        "video_shopify_desktop": "shopify://files/videos/Vid cận sp & onhand banner DƯỚI 10MB (1).mp4",
+        "video_external_desktop": "",
+        "video_shopify_mobile": "shopify://files/videos/Vid cận sp & onhand 1x1  DƯỚI 10MB FIX.mp4",
+        "video_external_mobile": "",
+        "subtitle": "",
+        "title": "",
+        "title_image_width_desktop": 800,
+        "description": "",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "coverflow_slider_AQxANW": {
+      "type": "coverflow-slider",
+      "blocks": {
+        "slide_aypJhr": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/len-mau-mdc-reven-king.jpg"
+          }
+        },
+        "slide_NUycAF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/mdcravenking-3.jpg"
+          }
+        },
+        "slide_YXmcPY": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/len-mau-nhan-raven-king_2.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "slide_aypJhr",
+        "slide_NUycAF",
+        "slide_YXmcPY"
+      ],
+      "disabled": true,
+      "name": "Coverflow Slider",
+      "settings": {}
+    },
+    "rich_text_GVQ8KP": {
+      "type": "rich-text",
+      "name": "Rich text",
+      "settings": {
+        "subheading": "",
+        "title": "<font style=\"color: #fab320\">RAVEN KING - A man driven by passion, unafraid of scars, determined totake control of his own life.</font>",
+        "title_size": 22,
+        "title_width": 40,
+        "heading_h1": false,
+        "text": "",
+        "image_width": 120,
+        "button_label": "",
+        "button_link": "",
+        "button_style": "auto",
+        "text_alignment": "center",
+        "enlarge_text": true,
+        "full_width": false,
+        "no_padding_bottom": true,
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    },
+    "before_after_image_YzbHEr": {
+      "type": "before-after-image",
+      "custom_css": [
+        "#section-id-template--19858007720105__before_after_image_YzbHEr {padding: 50px;}"
+      ],
+      "name": "Before/After Image",
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "image_before": "shopify://shop_images/DSC9241_3.jpg",
+        "label_before": "",
+        "image_after": "shopify://shop_images/vuong_mien_2_df7ed305-1ba7-4559-b2bd-6f2b21493331.jpg",
+        "label_after": "",
+        "max_width": 1600,
+        "aspect_ratio": "16/9",
+        "color_scheme": "standard",
+        "color_bg": "",
+        "color_text": ""
+      }
+    }
+  },
+  "order": [
+    "background_video_responsive_4Gnrx4",
+    "featured_collection_4eE6xM",
+    "rich_text_KrzizP",
+    "custom_slider_eHmkNt",
+    "background_video_responsive_8YgWeW",
+    "coverflow_slider_AQxANW",
+    "rich_text_GVQ8KP",
+    "before_after_image_YzbHEr"
+  ]
+}
