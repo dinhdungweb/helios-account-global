@@ -57,6 +57,7 @@
         },
         "image_T7TL4f": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/banner_anh_that_global_19x9_0de76383-5e20-4baa-8125-5e6979c3c0f3.jpg",
             "mobile_image": "shopify://shop_images/banner_anh_that_4x5_global.jpg",
