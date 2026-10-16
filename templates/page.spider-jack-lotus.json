@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -7,7 +16,39 @@
     },
     "spider_jack_landing": {
       "type": "spider-jack-landing",
-      "settings": {}
+      "settings": {
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "button_background_color": "#d7a236",
+        "button_text_color": "#000000",
+        "show_hero": true,
+        "hero_title": "SPIDER JACK LOTUS",
+        "hero_quote_line_1": "“Change doesn’t always make you someone else.",
+        "hero_quote_line_2": "Sometimes it reveals what was already there.”",
+        "cta_label": "DISCOVER SPIDER JACK",
+        "cta_link": "shopify://products/spider-jack-lotus-pendant",
+        "show_story": true,
+        "jack_title": "JACK",
+        "jack_copy": "Jack begins as the familiar jack-o’-lantern figure associated with Halloween.",
+        "bite_title": "THE BITE",
+        "bite_copy": "Jack’s transformation begins with a single bite from Spider Lotus.",
+        "spider_title": "SPIDER JACK",
+        "spider_copy": "Jack emerges in a new form without losing what was already part of him.",
+        "show_pendant_strip": true,
+        "show_movement": true,
+        "movement_title_line_1": "BROUGHT TO LIFE",
+        "movement_title_line_2": "THROUGH MOVEMENT",
+        "movement_copy": "Articulated limbs let Spider Jack shift naturally with every move and keep the transformation alive.",
+        "show_gallery": true,
+        "gallery_grayscale": true,
+        "gallery_initial_desktop": "3",
+        "gallery_initial_mobile": "2",
+        "show_product": true,
+        "product_title": "SPIDER JACK LOTUS PENDANT",
+        "product_copy": "Made to move with you and carry the idea that change can reveal more of what was already there.",
+        "product_cta_label": "DISCOVER SPIDER JACK",
+        "product_cta_link": "shopify://products/spider-jack-lotus-pendant"
+      }
     }
   },
   "order": [
