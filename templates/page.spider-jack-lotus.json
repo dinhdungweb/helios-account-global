@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "spider_jack_landing": {
+      "type": "spider-jack-landing",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "spider_jack_landing"
+  ]
+}

@@ -1,0 +1,557 @@
+{{ 'spider-jack-landing.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign cta_link = section.settings.cta_link
+  if cta_link == blank
+    assign cta_link = routes.all_products_collection_url
+  endif
+
+  assign product_cta_link = section.settings.product_cta_link
+  if product_cta_link == blank
+    assign product_cta_link = cta_link
+  endif
+
+  assign product_cta_label = section.settings.product_cta_label
+  if product_cta_label == blank
+    assign product_cta_label = section.settings.cta_label
+  endif
+
+  assign hero_desktop = section.settings.hero_image_desktop
+  assign hero_mobile = section.settings.hero_image_mobile | default: hero_desktop
+  assign story_desktop = section.settings.story_image_desktop
+  assign story_mobile = section.settings.story_image_mobile | default: story_desktop
+  assign product_desktop = section.settings.product_image_desktop
+  assign product_mobile = section.settings.product_image_mobile | default: product_desktop
+-%}
+
+<section
+  id="SpiderJackLanding-{{ section.id }}"
+  class="sj-lp header-overlap-section needs-alt-logo{% unless section.settings.gallery_grayscale %} sj-lp--gallery-color{% endunless %}"
+  data-sj-landing
+  data-gallery-desktop="{{ section.settings.gallery_initial_desktop | minus: 1 }}"
+  data-gallery-mobile="{{ section.settings.gallery_initial_mobile | minus: 1 }}"
+  style="--sj-background: {{ section.settings.background_color }}; --sj-text: {{ section.settings.text_color }}; --sj-button-background: {{ section.settings.button_background_color }}; --sj-button-text: {{ section.settings.button_text_color }};"
+>
+  {%- if section.settings.show_hero -%}
+  <div class="sj-lp__hero" data-node-id="146:2">
+    <picture>
+      {%- if hero_mobile != blank -%}
+        <source media="(max-width: 749px)" srcset="{{ hero_mobile | image_url: width: 2200 }}">
+      {%- else -%}
+        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-hero-mobile.png' | asset_url }}">
+      {%- endif -%}
+      {%- if hero_desktop != blank -%}
+        <img
+          class="sj-lp__hero-image"
+          src="{{ hero_desktop | image_url: width: 3000 }}"
+          alt="{{ hero_desktop.alt | default: hero_mobile.alt | default: 'Spider Jack Lotus pendant in a dark gothic cemetery' | escape }}"
+          width="{{ hero_desktop.width }}"
+          height="{{ hero_desktop.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- else -%}
+      <img
+        class="sj-lp__hero-image"
+        src="{{ 'spider-jack-hero-desktop.png' | asset_url }}"
+        alt="Spider Jack Lotus pendant in a dark gothic cemetery"
+        width="2382"
+        height="1341"
+        loading="eager"
+        fetchpriority="high"
+      >
+      {%- endif -%}
+    </picture>
+  </div>
+
+  <div class="sj-lp__intro" data-node-id="84:212">
+    <h1 class="sj-lp__display sj-lp__intro-title">{{ section.settings.hero_title | escape }}</h1>
+    <p class="sj-lp__display sj-lp__intro-copy">
+      <span>{{ section.settings.hero_quote_line_1 | escape }}</span>
+      <span>{{ section.settings.hero_quote_line_2 | escape }}</span>
+    </p>
+    <a class="sj-lp__button" href="{{ cta_link }}">{{ section.settings.cta_label | escape }}</a>
+  </div>
+
+  <div class="sj-lp__mark" data-node-id="84:211">
+    {%- if section.settings.mark_image != blank -%}
+      <img
+        src="{{ section.settings.mark_image | image_url: width: 1800 }}"
+        alt="{{ section.settings.mark_image.alt | default: 'Spider Lotus emblem' | escape }}"
+        width="{{ section.settings.mark_image.width }}"
+        height="{{ section.settings.mark_image.height }}"
+        loading="lazy"
+      >
+    {%- else -%}
+      <picture>
+        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-pendant-intro-mobile.png' | asset_url }}">
+        <img
+          src="{{ 'spider-jack-pendant-intro-desktop.png' | asset_url }}"
+          alt="Spider Lotus emblem"
+          width="2552"
+          height="1970"
+          loading="lazy"
+        >
+      </picture>
+    {%- endif -%}
+  </div>
+  {%- endif -%}
+
+  {%- if section.settings.show_story -%}
+  <div class="sj-lp__story" data-node-id="263:69">
+    <picture>
+      {%- if story_mobile != blank -%}
+        <source media="(max-width: 749px)" srcset="{{ story_mobile | image_url: width: 1600 }}">
+      {%- else -%}
+        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-story-mobile.png' | asset_url }}">
+      {%- endif -%}
+      {%- if story_desktop != blank -%}
+        <img
+          class="sj-lp__story-image"
+          src="{{ story_desktop | image_url: width: 3000 }}"
+          alt="{{ story_desktop.alt | default: story_mobile.alt | default: 'Spider Jack transformation from jack-o-lantern to articulated pendant' | escape }}"
+          width="{{ story_desktop.width }}"
+          height="{{ story_desktop.height }}"
+          loading="lazy"
+        >
+      {%- else -%}
+      <img
+        class="sj-lp__story-image"
+        src="{{ 'spider-jack-story-desktop.png' | asset_url }}"
+        alt="Spider Jack transformation from jack-o'-lantern to articulated pendant"
+        width="2278"
+        height="3162"
+        loading="lazy"
+      >
+      {%- endif -%}
+    </picture>
+
+    <div class="sj-lp__story-copy sj-lp__story-copy--jack" data-node-id="263:70">
+      <h2 class="sj-lp__display">{{ section.settings.jack_title | escape }}</h2>
+      <p>{{ section.settings.jack_copy | escape }}</p>
+    </div>
+
+    <div class="sj-lp__story-copy sj-lp__story-copy--bite" data-node-id="263:76">
+      <h2 class="sj-lp__display">{{ section.settings.bite_title | escape }}</h2>
+      <p>{{ section.settings.bite_copy | escape }}</p>
+    </div>
+
+    <div class="sj-lp__story-copy sj-lp__story-copy--spider" data-node-id="263:73">
+      <h2 class="sj-lp__display">{{ section.settings.spider_title | escape }}</h2>
+      <p>{{ section.settings.spider_copy | escape }}</p>
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- if section.settings.show_pendant_strip -%}
+  <div class="sj-lp__pendant-strip" aria-hidden="true">
+    <div class="sj-lp__pendant-card sj-lp__pendant-card--left">
+      {%- if section.settings.pendant_image != blank -%}
+        <img src="{{ section.settings.pendant_image | image_url: width: 1600 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy">
+      {%- else -%}
+        <img src="{{ 'spider-jack-carousel-desktop.png' | asset_url }}" alt="" width="2401" height="4096" loading="lazy">
+      {%- endif -%}
+    </div>
+    <div class="sj-lp__pendant-card">
+      {%- if section.settings.pendant_image != blank -%}
+        <img src="{{ section.settings.pendant_image | image_url: width: 1600 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy">
+      {%- else -%}
+        <picture>
+          <source media="(max-width: 749px)" srcset="{{ 'spider-jack-carousel-mobile.png' | asset_url }}">
+          <img src="{{ 'spider-jack-carousel-desktop.png' | asset_url }}" alt="" width="2401" height="4096" loading="lazy">
+        </picture>
+      {%- endif -%}
+    </div>
+    <div class="sj-lp__pendant-card sj-lp__pendant-card--right">
+      {%- if section.settings.pendant_image != blank -%}
+        <img src="{{ section.settings.pendant_image | image_url: width: 1600 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy">
+      {%- else -%}
+        <img src="{{ 'spider-jack-carousel-desktop.png' | asset_url }}" alt="" width="2401" height="4096" loading="lazy">
+      {%- endif -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- if section.settings.show_movement -%}
+  <div class="sj-lp__movement">
+    <h2 class="sj-lp__display">
+      <span>{{ section.settings.movement_title_line_1 | escape }}</span>
+      <span>{{ section.settings.movement_title_line_2 | escape }}</span>
+    </h2>
+    <p>{{ section.settings.movement_copy | escape }}</p>
+  </div>
+  {%- endif -%}
+
+  {%- if section.settings.show_gallery -%}
+  <div class="sj-lp__gallery-wrap" data-node-id="84:246">
+    <div class="sj-lp__gallery" aria-label="Spider Jack image gallery">
+      <div class="sj-lp__gallery-slide sj-lp__gallery-slide--1" data-sj-slide aria-hidden="true">
+        {%- if section.settings.gallery_image_1 != blank -%}
+          <img src="{{ section.settings.gallery_image_1 | image_url: width: 2600 }}" alt="{{ section.settings.gallery_image_1.alt | default: 'Spider Jack pendant editorial view' | escape }}" width="{{ section.settings.gallery_image_1.width }}" height="{{ section.settings.gallery_image_1.height }}" loading="lazy">
+        {%- else -%}
+          <img src="{{ 'spider-jack-gallery-1-desktop.png' | asset_url }}" alt="Spider Jack pendant editorial view" width="4096" height="2653" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="sj-lp__gallery-slide sj-lp__gallery-slide--2" data-sj-slide aria-hidden="true">
+        {%- if section.settings.gallery_image_2 != blank -%}
+          <img src="{{ section.settings.gallery_image_2 | image_url: width: 2600 }}" alt="{{ section.settings.gallery_image_2.alt | default: 'Model wearing the Spider Jack pendant' | escape }}" width="{{ section.settings.gallery_image_2.width }}" height="{{ section.settings.gallery_image_2.height }}" loading="lazy">
+        {%- else -%}
+          <img src="{{ 'spider-jack-gallery-mobile.png' | asset_url }}" alt="Model wearing the Spider Jack pendant" width="3277" height="4096" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="sj-lp__gallery-slide sj-lp__gallery-slide--3 is-active" data-sj-slide aria-hidden="false">
+        {%- if section.settings.gallery_image_3 != blank -%}
+          <img src="{{ section.settings.gallery_image_3 | image_url: width: 2600 }}" alt="{{ section.settings.gallery_image_3.alt | default: 'Spider Jack pendant in a gothic cemetery' | escape }}" width="{{ section.settings.gallery_image_3.width }}" height="{{ section.settings.gallery_image_3.height }}" loading="lazy">
+        {%- else -%}
+          <img src="{{ 'spider-jack-gallery-3-desktop.png' | asset_url }}" alt="Spider Jack pendant in a gothic cemetery" width="1024" height="577" loading="lazy">
+        {%- endif -%}
+      </div>
+
+      <div class="sj-lp__gallery-dots">
+        {%- for index in (1..3) -%}
+          <button class="sj-lp__gallery-dot{% if index == 3 %} is-active{% endif %}" type="button" data-sj-dot aria-label="Show image {{ index }}"{% if index == 3 %} aria-current="true"{% endif %}>
+            <img src="{{ 'spider-jack-dot-active.svg' | asset_url }}" alt="" width="16" height="16">
+            {%- if index == 3 -%}
+              <img src="{{ 'spider-jack-dot-3.svg' | asset_url }}" alt="" width="18" height="18">
+            {%- else -%}
+              <img src="{{ 'spider-jack-dot.svg' | asset_url }}" alt="" width="18" height="18">
+            {%- endif -%}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- if section.settings.show_product -%}
+  <div class="sj-lp__product" data-node-id="84:248">
+    <div class="sj-lp__product-image">
+      <picture>
+        {%- if product_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ product_mobile | image_url: width: 1400 }}">
+        {%- else -%}
+          <source media="(max-width: 749px)" srcset="{{ 'spider-jack-product-mobile.png' | asset_url }}">
+        {%- endif -%}
+        {%- if product_desktop != blank -%}
+          <img
+            src="{{ product_desktop | image_url: width: 1600 }}"
+            alt="{{ product_desktop.alt | default: product_mobile.alt | default: 'Model wearing the Spider Jack Lotus pendant' | escape }}"
+            width="{{ product_desktop.width }}"
+            height="{{ product_desktop.height }}"
+            loading="lazy"
+          >
+        {%- else -%}
+        <img
+          src="{{ 'spider-jack-product-desktop.png' | asset_url }}"
+          alt="Model wearing the Spider Jack Lotus pendant"
+          width="439"
+          height="527"
+          loading="lazy"
+        >
+        {%- endif -%}
+      </picture>
+    </div>
+    <div class="sj-lp__product-copy">
+      <h2 class="sj-lp__display">{{ section.settings.product_title | escape }}</h2>
+      <p>{{ section.settings.product_copy | escape }}</p>
+      <a class="sj-lp__button" href="{{ product_cta_link }}">{{ product_cta_label | escape }}</a>
+    </div>
+  </div>
+  {%- endif -%}
+
+  <div class="sj-lp__bottom-space" aria-hidden="true"></div>
+</section>
+
+<script src="{{ 'spider-jack-landing.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Spider Jack landing",
+  "tag": "section",
+  "class": "section-spider-jack-landing",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background",
+      "default": "#d7a236"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show hero",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_desktop",
+      "label": "Hero image — desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "Hero image — mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "mark_image",
+      "label": "Pendant emblem image"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Title",
+      "default": "SPIDER JACK LOTUS"
+    },
+    {
+      "type": "text",
+      "id": "hero_quote_line_1",
+      "label": "Quote line 1",
+      "default": "\u201cChange doesn\u2019t always make you someone else."
+    },
+    {
+      "type": "text",
+      "id": "hero_quote_line_2",
+      "label": "Quote line 2",
+      "default": "Sometimes it reveals what was already there.\u201d"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "DISCOVER SPIDER JACK"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Story"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_story",
+      "label": "Show story",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image_desktop",
+      "label": "Story image — desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image_mobile",
+      "label": "Story image — mobile"
+    },
+    {
+      "type": "text",
+      "id": "jack_title",
+      "label": "Jack title",
+      "default": "JACK"
+    },
+    {
+      "type": "textarea",
+      "id": "jack_copy",
+      "label": "Jack copy",
+      "default": "Jack begins as the familiar jack-o\u2019-lantern figure associated with Halloween."
+    },
+    {
+      "type": "text",
+      "id": "bite_title",
+      "label": "Bite title",
+      "default": "THE BITE"
+    },
+    {
+      "type": "textarea",
+      "id": "bite_copy",
+      "label": "Bite copy",
+      "default": "Jack\u2019s transformation begins with a single bite from Spider Lotus."
+    },
+    {
+      "type": "text",
+      "id": "spider_title",
+      "label": "Spider Jack title",
+      "default": "SPIDER JACK"
+    },
+    {
+      "type": "textarea",
+      "id": "spider_copy",
+      "label": "Spider Jack copy",
+      "default": "Jack emerges in a new form without losing what was already part of him."
+    },
+    {
+      "type": "header",
+      "content": "Pendant strip"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pendant_strip",
+      "label": "Show pendant strip",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "pendant_image",
+      "label": "Pendant image"
+    },
+    {
+      "type": "header",
+      "content": "Movement"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_movement",
+      "label": "Show movement copy",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "movement_title_line_1",
+      "label": "Title line 1",
+      "default": "BROUGHT TO LIFE"
+    },
+    {
+      "type": "text",
+      "id": "movement_title_line_2",
+      "label": "Title line 2",
+      "default": "THROUGH MOVEMENT"
+    },
+    {
+      "type": "textarea",
+      "id": "movement_copy",
+      "label": "Movement copy",
+      "default": "Articulated limbs let Spider Jack shift naturally with every move and keep the transformation alive."
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gallery",
+      "label": "Show gallery",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_1",
+      "label": "Gallery image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_2",
+      "label": "Gallery image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_3",
+      "label": "Gallery image 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "gallery_grayscale",
+      "label": "Use black and white images",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "gallery_initial_desktop",
+      "label": "First image — desktop",
+      "options": [
+        { "value": "1", "label": "Image 1" },
+        { "value": "2", "label": "Image 2" },
+        { "value": "3", "label": "Image 3" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "gallery_initial_mobile",
+      "label": "First image — mobile",
+      "options": [
+        { "value": "1", "label": "Image 1" },
+        { "value": "2", "label": "Image 2" },
+        { "value": "3", "label": "Image 3" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Product CTA"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product",
+      "label": "Show product CTA",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_desktop",
+      "label": "Product image — desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_mobile",
+      "label": "Product image — mobile"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product title",
+      "default": "SPIDER JACK LOTUS PENDANT"
+    },
+    {
+      "type": "textarea",
+      "id": "product_copy",
+      "label": "Product copy",
+      "default": "Made to move with you and carry the idea that change can reveal more of what was already there."
+    },
+    {
+      "type": "text",
+      "id": "product_cta_label",
+      "label": "Product CTA label",
+      "default": "DISCOVER SPIDER JACK"
+    },
+    {
+      "type": "url",
+      "id": "product_cta_link",
+      "label": "Product CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spider Jack landing"
+    }
+  ]
+}
+{% endschema %}
