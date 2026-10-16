@@ -36,14 +36,14 @@
   <div class="sj-lp__hero" data-node-id="146:2">
     <picture>
       {%- if hero_mobile != blank -%}
-        <source media="(max-width: 749px)" srcset="{{ hero_mobile | image_url: width: 2200 }}">
+        <source media="(max-width: 749px)" srcset="{{ hero_mobile | image_url: width: 1200 }}">
       {%- else -%}
-        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-hero-mobile.png' | asset_url }}">
+        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-hero-desktop.webp' | asset_url }}">
       {%- endif -%}
       {%- if hero_desktop != blank -%}
         <img
           class="sj-lp__hero-image"
-          src="{{ hero_desktop | image_url: width: 3000 }}"
+          src="{{ hero_desktop | image_url: width: 2400 }}"
           alt="{{ hero_desktop.alt | default: hero_mobile.alt | default: 'Spider Jack Lotus pendant in a dark gothic cemetery' | escape }}"
           width="{{ hero_desktop.width }}"
           height="{{ hero_desktop.height }}"
@@ -53,7 +53,7 @@
       {%- else -%}
       <img
         class="sj-lp__hero-image"
-        src="{{ 'spider-jack-hero-desktop.png' | asset_url }}"
+        src="{{ 'spider-jack-hero-desktop.webp' | asset_url }}"
         alt="Spider Jack Lotus pendant in a dark gothic cemetery"
         width="2382"
         height="1341"
@@ -76,21 +76,23 @@
   <div class="sj-lp__mark" data-node-id="84:211">
     {%- if section.settings.mark_image != blank -%}
       <img
-        src="{{ section.settings.mark_image | image_url: width: 1800 }}"
+        src="{{ section.settings.mark_image | image_url: width: 1000 }}"
         alt="{{ section.settings.mark_image.alt | default: 'Spider Lotus emblem' | escape }}"
         width="{{ section.settings.mark_image.width }}"
         height="{{ section.settings.mark_image.height }}"
         loading="lazy"
+        decoding="async"
       >
     {%- else -%}
       <picture>
-        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-pendant-intro-mobile.png' | asset_url }}">
+        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-pendant-intro-desktop.webp' | asset_url }}">
         <img
-          src="{{ 'spider-jack-pendant-intro-desktop.png' | asset_url }}"
+          src="{{ 'spider-jack-pendant-intro-desktop.webp' | asset_url }}"
           alt="Spider Lotus emblem"
-          width="2552"
-          height="1970"
+          width="1000"
+          height="772"
           loading="lazy"
+          decoding="async"
         >
       </picture>
     {%- endif -%}
@@ -101,27 +103,29 @@
   <div class="sj-lp__story" data-node-id="263:69">
     <picture>
       {%- if story_mobile != blank -%}
-        <source media="(max-width: 749px)" srcset="{{ story_mobile | image_url: width: 1600 }}">
+        <source media="(max-width: 749px)" srcset="{{ story_mobile | image_url: width: 1000 }}">
       {%- else -%}
-        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-story-mobile.png' | asset_url }}">
+        <source media="(max-width: 749px)" srcset="{{ 'spider-jack-story-mobile.webp' | asset_url }}">
       {%- endif -%}
       {%- if story_desktop != blank -%}
         <img
           class="sj-lp__story-image"
-          src="{{ story_desktop | image_url: width: 3000 }}"
+          src="{{ story_desktop | image_url: width: 2400 }}"
           alt="{{ story_desktop.alt | default: story_mobile.alt | default: 'Spider Jack transformation from jack-o-lantern to articulated pendant' | escape }}"
           width="{{ story_desktop.width }}"
           height="{{ story_desktop.height }}"
           loading="lazy"
+          decoding="async"
         >
       {%- else -%}
       <img
         class="sj-lp__story-image"
-        src="{{ 'spider-jack-story-desktop.png' | asset_url }}"
+        src="{{ 'spider-jack-story-desktop.webp' | asset_url }}"
         alt="Spider Jack transformation from jack-o'-lantern to articulated pendant"
         width="2278"
         height="3162"
         loading="lazy"
+        decoding="async"
       >
       {%- endif -%}
     </picture>
@@ -147,26 +151,23 @@
   <div class="sj-lp__pendant-strip" aria-hidden="true">
     <div class="sj-lp__pendant-card sj-lp__pendant-card--left">
       {%- if section.settings.pendant_image != blank -%}
-        <img src="{{ section.settings.pendant_image | image_url: width: 1600 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy">
+        <img src="{{ section.settings.pendant_image | image_url: width: 1100 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy" decoding="async">
       {%- else -%}
-        <img src="{{ 'spider-jack-carousel-desktop.png' | asset_url }}" alt="" width="2401" height="4096" loading="lazy">
+        <img src="{{ 'spider-jack-carousel.webp' | asset_url }}" alt="" width="1080" height="1920" loading="lazy" decoding="async">
       {%- endif -%}
     </div>
     <div class="sj-lp__pendant-card">
       {%- if section.settings.pendant_image != blank -%}
-        <img src="{{ section.settings.pendant_image | image_url: width: 1600 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy">
+        <img src="{{ section.settings.pendant_image | image_url: width: 1100 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy" decoding="async">
       {%- else -%}
-        <picture>
-          <source media="(max-width: 749px)" srcset="{{ 'spider-jack-carousel-mobile.png' | asset_url }}">
-          <img src="{{ 'spider-jack-carousel-desktop.png' | asset_url }}" alt="" width="2401" height="4096" loading="lazy">
-        </picture>
+        <img src="{{ 'spider-jack-carousel.webp' | asset_url }}" alt="" width="1080" height="1920" loading="lazy" decoding="async">
       {%- endif -%}
     </div>
     <div class="sj-lp__pendant-card sj-lp__pendant-card--right">
       {%- if section.settings.pendant_image != blank -%}
-        <img src="{{ section.settings.pendant_image | image_url: width: 1600 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy">
+        <img src="{{ section.settings.pendant_image | image_url: width: 1100 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy" decoding="async">
       {%- else -%}
-        <img src="{{ 'spider-jack-carousel-desktop.png' | asset_url }}" alt="" width="2401" height="4096" loading="lazy">
+        <img src="{{ 'spider-jack-carousel.webp' | asset_url }}" alt="" width="1080" height="1920" loading="lazy" decoding="async">
       {%- endif -%}
     </div>
   </div>
@@ -187,23 +188,23 @@
     <div class="sj-lp__gallery" aria-label="Spider Jack image gallery">
       <div class="sj-lp__gallery-slide sj-lp__gallery-slide--1" data-sj-slide aria-hidden="true">
         {%- if section.settings.gallery_image_1 != blank -%}
-          <img src="{{ section.settings.gallery_image_1 | image_url: width: 2600 }}" alt="{{ section.settings.gallery_image_1.alt | default: 'Spider Jack pendant editorial view' | escape }}" width="{{ section.settings.gallery_image_1.width }}" height="{{ section.settings.gallery_image_1.height }}" loading="lazy">
+          <img data-sj-gallery-image data-src="{{ section.settings.gallery_image_1 | image_url: width: 2000 }}" alt="{{ section.settings.gallery_image_1.alt | default: 'Spider Jack pendant editorial view' | escape }}" width="{{ section.settings.gallery_image_1.width }}" height="{{ section.settings.gallery_image_1.height }}" loading="lazy" decoding="async">
         {%- else -%}
-          <img src="{{ 'spider-jack-gallery-1-desktop.png' | asset_url }}" alt="Spider Jack pendant editorial view" width="4096" height="2653" loading="lazy">
+          <img data-sj-gallery-image data-src="{{ 'spider-jack-gallery-1-desktop.webp' | asset_url }}" alt="Spider Jack pendant editorial view" width="2400" height="1554" loading="lazy" decoding="async">
         {%- endif -%}
       </div>
       <div class="sj-lp__gallery-slide sj-lp__gallery-slide--2" data-sj-slide aria-hidden="true">
         {%- if section.settings.gallery_image_2 != blank -%}
-          <img src="{{ section.settings.gallery_image_2 | image_url: width: 2600 }}" alt="{{ section.settings.gallery_image_2.alt | default: 'Model wearing the Spider Jack pendant' | escape }}" width="{{ section.settings.gallery_image_2.width }}" height="{{ section.settings.gallery_image_2.height }}" loading="lazy">
+          <img data-sj-gallery-image data-src="{{ section.settings.gallery_image_2 | image_url: width: 2000 }}" alt="{{ section.settings.gallery_image_2.alt | default: 'Model wearing the Spider Jack pendant' | escape }}" width="{{ section.settings.gallery_image_2.width }}" height="{{ section.settings.gallery_image_2.height }}" loading="lazy" decoding="async">
         {%- else -%}
-          <img src="{{ 'spider-jack-gallery-mobile.png' | asset_url }}" alt="Model wearing the Spider Jack pendant" width="3277" height="4096" loading="lazy">
+          <img data-sj-gallery-image data-src="{{ 'spider-jack-gallery-mobile.webp' | asset_url }}" alt="Model wearing the Spider Jack pendant" width="1600" height="2000" loading="lazy" decoding="async">
         {%- endif -%}
       </div>
       <div class="sj-lp__gallery-slide sj-lp__gallery-slide--3 is-active" data-sj-slide aria-hidden="false">
         {%- if section.settings.gallery_image_3 != blank -%}
-          <img src="{{ section.settings.gallery_image_3 | image_url: width: 2600 }}" alt="{{ section.settings.gallery_image_3.alt | default: 'Spider Jack pendant in a gothic cemetery' | escape }}" width="{{ section.settings.gallery_image_3.width }}" height="{{ section.settings.gallery_image_3.height }}" loading="lazy">
+          <img data-sj-gallery-image data-src="{{ section.settings.gallery_image_3 | image_url: width: 2000 }}" alt="{{ section.settings.gallery_image_3.alt | default: 'Spider Jack pendant in a gothic cemetery' | escape }}" width="{{ section.settings.gallery_image_3.width }}" height="{{ section.settings.gallery_image_3.height }}" loading="lazy" decoding="async">
         {%- else -%}
-          <img src="{{ 'spider-jack-gallery-3-desktop.png' | asset_url }}" alt="Spider Jack pendant in a gothic cemetery" width="1024" height="577" loading="lazy">
+          <img data-sj-gallery-image data-src="{{ 'spider-jack-gallery-3-desktop.webp' | asset_url }}" alt="Spider Jack pendant in a gothic cemetery" width="1024" height="577" loading="lazy" decoding="async">
         {%- endif -%}
       </div>
 
@@ -228,25 +229,27 @@
     <div class="sj-lp__product-image">
       <picture>
         {%- if product_mobile != blank -%}
-          <source media="(max-width: 749px)" srcset="{{ product_mobile | image_url: width: 1400 }}">
+          <source media="(max-width: 749px)" srcset="{{ product_mobile | image_url: width: 900 }}">
         {%- else -%}
-          <source media="(max-width: 749px)" srcset="{{ 'spider-jack-product-mobile.png' | asset_url }}">
+          <source media="(max-width: 749px)" srcset="{{ 'spider-jack-product-mobile.webp' | asset_url }}">
         {%- endif -%}
         {%- if product_desktop != blank -%}
           <img
-            src="{{ product_desktop | image_url: width: 1600 }}"
+            src="{{ product_desktop | image_url: width: 1200 }}"
             alt="{{ product_desktop.alt | default: product_mobile.alt | default: 'Model wearing the Spider Jack Lotus pendant' | escape }}"
             width="{{ product_desktop.width }}"
             height="{{ product_desktop.height }}"
             loading="lazy"
+            decoding="async"
           >
         {%- else -%}
         <img
-          src="{{ 'spider-jack-product-desktop.png' | asset_url }}"
+          src="{{ 'spider-jack-product-desktop.webp' | asset_url }}"
           alt="Model wearing the Spider Jack Lotus pendant"
           width="439"
           height="527"
           loading="lazy"
+          decoding="async"
         >
         {%- endif -%}
       </picture>

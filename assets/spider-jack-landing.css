@@ -35,7 +35,6 @@
 .sj-lp__display {
   font-family: var(--sj-display);
   font-weight: 700;
-  line-height: normal;
   text-transform: uppercase;
 }
 
@@ -75,7 +74,6 @@
 }
 
 .sj-lp__intro-copy {
-  line-height: normal;
   width: 788px;
 }
 
@@ -93,7 +91,6 @@
   font-family: var(--sj-display);
   font-weight: 800;
   justify-content: center;
-  line-height: normal;
   padding: 16px;
   text-align: center;
   text-decoration: none;
@@ -151,13 +148,11 @@
 }
 
 .sj-lp__story-copy h2 {
-  line-height: normal;
   white-space: nowrap;
 }
 
 .sj-lp__story-copy p {
   font-family: var(--sj-body);
-  line-height: normal;
 }
 
 .sj-lp__story-copy--jack {
@@ -221,10 +216,6 @@
   text-align: center;
 }
 
-.sj-lp__movement h2 {
-  line-height: 99px;
-}
-
 .sj-lp__movement h2 span {
   display: block;
 }
@@ -232,7 +223,6 @@
 .sj-lp__movement p {
   font-family: var(--sj-display);
   font-weight: 800;
-  line-height: normal;
   margin: 16px auto 0;
   max-width: 935px;
 }
@@ -350,13 +340,8 @@
   width: 542px;
 }
 
-.sj-lp__product-copy h2 {
-  line-height: normal;
-}
-
 .sj-lp__product-copy p {
   font-family: var(--sj-body);
-  line-height: normal;
 }
 
 .sj-lp__bottom-space {
@@ -424,7 +409,6 @@
   }
 
   .sj-lp__story-copy h2 {
-    line-height: 25px;
     white-space: nowrap;
   }
 
@@ -462,12 +446,7 @@
     margin-top: 27px;
   }
 
-  .sj-lp__movement h2 {
-    line-height: 33px;
-  }
-
   .sj-lp__movement p {
-    line-height: 11px;
     margin-top: 8px;
     width: 282px;
   }

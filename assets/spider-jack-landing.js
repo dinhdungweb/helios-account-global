@@ -12,14 +12,26 @@
     const mobileStart = Number.isInteger(mobileIndex) ? mobileIndex : 1;
     const mobileQuery = window.matchMedia('(max-width: 749px)');
 
+    const hydrateSlide = (index) => {
+      const image = slides[index]?.querySelector('[data-sj-gallery-image]');
+      const source = image?.dataset.src;
+      if (!image || !source || image.getAttribute('src')) return;
+
+      image.src = source;
+      image.removeAttribute('data-src');
+    };
+
     const show = (index) => {
+      const activeIndex = Math.min(Math.max(index, 0), slides.length - 1);
+      hydrateSlide(activeIndex);
+
       slides.forEach((slide, slideIndex) => {
-        slide.classList.toggle('is-active', slideIndex === index);
-        slide.setAttribute('aria-hidden', slideIndex === index ? 'false' : 'true');
+        slide.classList.toggle('is-active', slideIndex === activeIndex);
+        slide.setAttribute('aria-hidden', slideIndex === activeIndex ? 'false' : 'true');
       });
       dots.forEach((dot, dotIndex) => {
-        dot.classList.toggle('is-active', dotIndex === index);
-        dot.setAttribute('aria-current', dotIndex === index ? 'true' : 'false');
+        dot.classList.toggle('is-active', dotIndex === activeIndex);
+        dot.setAttribute('aria-current', dotIndex === activeIndex ? 'true' : 'false');
       });
     };
 
