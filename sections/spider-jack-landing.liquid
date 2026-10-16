@@ -149,21 +149,21 @@
 
   {%- if section.settings.show_pendant_strip -%}
   <div class="sj-lp__pendant-strip" aria-hidden="true">
-    <div class="sj-lp__pendant-card sj-lp__pendant-card--left">
+    <div class="sj-lp__pendant-panel sj-lp__pendant-panel--left">
       {%- if section.settings.pendant_image != blank -%}
         <img src="{{ section.settings.pendant_image | image_url: width: 1100 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy" decoding="async">
       {%- else -%}
         <img src="{{ 'spider-jack-carousel.webp' | asset_url }}" alt="" width="1080" height="1920" loading="lazy" decoding="async">
       {%- endif -%}
     </div>
-    <div class="sj-lp__pendant-card">
+    <div class="sj-lp__pendant-panel">
       {%- if section.settings.pendant_image != blank -%}
         <img src="{{ section.settings.pendant_image | image_url: width: 1100 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy" decoding="async">
       {%- else -%}
         <img src="{{ 'spider-jack-carousel.webp' | asset_url }}" alt="" width="1080" height="1920" loading="lazy" decoding="async">
       {%- endif -%}
     </div>
-    <div class="sj-lp__pendant-card sj-lp__pendant-card--right">
+    <div class="sj-lp__pendant-panel sj-lp__pendant-panel--right">
       {%- if section.settings.pendant_image != blank -%}
         <img src="{{ section.settings.pendant_image | image_url: width: 1100 }}" alt="" width="{{ section.settings.pendant_image.width }}" height="{{ section.settings.pendant_image.height }}" loading="lazy" decoding="async">
       {%- else -%}
