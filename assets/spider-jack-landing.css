@@ -8,6 +8,7 @@
   background: var(--sj-background);
   color: var(--sj-text);
   overflow: hidden;
+  text-align: left;
   width: 100%;
 }
 
@@ -23,6 +24,7 @@
 .sj-lp p {
   color: inherit;
   margin: 0;
+  text-align: inherit;
 }
 
 .sj-lp img {
@@ -64,18 +66,16 @@
   margin-top: -20px;
   padding: 32px 64px;
   position: relative;
+  text-align: center;
   z-index: 1;
 }
 
 .sj-lp__intro-title {
-  font-size: 72px;
   white-space: nowrap;
 }
 
 .sj-lp__intro-copy {
-  font-size: 24px;
   line-height: normal;
-  text-align: center;
   width: 788px;
 }
 
@@ -91,7 +91,6 @@
   color: var(--sj-button-text);
   display: inline-flex;
   font-family: var(--sj-display);
-  font-size: 24px;
   font-weight: 800;
   justify-content: center;
   line-height: normal;
@@ -152,14 +151,12 @@
 }
 
 .sj-lp__story-copy h2 {
-  font-size: 64px;
   line-height: normal;
   white-space: nowrap;
 }
 
 .sj-lp__story-copy p {
   font-family: var(--sj-body);
-  font-size: 24px;
   line-height: normal;
 }
 
@@ -225,7 +222,6 @@
 }
 
 .sj-lp__movement h2 {
-  font-size: 72px;
   line-height: 99px;
 }
 
@@ -235,7 +231,6 @@
 
 .sj-lp__movement p {
   font-family: var(--sj-display);
-  font-size: 24px;
   font-weight: 800;
   line-height: normal;
   margin: 16px auto 0;
@@ -356,13 +351,11 @@
 }
 
 .sj-lp__product-copy h2 {
-  font-size: 36px;
   line-height: normal;
 }
 
 .sj-lp__product-copy p {
   font-family: var(--sj-body);
-  font-size: 24px;
   line-height: normal;
 }
 
@@ -391,17 +384,14 @@
   }
 
   .sj-lp__intro-title {
-    font-size: 24px;
     white-space: normal;
   }
 
   .sj-lp__intro-copy {
-    font-size: 10px;
     width: 350px;
   }
 
   .sj-lp__button {
-    font-size: 15px;
     padding: 8px;
   }
 
@@ -434,13 +424,8 @@
   }
 
   .sj-lp__story-copy h2 {
-    font-size: 24px;
     line-height: 25px;
     white-space: nowrap;
-  }
-
-  .sj-lp__story-copy p {
-    font-size: 10px;
   }
 
   .sj-lp__story-copy--jack {
@@ -478,12 +463,10 @@
   }
 
   .sj-lp__movement h2 {
-    font-size: 24px;
     line-height: 33px;
   }
 
   .sj-lp__movement p {
-    font-size: 8px;
     line-height: 11px;
     margin-top: 8px;
     width: 282px;
@@ -529,16 +512,7 @@
     width: 350px;
   }
 
-  .sj-lp__product-copy h2 {
-    font-size: 19px;
-  }
-
-  .sj-lp__product-copy p {
-    font-size: 12px;
-  }
-
   .sj-lp__product-copy .sj-lp__button {
-    font-size: 10px;
     width: 156px;
   }
 
@@ -548,11 +522,6 @@
 }
 
 @media (min-width: 750px) and (max-width: 1100px) {
-  .sj-lp__intro-title,
-  .sj-lp__movement h2 {
-    font-size: clamp(48px, 5.625vw, 72px);
-  }
-
   .sj-lp__product {
     gap: 6vw;
   }
