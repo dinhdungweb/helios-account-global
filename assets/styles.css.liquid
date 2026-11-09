@@ -21,9 +21,10 @@ File structure:
 {%- assign product_form_gap_small = 8 -%}
 {%- assign product_form_gap_large = 24 -%}
 {%- assign product_form_gap_diff = product_form_gap_large | minus: product_form_gap_small -%}
-{%- assign col_page_bg = settings.col_page_bg | color_lighten: 0 -%}
+{%- assign col_page_bg_base = settings.col_page_bg | default: "#000000" -%}
+{%- assign col_page_bg = col_page_bg_base | color_lighten: 0 -%}
 {%- assign col_stars = settings.col_stars -%}
-{%- assign col_content_bg = settings.col_page_bg -%}
+{%- assign col_content_bg = col_page_bg_base -%}
 {%- assign col_text = settings.col_text -%}
 {%- assign col_links = settings.col_links -%}
 {%- assign col_headings = settings.col_headings -%}
@@ -41,7 +42,7 @@ File structure:
 {%- assign col_btn = settings.col_btn -%}
 {%- assign col_btn_bg_secondary = settings.col_btn_bg_secondary -%}
 {%- assign col_btn_secondary = settings.col_btn_secondary -%}
-{%- assign col_select_bg = settings.col_page_bg -%}
+{%- assign col_select_bg = col_page_bg_base -%}
 {%- assign col_select_txt = settings.col_text -%}
 {%- assign col_head_links = settings.col_head_links -%}
 {%- assign col_head_links_alt = settings.col_head_links_alt -%}
@@ -128,8 +129,8 @@ File structure:
 {%- else -%}
 {%- assign col_btn_border_secondary = col_btn_secondary -%}
 {%- endif -%}
-{%- assign site_bg_contrast_bg = settings.col_btn_bg_secondary | color_contrast: settings.col_page_bg -%}
-{%- assign site_bg_contrast_text = settings.col_btn_secondary | color_contrast: settings.col_page_bg -%}
+{%- assign site_bg_contrast_bg = settings.col_btn_bg_secondary | color_contrast: col_page_bg_base -%}
+{%- assign site_bg_contrast_text = settings.col_btn_secondary | color_contrast: col_page_bg_base -%}
 {%- if site_bg_contrast_bg < site_bg_contrast_text -%}
 {%- assign col_btn_quickbuy = settings.col_btn_secondary -%}
 {%- assign col_btn_quickbuy_inverse = settings.col_btn_bg_secondary -%}
@@ -137,7 +138,7 @@ File structure:
 {%- assign col_btn_quickbuy = settings.col_btn_bg_secondary -%}
 {%- assign col_btn_quickbuy_inverse = settings.col_btn_secondary -%}
 {%- endif -%}
-{%- assign nav_text_page_bg_contrast = settings.col_page_bg | color_contrast: settings.col_head_links -%}
+{%- assign nav_text_page_bg_contrast = col_page_bg_base | color_contrast: settings.col_head_links -%}
 {%- if nav_text_page_bg_contrast <= 1.6 -%}
 {%- assign poor_contast_with_nav_text_and_page_bg = true -%}
 {%- endif -%}
@@ -2118,6 +2119,10 @@ body {
   color: {{ col_text }};
   overflow: auto;
   background-color: {{ col_page_bg }};
+  {%- if settings.col_page_bg_gradient != blank %}
+  background: {{ settings.col_page_bg_gradient }};
+  background-attachment: fixed;
+  {%- endif %}
   background-position: top center;
   padding-top: var(--nav-height);
   /* Fonts on Macs look bad without these */
@@ -5531,7 +5536,7 @@ body.modal-active {
   padding-top: 0;
 }
 #page-content .content {
-  background: {{ col_content_bg }};
+  background: transparent;
   padding: {{ block_gutters }}px;
   zoom: 1;
   -webkit-border-radius: 2px;
@@ -10217,7 +10222,7 @@ html.touch .product-block.product-block--quickbuy .cc-quick-buy-btn, html.touch 
   background: transparent;
 }
 .product-area .product-area__media {
-  background-color: {{ col_page_bg }};
+  background-color: transparent;
   width: 100%;
 }
 .product-area .product-area__media .theme-img[aria-hidden=false] {
@@ -10312,7 +10317,7 @@ html.touch .product-block.product-block--quickbuy .cc-quick-buy-btn, html.touch 
   }
   .product-area .product-area__media .theme-gallery[data-column-count="2"] .theme-images {
     padding: 40px 0 0 0;
-    background-color: {{ col_page_bg }};
+    background-color: transparent;
   }
   .product-area .product-area__media .theme-gallery[data-column-count="2"] .theme-images .theme-img--collage-full {
     margin: 0 {{ wide_content_gutters | divided_by: 2 }}px {{ wide_content_gutters }}px {{ wide_content_gutters | divided_by: 2 }}px;
@@ -10713,7 +10718,7 @@ html.touch .product-block.product-block--quickbuy .cc-quick-buy-btn, html.touch 
   }
 }
 #shopify-product-reviews {
-  background: {{ col_content_bg }};
+  background: transparent;
   padding-top: 0;
   margin: 0 !important;
   padding-left: 2px;
@@ -14191,7 +14196,7 @@ shopify-payment-terms {
   padding: 35px 0;
   margin-bottom: 1em;
   zoom: 1;
-  background: {{ col_content_bg }};
+  background: transparent;
   -webkit-border-radius: 2px;
   -ms-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -15135,9 +15140,9 @@ body {
 
 /* Hiển thị nút filter trên desktop và mobile giống nhau */
 .filter-btn {
-  background-color: #222;
+  background-color: transparent;
   color: #fff;
-  padding: 12px 15px;
+  padding: 0;
   border-radius: 3px;
   text-transform: uppercase;
   font-weight: 500;
@@ -15158,7 +15163,7 @@ body {
 }
 
 .filter-btn:hover {
-  background-color: #333;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Ngăn scroll khi filter đang mở */
@@ -15996,6 +16001,7 @@ div.title, .price {
     position: sticky;
     top: 0;
     left: 0;
+    background-color: transparent;
 }
 @media (min-width: 992px) {
 /* Product page */
@@ -16205,4 +16211,91 @@ input[type="radio"] {
   .product-area .product-area__details .product-page-title {
     font-size: var(--product-title-size-desktop, 32px);
   }
+}
+
+/* ---- Filter drawer: body background, close button, scrollbar ---- */
+.cc-product-filter--drawer .cc-filter-drawer-container {
+  background-color: {{ col_page_bg }};
+  {%- if settings.col_page_bg_gradient != blank %}
+  background: {{ settings.col_page_bg_gradient }};
+  background-attachment: fixed;
+  {%- endif %}
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  padding-top: 64px;
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar {
+  width: 6px;
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+.cc-product-filter--drawer .cc-filter-drawer-container::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+}
+.cc-product-filter--drawer .cc-filter-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50% !important;
+  background: transparent;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 1;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.cc-product-filter--drawer .cc-filter-close:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: rotate(90deg);
+}
+
+/* ---- Colorbox popups (size chart...): dark overlay, body background ---- */
+#cboxOverlay {
+  background: rgba(0, 0, 0, 0.75);
+}
+#cboxWrapper, #cboxContent, #cboxLoadedContent, #cboxLoadingOverlay {
+  background-color: {{ col_page_bg }};
+  {%- if settings.col_page_bg_gradient != blank %}
+  background: {{ settings.col_page_bg_gradient }};
+  background-attachment: fixed;
+  {%- endif %}
+}
+#cboxLoadedContent {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+#cboxLoadedContent::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+#cboxLoadedContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+#cboxLoadedContent::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+}
+#cboxLoadedContent::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
 }
